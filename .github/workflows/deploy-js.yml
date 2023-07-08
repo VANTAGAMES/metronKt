@@ -52,4 +52,5 @@ jobs:
           git add .
           git commit -a -m "changes"
           git remote add origin $URL
+          git branch -m artifact
           git push origin artifact --force
