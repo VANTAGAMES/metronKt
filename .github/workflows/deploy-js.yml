@@ -51,6 +51,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -a -m "changes"
+          git branch artifact
+          git switch artifact
           git remote add origin $URL
-          git branch -m main artifact
           git push origin artifact --force
