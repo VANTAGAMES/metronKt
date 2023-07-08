@@ -40,14 +40,31 @@ jobs:
       - name: Buid JS bundle
         run: |
           ./gradlew jsBrowserProductionWebpack
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+          
+      - name: Commit files
+        run: |
+          URL=$(git remote get-url origin)
+          cd ./build/distributions
+          git init
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -a -m "changes"
+          git remote add origin $URL
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          # Upload entire repository
-          path: './build/distributions'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: artifact
+
+
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v3
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v1
+#        with:
+#          # Upload entire repository
+#          path: './build/distributions'
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v2
