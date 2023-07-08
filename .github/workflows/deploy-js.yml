@@ -53,5 +53,5 @@ jobs:
           git commit -a -m "changes"
           git branch artifact
           git switch artifact
-          git remote add origin https://github.com/${{ github.repository }}
+          git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin artifact --force
