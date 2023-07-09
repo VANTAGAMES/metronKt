@@ -15,6 +15,7 @@ fun State.verdict() {
     val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
     container.keys { justDown(Key.SPACE) { audit(debug) } }
     container.onClick { audit(debug) }
+    container.onEvent(TouchEvent.Type.START) { audit(debug) }
 }
 
 fun State.audit(debug: Text) {
@@ -25,10 +26,10 @@ fun State.audit(debug: Text) {
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
                 spawnAudit(ghost.stick, audit)
-                return
+                @Suppress("LABEL_NAME_CLASH")
+                return@fastForEach
             }
         }
-        return
     }
 }
 
@@ -55,7 +56,7 @@ fun State.spawnAudit(view: View, audit: Audit) {
             onEvent(UpdateEvent) {
                 elapsed += it.deltaTime
                 zIndex = 2f
-                if (elapsed.seconds >= 0.2) {
+                if (elapsed.seconds >= 0.15) {
                     removeFromParent()
                 }
             }

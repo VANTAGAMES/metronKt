@@ -40,7 +40,7 @@ private fun State.spawnGhost(angle: Angle, lifeTime: TimeSpan) = note.run {
         var elapsed = 0.milliseconds
         onEvent(UpdateEvent) {
             elapsed += it.deltaTime
-            if (elapsed > lifeTime * bpmToSec) {
+            if (elapsed > lifeTime * bpmToSec/2) {
                 removeFromParent()
                 alives.fastIterateRemove { it.stick == this }
             }
