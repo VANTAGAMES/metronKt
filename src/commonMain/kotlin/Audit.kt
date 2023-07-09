@@ -23,6 +23,7 @@ fun State.audit(debug: Text) {
         val sub = note.stickAngle.elapsed - ghost.note
         val distance = abs(sub.seconds) - bpmToSec/2
 //        debug.text = "$distance"
+        soundQueue.push(1)
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
                 spawnAudit(ghost.stick, audit)
@@ -44,14 +45,17 @@ enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPoi
 fun State.spawnAudit(view: View, audit: Audit) {
     val angle = view.rotation
     val offset = (-90).degrees
-    view.removeFromParent()
+    view.noteHitEffect {
+        view.removeFromParent()
+    }
     note.alives.fastIterateRemove { it.stick == view }
     container.container {
         filter = IdentityFilter
         text(" ${audit.text} ", 40f, color = audit.color) {
             alignment = TextAlignment.CENTER
             pos = view.pos
-            pos = Point(pos.x + stickHeight * cos(angle + offset), pos.y + stickHeight * sin(angle + offset))
+            val auditHeight = stickHeight + 50
+            pos = Point(pos.x + auditHeight * cos(angle + offset), pos.y + auditHeight * sin(angle + offset))
             var elapsed = 0.milliseconds
             onEvent(UpdateEvent) {
                 elapsed += it.deltaTime
@@ -61,10 +65,6 @@ fun State.spawnAudit(view: View, audit: Audit) {
                 }
             }
         }
-    }.apply {
-//        auditShowEffect {
-//            auditHideEffect { removeFromParent() }
-//        }
     }
 }
 

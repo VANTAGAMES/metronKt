@@ -2,9 +2,11 @@ import event.*
 import korlibs.datastructure.iterators.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.math.interpolation.*
 import korlibs.time.*
 import util.*
 import util.ColorUtil.hex
+import kotlin.math.*
 
 fun State.ghostSpawner(): Unit = note.run {
     view.onEvent(UpdateEvent) {
@@ -40,10 +42,28 @@ private fun State.spawnGhost(angle: Angle, lifeTime: TimeSpan) = note.run {
         var elapsed = 0.milliseconds
         onEvent(UpdateEvent) {
             elapsed += it.deltaTime
-            if (elapsed > lifeTime * bpmToSec/2) {
-                removeFromParent()
+            if (elapsed > lifeTime * bpmToSec / 2) {
+                noteHitEffect {
+                    removeFromParent()
+                }
                 alives.fastIterateRemove { it.stick == this }
             }
+        }
+    }
+}
+
+fun View.noteHitEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit) {
+    val startTime = DateTime.now()
+    zIndex = 0f
+    onEvent(UpdateEvent) {
+        val now = DateTime.now()
+        val span = now - startTime
+        if (span >= period) {
+            callback()
+        } else {
+            val i = (1 - (span / period))/20
+            val a = min(1f, max(0f, easing.invoke(i)))
+            scale(1 + a, 1 + a/12)
         }
     }
 }
