@@ -22,7 +22,7 @@ fun State.audit(debug: Text) {
     note.alives.fastForEach { ghost ->
         val sub = note.stickAngle.elapsed - ghost.note
         val distance = abs(sub.seconds) - bpmToSec/2
-        debug.text = "$distance"
+//        debug.text = "$distance"
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
                 spawnAudit(ghost.stick, audit)
@@ -37,9 +37,9 @@ fun State.audit(debug: Text) {
 enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPointRange<Double>) {
     TOO_SLOW("Too Slow!", Colors.RED, 0.5..2.0),
     TOO_FAST("Too Fast!", Colors.RED, -2.0..-0.5),
-    SLOW("Slow!", Colors.YELLOW, 0.15..0.5),
-    FAST("Fast!", Colors.YELLOW, -0.5..-0.15),
-    PERF("Perfect!", Colors.GREEN, -0.15..0.15),
+    SLOW("Slow!", Colors.YELLOW, 0.1..0.5),
+    FAST("Fast!", Colors.YELLOW, -0.5..-0.1),
+    PERF("Perfect!", Colors.GREEN, -0.1..0.1),
 }
 fun State.spawnAudit(view: View, audit: Audit) {
     val angle = view.rotation
@@ -48,7 +48,7 @@ fun State.spawnAudit(view: View, audit: Audit) {
     note.alives.fastIterateRemove { it.stick == view }
     container.container {
         filter = IdentityFilter
-        text(audit.text, 40f, color = audit.color) {
+        text(" ${audit.text} ", 40f, color = audit.color) {
             alignment = TextAlignment.CENTER
             pos = view.pos
             pos = Point(pos.x + stickHeight * cos(angle + offset), pos.y + stickHeight * sin(angle + offset))

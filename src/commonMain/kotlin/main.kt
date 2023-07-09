@@ -8,7 +8,7 @@ import kotlinx.serialization.json.*
 val defaultLevel get() = Level(
     bpm = 60.0,
     degrees = 60.0,
-    magnanimity = 0.8,
+    magnanimity = 0.5,
     map = (0..1000).map { .5 }
 )
 
