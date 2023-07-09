@@ -19,7 +19,7 @@ fun State.countdownText() {
 
 }
 
-fun View.hideIt(period: TimeSpan = 1.seconds, easing: Easing = Easing.EASE_OUT, callback: () -> Unit) {
+fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT, callback: () -> Unit) {
     val startTime = DateTime.now()
     val originY = pos.y
     zIndex = 10f
@@ -40,7 +40,7 @@ fun View.hideIt(period: TimeSpan = 1.seconds, easing: Easing = Easing.EASE_OUT, 
 }
 
 
-fun View.showUpThis(startTime: DateTime = DateTime.now(), period: TimeSpan = 1.seconds, easing: Easing = Easing.EASE_IN, callback: () -> Unit) {
+fun View.showUpThis(startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_IN, callback: () -> Unit) {
     val originY = pos.y
     zIndex = 10f
     var listener: CloseableCancellable? = null

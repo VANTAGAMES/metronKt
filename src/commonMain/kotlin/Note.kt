@@ -15,9 +15,9 @@ class Note(
     val view: View = DummyView().addTo(state.container)
 ) {
     val iter = state.level.map.iterator()
-    var prev = .0
+    var prev = state.bpmToSec/2
     var curr = state.bpmToSec
     val ghostStick = state.run {
-        StickAngle(degrees, bpm, easing, bpmToSec.seconds/2)
+        StickAngle(degrees, bpm, easing, state, bpmToSec.seconds/2)
     }
 }

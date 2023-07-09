@@ -17,12 +17,12 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
             var cancellable: Cancellable? = null
             cancellable = justDown(Key.SPACE) {
                 cancellable?.cancel()
-                startStickMove()
                 makeThisDisappear()
-                ghostSpawner()
-//                magnanimityEffect {
+                countdownText()
+                magnanimityEffect {
+                    ghostSpawner()
                     verdict()
-//                }
+                }
             }
         }
     }

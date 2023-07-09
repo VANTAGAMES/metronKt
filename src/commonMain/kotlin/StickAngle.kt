@@ -3,9 +3,10 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 
 class StickAngle(
-    private val anglge: Angle,
+    private val angle: Angle,
     private val bpm: Double,
     private val easing: Easing,
+    private val state: State,
     var elapsed: TimeSpan,
 ) {
 
@@ -27,6 +28,6 @@ class StickAngle(
         val ratioInTween = elapsedInTween / durationInTween
         val easedRatioInTween = easing(ratioInTween)
         val ratio = easedRatioInTween.toRatio()
-        return ratio.interpolateAngleNormalized(-anglge, anglge)
+        return ratio.interpolateAngleNormalized(-angle, angle)
     }
 }
