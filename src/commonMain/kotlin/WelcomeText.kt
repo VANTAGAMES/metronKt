@@ -8,6 +8,7 @@ import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
+import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.math.interpolation.max
 import korlibs.math.interpolation.min
@@ -24,6 +25,7 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
                 makeThisDisappear()
                 countdownText()
                 magnanimityEffect {
+                    combo()
 //                startStickMove()
                     ghostSpawner()
                     verdict()
@@ -34,10 +36,13 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
 
 fun State.txtWithFilter(txt: String, code: Container.() -> Unit) = Container().addTo(container) {
     filter = IdentityFilter
-    text(txt, color = ColorPalette.text.hex(), textSize = 40f) {
-        alignment = TextAlignment.CENTER
+    textBlock(
+        RichTextData(txt, color = ColorPalette.text.hex(), textSize = 40f),
+        size = Size(1000, 95),
+        align = TextAlignment.MIDDLE_CENTER
+    ) {
         centerXOnStage()
-        alignY(root, 0.1, true)
+        alignY(root, 0.05, true)
     }
     code.invoke(this)
 }

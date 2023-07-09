@@ -43,6 +43,7 @@ private fun State.spawnGhost(angle: Angle, lifeTime: TimeSpan) = note.run {
         onEvent(UpdateEvent) {
             elapsed += it.deltaTime
             if (elapsed > lifeTime * bpmToSec / 2) {
+                container.dispatch(GhostDisposedEvent(isNaturally = true))
                 noteHitEffect {
                     removeFromParent()
                 }

@@ -1,3 +1,4 @@
+import event.*
 import korlibs.datastructure.iterators.*
 import korlibs.event.*
 import korlibs.image.color.*
@@ -23,10 +24,12 @@ fun State.audit(debug: Text) {
         val sub = note.stickAngle.elapsed - ghost.note
         val distance = abs(sub.seconds) - bpmToSec/2
 //        debug.text = "$distance"
+        hitSound.playNoCancel()
         soundQueue.push(1)
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
                 spawnAudit(ghost.stick, audit)
+                container.dispatch(AuditEvent(audit))
                 @Suppress("LABEL_NAME_CLASH")
                 return@fastForEach
             }
@@ -45,6 +48,7 @@ enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPoi
 fun State.spawnAudit(view: View, audit: Audit) {
     val angle = view.rotation
     val offset = (-90).degrees
+    container.dispatch(GhostDisposedEvent(isNaturally = false))
     view.noteHitEffect {
         view.removeFromParent()
     }
