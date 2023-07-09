@@ -29,5 +29,6 @@ korge {
 dependencies {
     add("commonMainApi", project(":deps"))
     //add("commonMainApi", project(":korge-dragonbones"))
+    add("commonMainApi", "io.insert-koin:koin-core:3.4.2")
 }
 
