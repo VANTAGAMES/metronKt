@@ -8,11 +8,12 @@ import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import util.ColorUtil.hex
 import kotlin.math.*
 
 fun State.verdict() {
     container.keys {
-        val debug = container.text("", textSize = 20f, color = Colors.AQUA)
+        val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
 //        container.onEvent(UpdateEvent) {
         justDown(Key.SPACE) {
             note.alives.fastForEach { ghost ->

@@ -32,7 +32,7 @@ class State(
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
         State(level, Container().addTo(containerRoot)).apply {
-            livingStick = LivingStick(container.note("9BA4B5".hex()) { zIndex = 1f }, note.stickAngle)
+            livingStick = LivingStick(container.note(ColorPalette.stick.hex()) { zIndex = 1f }, note.stickAngle)
             welcomeText()
         }
     }

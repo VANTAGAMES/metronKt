@@ -29,7 +29,7 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
 
 fun State.txtWithFilter(txt: String, code: Container.() -> Unit) = Container().addTo(container) {
     filter = IdentityFilter
-    text(txt, color = "F1F6F9".hex(), textSize = 40f) {
+    text(txt, color = ColorPalette.text.hex(), textSize = 40f) {
         alignment = TextAlignment.CENTER
         centerXOnStage()
         alignY(root, 0.1, true)

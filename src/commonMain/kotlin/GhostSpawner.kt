@@ -34,7 +34,7 @@ fun State.ghostSpawner(): Unit = note.run {
 
 
 private fun State.spawnGhost(angle: Angle, lifeTime: TimeSpan) = note.run {
-    container.note("394867".hex()) {
+    container.note(ColorPalette.ghost.hex()) {
         rotation = angle
         zIndex = 0f
         var elapsed = 0.milliseconds

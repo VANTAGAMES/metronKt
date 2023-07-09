@@ -12,7 +12,7 @@ val defaultLevel get() = Level(
     map = (0..1000).map { .5 }
 )
 
-suspend fun main() = Korge(backgroundColor = Colors["#212A3E"]) {
+suspend fun main() = Korge(backgroundColor = Colors[ColorPalette.background]) {
     resourcesVfs["level.json"].writeString(Json.encodeToString(defaultLevel))
     val sceneContainer = sceneContainer()
     val level = Json.decodeFromString<Level>(resourcesVfs["level.json"].readString())
