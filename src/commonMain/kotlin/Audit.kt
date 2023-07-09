@@ -12,23 +12,23 @@ import util.ColorUtil.hex
 import kotlin.math.*
 
 fun State.verdict() {
-    container.keys {
-        val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
-//        container.onEvent(UpdateEvent) {
-        justDown(Key.SPACE) {
-            note.alives.fastForEach { ghost ->
-                val sub = note.stickAngle.elapsed - ghost.note
-                val distance = abs(sub.seconds) - bpmToSec/2
-                debug.text = "$distance"
-                Audit.values().fastForEach { audit ->
-                    if (distance in audit.range) {
-                        spawnAudit(ghost.stick, audit)
-                        return@justDown
-                    }
-                }
-                return@justDown
+    val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
+    container.keys { justDown(Key.SPACE) { audit(debug) } }
+    container.onClick { audit(debug) }
+}
+
+fun State.audit(debug: Text) {
+    note.alives.fastForEach { ghost ->
+        val sub = note.stickAngle.elapsed - ghost.note
+        val distance = abs(sub.seconds) - bpmToSec/2
+        debug.text = "$distance"
+        Audit.values().fastForEach { audit ->
+            if (distance in audit.range) {
+                spawnAudit(ghost.stick, audit)
+                return
             }
         }
+        return
     }
 }
 
