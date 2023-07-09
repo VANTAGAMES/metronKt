@@ -6,8 +6,7 @@ class StickAngle(
     private val anglge: Angle,
     private val bpm: Double,
     private val easing: Easing,
-    var elapsed: TimeSpan = 0.milliseconds,
-    val offset: TimeSpan = 0.milliseconds
+    var elapsed: TimeSpan,
 ) {
 
     fun update(delta: TimeSpan) {
@@ -19,7 +18,7 @@ class StickAngle(
         return performAngle()
     }
 
-    fun performAngle(elapsed: TimeSpan = this.elapsed + this.offset): Angle {
+    fun performAngle(elapsed: TimeSpan = this.elapsed): Angle {
         val durationInTween = (60.0 / bpm).seconds
         val elapsedInTween = run {
             val sum = elapsed % (durationInTween*2)

@@ -1,19 +1,20 @@
 import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.image.color.*
-import korlibs.io.async.*
-import korlibs.io.dynamic.*
 import korlibs.io.file.std.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
-import kotlinx.serialization.json.Json.Default.encodeToString
-import org.koin.core.context.*
-import org.koin.core.module.dsl.*
-import org.koin.dsl.*
-import org.koin.mp.KoinPlatform.getKoin
+
+val defaultLevel get() = Level(
+    bpm = 60.0,
+    degrees = 60.0,
+    magnanimity = 0.8,
+    map = (0..1000).map { .5 }
+)
 
 suspend fun main() = Korge(backgroundColor = Colors["#212A3E"]) {
-    resourcesVfs["level.json"].writeString(Json.encodeToString(Level(60.0, (0..100).map { .5 })))
+    resourcesVfs["level.json"].writeString(Json.encodeToString(defaultLevel))
     val sceneContainer = sceneContainer()
-	sceneContainer.changeTo { Stage() }
+    val level = Json.decodeFromString<Level>(resourcesVfs["level.json"].readString())
+	sceneContainer.changeTo { Stage(level) }
 }

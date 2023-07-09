@@ -1,8 +1,8 @@
 package event
 
+import LivingStick
 import Stick
 import korlibs.event.*
-import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
 
