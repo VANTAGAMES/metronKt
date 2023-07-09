@@ -19,7 +19,7 @@ fun State.combo() {
         alignY(root, 0.05, true)
         onEvent(GhostDisposedEvent) {
             if (it.isNaturally) {
-                if (combo == 1 && comboSave - DateTime.now() <= bpmToSec.seconds/2) {
+                if (combo == 1 && comboSave - DateTime.now() <= bpmToSec.seconds/4) {
                     return@onEvent
                 }
                 combo = 0
