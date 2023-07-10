@@ -1,5 +1,6 @@
 package event
 
+import LivingGhost
 import LivingStick
 import Stick
 import korlibs.event.*
@@ -9,7 +10,7 @@ import korlibs.time.*
 class GhostSpawnEvent(
     val angle: Angle,
     val lifeTime: TimeSpan,
-    val view: Stick
+    val view: LivingGhost
 ) : Event(), TEvent<GhostSpawnEvent> {
     companion object : EventType<GhostSpawnEvent>
     override val type: EventType<GhostSpawnEvent> get() = GhostSpawnEvent

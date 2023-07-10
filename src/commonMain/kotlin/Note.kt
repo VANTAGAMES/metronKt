@@ -4,10 +4,6 @@ import korlibs.time.*
 
 fun State.note(stick: StickAngle) = Note(stick, this)
 
-class LivingGhost(
-    val stick: Stick,
-    val note: TimeSpan
-)
 class Note(
     val stickAngle: StickAngle,
     val state: State,

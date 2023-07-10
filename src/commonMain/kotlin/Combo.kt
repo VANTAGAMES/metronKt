@@ -8,7 +8,7 @@ import util.ColorUtil.hex
 
 fun State.combo() {
     var combo = 0
-    var comboSave = DateTime.now()
+    var lastComboUpdated = DateTime.now()
     fun formattedCombo() = " $combo \n-COMBO- "
     container.textBlock(
         RichTextData(formattedCombo(), color = ColorPalette.text.hex(), textSize = 40f),
@@ -17,19 +17,19 @@ fun State.combo() {
     ) {
         centerXOnStage()
         alignY(root, 0.05, true)
-        onEvent(GhostDisposedEvent) {
+        container.onEvent(GhostDrawedEvent) {
             if (it.isNaturally) {
-                if (combo == 1 && comboSave - DateTime.now() <= bpmToSec.seconds/4) {
+                if (lastComboUpdated > it.livingGhost.startTime) {
                     return@onEvent
                 }
                 combo = 0
-                comboSave = DateTime.now()
+                lastComboUpdated = DateTime.now()
                 plainText = formattedCombo()
             }
         }
         onEvent(AuditEvent) {
             if (it.audit == Audit.PERF) combo += 1 else combo = 0
-            comboSave = DateTime.now()
+            lastComboUpdated = DateTime.now()
             plainText = formattedCombo()
         }
         showUpThis {

@@ -1,12 +1,53 @@
 import event.*
 import korlibs.datastructure.iterators.*
+import korlibs.io.lang.*
 import korlibs.korge.view.*
+import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import util.*
 import util.ColorUtil.hex
 import kotlin.math.*
+
+class LivingGhost(
+    val state: State,
+    val angle: Angle,
+    val lifeTime: TimeSpan,
+    val note: TimeSpan,
+) {
+    val startTime: DateTime = DateTime.now()
+    lateinit var stick: Stick
+    init {
+        state.spawnGhost()
+    }
+    private fun State.spawnGhost(): Stick = note.run {
+        val container = Container().addTo(container) {
+            filter = IdentityFilter
+            stick = note(ColorPalette.ghost.hex()) {
+                rotation = angle
+                zIndex = 0f
+            }
+            var elapsed = 0.milliseconds
+            lateinit var cancellable: Cancellable
+            cancellable = onEvent(UpdateEvent) {
+                elapsed += it.deltaTime
+                if (elapsed > lifeTime * bpmToSec / 2) {
+                    this@spawnGhost.container.dispatch(
+                        GhostDrawedEvent(this@LivingGhost, isNaturally = true)
+                    )
+                    cancellable.cancel()
+                    noteDisappearEffect {
+                        removeFromParent()
+                    }
+                    alives.fastIterateRemove { ghost -> ghost.stick == stick }
+                }
+            }
+
+        }
+        stick
+    }
+}
 
 fun State.ghostSpawner(): Unit = note.run {
     view.onEvent(UpdateEvent) {
@@ -23,31 +64,11 @@ fun State.ghostSpawner(): Unit = note.run {
 //                println("distance=$distance, length=$length")
             if (distance <= length / 2) {
                 val lifeTime = 1.seconds
-                val ghost = state.spawnGhost(angle, lifeTime)
-                alives.add(LivingGhost(ghost, prevSec))
+                val ghost = LivingGhost(state, angle, lifeTime, prevSec)
+                alives.add(ghost)
                 state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))
                 prev = curr
                 curr += iter.next()
-            }
-        }
-    }
-}
-
-
-
-private fun State.spawnGhost(angle: Angle, lifeTime: TimeSpan) = note.run {
-    container.note(ColorPalette.ghost.hex()) {
-        rotation = angle
-        zIndex = 0f
-        var elapsed = 0.milliseconds
-        onEvent(UpdateEvent) {
-            elapsed += it.deltaTime
-            if (elapsed > lifeTime * bpmToSec / 2) {
-                container.dispatch(GhostDisposedEvent(isNaturally = true))
-                noteHitEffect {
-                    removeFromParent()
-                }
-                alives.fastIterateRemove { it.stick == this }
             }
         }
     }
@@ -65,6 +86,22 @@ fun View.noteHitEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.
             val i = (1 - (span / period))/20
             val a = min(1f, max(0f, easing.invoke(i)))
             scale(1 + a, 1 + a/12)
+        }
+    }
+}
+
+fun Container.noteDisappearEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.EASE_OUT, callback: () -> Unit) {
+    val startTime = DateTime.now()
+    zIndex = 0f
+    onEvent(ViewsUpdateEvent) {
+        val now = DateTime.now()
+        val span = now - startTime
+        if (span >= period) {
+            callback()
+        } else {
+            val i = (1 - (span / period))
+            alpha = min(1f, max(0f, easing.invoke(i)))
+            println(alpha)
         }
     }
 }
