@@ -21,7 +21,7 @@ fun State.combo() {
         ) {
             visible = false
             centerXOnStage()
-            alignY(root, 0.0, true)
+            alignY(root, 0.025, true)
             val originY = pos.y
             container.onEvent(GhostDrawedEvent) {
                 if (it.isNaturally) {
@@ -37,7 +37,6 @@ fun State.combo() {
             onEvent(AuditEvent) {
                 if (it.audit == Audit.PERF) {
                     combo += 1
-//                    comboHitEffect {  }
                     if (!visible) {
                         showCombo(this)
                     }
@@ -55,31 +54,13 @@ fun State.combo() {
 
 fun State.hideCombo(originY: Float, container: Container) {
     if (!container.visible) return
-    container.hideIt(period = bpmToSec.seconds/4) {
+    container.hideIt(period = bpmToSec.seconds/6) {
         container.positionY(originY)
     }
 }
 
 fun State.showCombo(container: Container) {
     container.visible = true
-    container.showUpThis(period = bpmToSec.seconds/4) {
-    }
-}
-
-fun View.comboHitEffect(period: TimeSpan = 1.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit) {
-    val startTime = DateTime.now()
-    zIndex = 0f
-    lateinit var listener: Cancellable
-    listener = onEvent(UpdateEvent) {
-        val now = DateTime.now()
-        val span = now - startTime
-        if (span >= period) {
-            listener.cancel()
-            callback()
-        } else {
-            val i = (1 - (span / period))/17
-            val a = kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
-            scale(1 + a, 1 + a)
-        }
+    container.showUpThis(period = bpmToSec.seconds/6) {
     }
 }

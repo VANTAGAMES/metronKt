@@ -9,6 +9,7 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlinx.coroutines.*
 import util.ColorUtil.hex
+import kotlin.coroutines.*
 import kotlin.math.*
 
 class State(
@@ -32,6 +33,7 @@ class State(
 
 }
 
+lateinit var soundChannel: CoroutineContext
 val soundQueue = IntStack()
 
 class Stage(private val level: Level) : Scene() {
@@ -39,6 +41,7 @@ class Stage(private val level: Level) : Scene() {
         val state = State(level, Container().addTo(containerRoot)).apply {
             val audioStream = resourcesVfs["hit.wav"].readMusic().toStream()
             hitSound = nativeSoundProvider.createStreamingSound(audioStream)
+            hitSound.playAndWait(startTime = Int.MAX_VALUE.seconds)
 //            music = resourcesVfs["song.ogg"].readMusic()
             livingStick = LivingStick(container.note(ColorPalette.stick.hex()) { zIndex = 1f }, note.stickAngle)
             welcomeText()

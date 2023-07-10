@@ -12,9 +12,11 @@ val defaultLevel get() = Level(
     map = (0..1000).map { .5 }
 )
 
+lateinit var sceneContainer: SceneContainer
+
 suspend fun main() = Korge(backgroundColor = Colors[ColorPalette.background]) {
+    sceneContainer = sceneContainer()
     resourcesVfs["level.json"].writeString(Json.encodeToString(defaultLevel))
-    val sceneContainer = sceneContainer()
     val level = Json.decodeFromString<Level>(resourcesVfs["level.json"].readString())
 	sceneContainer.changeTo { Stage(level) }
 }

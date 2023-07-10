@@ -10,7 +10,9 @@ fun State.countdownText() {
         txtWithFilter(" ${count - num+1} ") {
             alpha = 1f
             visible = false
-            showUpThis(startTime = (now-(1.seconds)) + num.seconds) {
+            showUpThis(startCode = {
+                hitSound.playNoCancel()
+            }, startTime = (now-bpmToSec.seconds/2) + num.seconds*bpmToSec) {
                 hideIt {
                     removeFromParent()
                 }
@@ -41,17 +43,22 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
 
 }
 
-
 fun View.showUpThis(
+    startCode: () -> Unit = {},
     startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7.seconds,
     easing: Easing = Easing.EASE_IN, isUp: Boolean = false, callback: () -> Unit,
 ) {
     val originY = pos.y
     zIndex = 10f
     var listener: CloseableCancellable? = null
+    var isStarted = false
     listener = onEvent(UpdateEvent) {
         val now = DateTime.now()
         if (startTime > now) return@onEvent
+        if (!isStarted) {
+            isStarted = true
+            startCode.invoke()
+        }
         val span = now - startTime
         if (span >= period) {
             callback()

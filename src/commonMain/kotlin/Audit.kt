@@ -7,7 +7,9 @@ import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import util.ColorUtil.hex
+import kotlin.coroutines.*
 import kotlin.math.*
 
 fun State.verdict() {
@@ -18,11 +20,12 @@ fun State.verdict() {
 }
 
 fun State.audit(debug: Text) {
+    hitSound.playNoCancel()
     note.alives.fastForEach { ghost ->
+
         val sub = note.stickAngle.elapsed - ghost.note
         val distance = abs(sub.seconds) - bpmToSec/2
 //        debug.text = "$distance"
-        hitSound.playNoCancel()
         soundQueue.push(1)
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
