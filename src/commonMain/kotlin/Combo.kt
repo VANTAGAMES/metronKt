@@ -55,14 +55,14 @@ fun State.combo() {
 
 fun State.hideCombo(originY: Float, container: Container) {
     if (!container.visible) return
-    container.hideIt(period = bpmToSec.seconds/2) {
+    container.hideIt(period = bpmToSec.seconds/4) {
         container.positionY(originY)
     }
 }
 
 fun State.showCombo(container: Container) {
     container.visible = true
-    container.showUpThis(period = bpmToSec.seconds/2) {
+    container.showUpThis(period = bpmToSec.seconds/4) {
     }
 }
 
