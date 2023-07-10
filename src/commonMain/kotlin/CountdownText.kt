@@ -9,9 +9,10 @@ fun State.countdownText() {
     (1..count).forEach { num ->
         txtWithFilter(" ${count - num+1} ") {
             alpha = 1f
+            visible = false
             showUpThis(startTime = (now-(1.seconds)) + num.seconds) {
                 hideIt {
-
+                    removeFromParent()
                 }
             }
         }
@@ -23,12 +24,14 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
     val startTime = DateTime.now()
     val originY = pos.y
     zIndex = 10f
-    onEvent(UpdateEvent) {
+    lateinit var listener: Cancellable
+    listener = onEvent(UpdateEvent) {
         val now = DateTime.now()
         val span = now - startTime
         if (span >= period) {
+            visible = false
+            listener.cancel()
             callback()
-            removeFromParent()
         } else {
             val i = (span / period)
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
@@ -39,20 +42,23 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
 }
 
 
-fun View.showUpThis(startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_IN, callback: () -> Unit) {
+fun View.showUpThis(
+    startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7.seconds,
+    easing: Easing = Easing.EASE_IN, isUp: Boolean = false, callback: () -> Unit,
+) {
     val originY = pos.y
     zIndex = 10f
     var listener: CloseableCancellable? = null
-    visible = false
     listener = onEvent(UpdateEvent) {
         val now = DateTime.now()
-        if (startTime >= now) return@onEvent
+        if (startTime > now) return@onEvent
         val span = now - startTime
         if (span >= period) {
             callback()
             listener?.cancel()
         } else {
-            val i = 1 - (span / period)
+            var i = (span / period)
+            if (!isUp) i = 1 - i
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
             positionY(originY - (1 - alpha) * 100)
         }

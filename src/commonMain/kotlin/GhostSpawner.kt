@@ -77,10 +77,12 @@ fun State.ghostSpawner(): Unit = note.run {
 fun View.noteHitEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit) {
     val startTime = DateTime.now()
     zIndex = 0f
-    onEvent(UpdateEvent) {
+    lateinit var listener: Cancellable
+    listener = onEvent(UpdateEvent) {
         val now = DateTime.now()
         val span = now - startTime
         if (span >= period) {
+            listener.cancel()
             callback()
         } else {
             val i = (1 - (span / period))/20
@@ -101,7 +103,6 @@ fun Container.noteDisappearEffect(period: TimeSpan = 0.15.seconds, easing: Easin
         } else {
             val i = (1 - (span / period))
             alpha = min(1f, max(0f, easing.invoke(i)))
-            println(alpha)
         }
     }
 }

@@ -1,11 +1,13 @@
 import korlibs.audio.sound.*
 import korlibs.datastructure.*
+import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import util.ColorUtil.hex
 import kotlin.math.*
 
@@ -41,7 +43,7 @@ class Stage(private val level: Level) : Scene() {
             livingStick = LivingStick(container.note(ColorPalette.stick.hex()) { zIndex = 1f }, note.stickAngle)
             welcomeText()
             registerInput()
-//            spawnGhost(0.degrees, 1.seconds)
+//            val livingGhost = LivingGhost(this, 0.degrees, 10.seconds, 1.seconds).stick
         }
     }
 }
