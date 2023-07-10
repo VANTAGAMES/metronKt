@@ -13,5 +13,5 @@ class AuditEvent(
     companion object : EventType<AuditEvent>
     override val type: EventType<AuditEvent> get() = AuditEvent
 
-    override fun toString(): String = "GhostSpawnEvent()"
+    override fun toString(): String = "AuditEvent()"
 }

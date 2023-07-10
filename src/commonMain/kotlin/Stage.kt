@@ -1,9 +1,13 @@
+import event.*
 import korlibs.audio.sound.*
 import korlibs.datastructure.*
+import korlibs.event.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.korge.input.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
+import korlibs.korge.view.onClick
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
@@ -42,10 +46,21 @@ class Stage(private val level: Level) : Scene() {
             livingStick = LivingStick(container.note(ColorPalette.stick.hex()) { zIndex = 1f }, note.stickAngle)
             welcomeText()
         }
-        onEvent(UpdateEvent) {
-            if (soundQueue.isNotEmpty()) {
-                soundQueue.clear()
+        state.container.apply {
+            keys {
+                justDown(Key.SPACE) { hit() }
             }
+            onClick { hit() }
+            mouse {
+                click { hit() }
+                down { hit() }
+            }
+            onEvent(TouchEvent.Type.START) { hit() }
         }
     }
+}
+
+private fun Container.hit() {
+    println("ASFSD")
+    dispatch(HitEvent())
 }

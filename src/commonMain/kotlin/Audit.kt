@@ -14,9 +14,9 @@ import kotlin.math.*
 
 fun State.verdict() {
     val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
-    container.keys { justDown(Key.SPACE) { audit(debug) } }
-    container.onClick { audit(debug) }
-    container.onEvent(TouchEvent.Type.START) { audit(debug) }
+    container.onEvent(HitEvent) {
+        audit(debug)
+    }
 }
 
 fun State.audit(debug: Text) {

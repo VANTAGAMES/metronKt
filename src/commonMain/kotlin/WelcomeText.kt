@@ -1,3 +1,4 @@
+import event.*
 import korlibs.audio.sound.*
 import korlibs.event.*
 import korlibs.image.text.*
@@ -20,7 +21,7 @@ import kotlin.math.*
 fun State.welcomeText() = txtWithFilter(" click space key to start ") {
         keys {
             var cancellable: Cancellable? = null
-            cancellable = justDown(Key.SPACE) {
+            cancellable = onEvent(HitEvent) {
                 cancellable?.cancel()
                 makeThisDisappear()
                 countdownText()

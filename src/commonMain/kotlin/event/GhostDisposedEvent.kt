@@ -12,5 +12,5 @@ class GhostDisposedEvent(
     companion object : EventType<GhostDisposedEvent>
     override val type: EventType<GhostDisposedEvent> get() = GhostDisposedEvent
 
-    override fun toString(): String = "GhostSpawnEvent()"
+    override fun toString(): String = "GhostDisposedEvent()"
 }

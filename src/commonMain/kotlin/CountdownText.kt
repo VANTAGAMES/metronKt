@@ -31,7 +31,6 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
             removeFromParent()
         } else {
             val i = (span / period)
-            println(i)
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
             positionY(originY + (1 - alpha) * 100)
         }
@@ -54,7 +53,6 @@ fun View.showUpThis(startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7
             listener?.cancel()
         } else {
             val i = 1 - (span / period)
-            println(i)
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
             positionY(originY - (1 - alpha) * 100)
         }
