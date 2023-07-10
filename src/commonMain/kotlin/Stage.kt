@@ -16,8 +16,8 @@ class State(
     val level: Level,
     val container: Container,
     var magnanimity: Double = level.magnanimity,
-    val delay: Int = 3
 ) {
+    val delay: Int = (bpmToSec*4).seconds.seconds.toInt()
     val bpm get() = level.bpm
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees

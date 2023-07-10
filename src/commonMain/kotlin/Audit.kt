@@ -42,9 +42,9 @@ fun State.audit(debug: Text) {
 enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPointRange<Double>) {
     TOO_SLOW("Too Slow!", Colors.RED, 0.5..2.0),
     TOO_FAST("Too Fast!", Colors.RED, -2.0..-0.5),
-    SLOW("Slow!", Colors.YELLOW, 0.1..0.5),
-    FAST("Fast!", Colors.YELLOW, -0.5..-0.1),
-    PERF("Perfect!", Colors.GREEN, -0.1..0.1),
+    SLOW("Slow!", Colors.YELLOW, 0.12..0.5),
+    FAST("Fast!", Colors.YELLOW, -0.5..-0.12),
+    PERF("Perfect!", Colors.GREEN, -0.12..0.12),
 }
 fun State.spawnAudit(view: View, audit: Audit) {
     val angle = view.rotation

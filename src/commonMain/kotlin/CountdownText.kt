@@ -5,15 +5,19 @@ import korlibs.time.*
 
 fun State.countdownText() {
     val now = DateTime.now()
-    val count = 3
+    val count = 4
     (1..count).forEach { num ->
-        txtWithFilter(" ${count - num+1} ") {
+        txtWithFilter(if (num == count) "Start!" else " ${count - num} ") {
             alpha = 1f
             visible = false
-            showUpThis(startCode = {
-                hitSound.playNoCancel()
-            }, startTime = (now-bpmToSec.seconds/2) + num.seconds*bpmToSec) {
-                hideIt {
+            showUpThis(
+                startCode = {
+                    hitSound.playNoCancel()
+                },
+                startTime = (now - bpmToSec.seconds / 2) + num.seconds * bpmToSec,
+                period = bpmToSec.seconds/2
+            ) {
+                hideIt(period = bpmToSec.seconds/2) {
                     removeFromParent()
                 }
             }

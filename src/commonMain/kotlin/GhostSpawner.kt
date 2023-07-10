@@ -53,8 +53,8 @@ fun State.ghostSpawner(): Unit = note.run {
     view.onEvent(UpdateEvent) {
         ghostStick.update(it.deltaTime)
         if (iter.hasNext()) {
-            val nextSec = curr.seconds * state.bpmToSec
-            val prevSec = prev.seconds * state.bpmToSec
+            val nextSec = curr.seconds * bpmToSec
+            val prevSec = prev.seconds * bpmToSec
 //            if (nextSec - ghostStick.elapsed > state.bpmToSec.seconds/2) return@onEvent
             val prevAngle = ghostStick.performAngle(prevSec)
             val angle = ghostStick.performAngle(nextSec)
