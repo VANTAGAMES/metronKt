@@ -42,8 +42,6 @@ class Stage(private val level: Level) : Scene() {
             val audioStream = resourcesVfs["hit.wav"].readMusic().toStream()
             hitSound = nativeSoundProvider.createStreamingSound(audioStream)
 
-            //hot load
-            hitSound.playAndWait()
             spawnAudit(dummyView(), Audit.PERF)
 
 //            music = resourcesVfs["song.ogg"].readMusic()
