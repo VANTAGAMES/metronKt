@@ -14,6 +14,6 @@ class Note(
     var prev = 0.0
     var curr = 0.5
     val ghostStick = state.run {
-        StickAngle(degrees, bpm, easing, state, - (delay).seconds*bpmToSec)
+        StickAngle(degrees, bpm, easing, state, - (delay).seconds*bpmToSec*2)
     }
 }

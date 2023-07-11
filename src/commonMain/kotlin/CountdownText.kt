@@ -15,7 +15,7 @@ fun State.countdownText() {
                 startCode = {
                     hitSound.playNoCancel()
                 },
-                startTime = (now - bpmToSec.seconds/2) + ((num).seconds) * bpmToSec + bpmToSec.seconds,
+                startTime = (now - bpmToSec.seconds/2) + ((num).seconds) * bpmToSec,
                 period = bpmToSec.seconds/2
             ) {
                 hideIt(period = bpmToSec.seconds/2) {

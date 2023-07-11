@@ -21,13 +21,14 @@ class State(
     val bpm get() = level.bpm
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees
-    val note: Note = note(StickAngle(degrees, bpm, easing, this, - (delay).seconds*bpmToSec))
+    val note: Note = note(StickAngle(degrees, bpm, easing, this, - (delay).seconds*bpmToSec*2))
     lateinit var livingStick: LivingStick
     val bpmToSec get() = 60.0 / bpm
     lateinit var music: Sound
     lateinit var hitSound: Sound
 
     private fun getDefaultEasing() = Easing {
+//        Easing.EASE_IN_OUT.invoke(it)
         (((cos(PI * it) + 1) / 2) * magnanimity - 0.5 * magnanimity).toFloat() + 0.5f
     }
 
@@ -42,7 +43,7 @@ class Stage(private val level: Level) : Scene() {
             hitSound = nativeSoundProvider.createStreamingSound(audioStream)
 
             //hot load
-//            hitSound.decode()
+            hitSound.playAndWait()
             spawnAudit(dummyView(), Audit.PERF)
 
 //            music = resourcesVfs["song.ogg"].readMusic()

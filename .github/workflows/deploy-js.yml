@@ -42,6 +42,21 @@ jobs:
         run: |
           ./gradlew jsBrowserProductionWebpack
           
+      - name: Commit files
+        run: |
+          URL=$(git remote get-url origin)
+          cd ./build/distributions
+          git init
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -a -m "changes"
+          git branch artifact
+          git switch artifact
+          git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin artifact --force
+          cd ..
+          cd ..
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact

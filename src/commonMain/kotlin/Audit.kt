@@ -25,15 +25,16 @@ fun State.audit(debug: Text) {
     note.alives.fastForEach { ghost ->
 
         val sub = note.stickAngle.elapsed - ghost.note
-        val distance = abs(sub.seconds) - bpmToSec/2
+        val distance = abs(sub.seconds) - bpmToSec / 2
 //        debug.text = "$distance"
         soundQueue.push(1)
-        Audit.values().fastForEach { audit ->
-            if (distance in audit.range) {
-                spawnAudit(ghost.stick, audit)
-                container.dispatch(AuditEvent(ghost, audit))
-                @Suppress("LABEL_NAME_CLASH")
-                return@fastForEach
+        run {
+            Audit.values().fastForEach { audit ->
+                if (distance in audit.range) {
+                    spawnAudit(ghost.stick, audit)
+                    container.dispatch(AuditEvent(ghost, audit))
+                    return@run
+                }
             }
         }
     }
@@ -41,11 +42,11 @@ fun State.audit(debug: Text) {
 
 @Suppress("unused")
 enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPointRange<Double>) {
-    TOO_SLOW("Too Slow!", Colors.RED, 0.5..2.0),
-    TOO_FAST("Too Fast!", Colors.RED, -2.0..-0.5),
-    SLOW("Slow!", Colors.YELLOW, 0.12..0.5),
-    FAST("Fast!", Colors.YELLOW, -0.5..-0.12),
-    PERF("Perfect!", Colors.GREEN, -0.12..0.12),
+    PERF("Perfect!", Colors.GREEN, -0.05..0.05),
+    FAST("Fast!", Colors.YELLOW, -0.05..1.0),
+    SLOW("Slow!", Colors.YELLOW, -1.0..0.05),
+    TOO_FAST("Too Fast!", Colors.RED, -2.0..-1.0),
+    TOO_SLOW("Too Slow!", Colors.RED, 1.0..2.0),
 }
 fun State.spawnAudit(view: View, audit: Audit) {
     val angle = view.rotation

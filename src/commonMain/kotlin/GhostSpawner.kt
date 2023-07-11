@@ -33,11 +33,11 @@ class LivingGhost(
             cancellable = onEvent(UpdateEvent) {
                 elapsed += it.deltaTime
                 if (elapsed > lifeTime * bpmToSec / 2) {
-                    this@spawnGhost.container.dispatch(
-                        GhostDrawedEvent(this@LivingGhost, isNaturally = true)
-                    )
                     cancellable.cancel()
                     noteDisappearEffect {
+                        this@spawnGhost.container.dispatch(
+                            GhostDrawedEvent(this@LivingGhost, isNaturally = true)
+                        )
                         removeFromParent()
                         alives.fastIterateRemove { ghost -> ghost.stick == stick }
                     }
