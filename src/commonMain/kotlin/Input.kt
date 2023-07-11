@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 fun State.registerInput() {
     container.apply {
         keys {
-            down { hit() }
+            down(Key.SPACE) { hit() }
             down(Key.R) {
                 container.removeFromParent()
                 sceneContainer.changeTo<Stage>() { Stage(this@registerInput.level) }

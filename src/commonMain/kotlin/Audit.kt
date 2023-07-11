@@ -29,7 +29,7 @@ fun State.audit(debug: Text) {
         soundQueue.push(1)
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
-                spawnAudit(ghost.stick, audit)
+//                spawnAudit(ghost.stick, audit)
                 container.dispatch(AuditEvent(ghost, audit))
                 @Suppress("LABEL_NAME_CLASH")
                 return@fastForEach

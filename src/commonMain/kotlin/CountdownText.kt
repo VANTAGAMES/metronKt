@@ -2,6 +2,7 @@ import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 
 fun State.countdownText() {
     val now = DateTime.now()
@@ -14,7 +15,7 @@ fun State.countdownText() {
                 startCode = {
                     hitSound.playNoCancel()
                 },
-                startTime = (now - bpmToSec.seconds / 2) + num.seconds * bpmToSec,
+                startTime = (now - bpmToSec.seconds/2) + (num.seconds) * bpmToSec/2 + bpmToSec.seconds/2,
                 period = bpmToSec.seconds/2
             ) {
                 hideIt(period = bpmToSec.seconds/2) {
@@ -56,9 +57,9 @@ fun View.showUpThis(
     zIndex = 10f
     var listener: CloseableCancellable? = null
     var isStarted = false
-    listener = onEvent(UpdateEvent) {
+    val code = Runnable {
         val now = DateTime.now()
-        if (startTime > now) return@onEvent
+        if (startTime > now) return@Runnable
         if (!isStarted) {
             isStarted = true
             startCode.invoke()
@@ -75,5 +76,7 @@ fun View.showUpThis(
         }
         if (!visible) visible = true
     }
+    listener = onEvent(UpdateEvent) { code.run() }
+    code.run()
 
 }
