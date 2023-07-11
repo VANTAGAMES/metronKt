@@ -7,7 +7,7 @@ import korlibs.korge.view.*
 import kotlinx.coroutines.*
 
 fun State.registerInput() {
-    container.apply {
+    container.containerRoot.apply {
         keys {
             down(Key.SPACE) { hit() }
             down(Key.R) {

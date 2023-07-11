@@ -74,7 +74,7 @@ fun State.ghostSpawner(): Unit = note.run {
     }
 }
 
-fun View.noteHitEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit) {
+fun View.noteHitEffect(period: TimeSpan = 0.2.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit) {
     val startTime = DateTime.now()
     zIndex = 0f
     lateinit var listener: Cancellable
@@ -85,7 +85,7 @@ fun View.noteHitEffect(period: TimeSpan = 0.15.seconds, easing: Easing = Easing.
             listener.cancel()
             callback()
         } else {
-            val i = (1 - (span / period))/20
+            val i = (1 - (span / period))/15
             val a = min(1f, max(0f, easing.invoke(i)))
             scale(1 + a, 1 + a/12)
         }
