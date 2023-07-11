@@ -2,6 +2,7 @@ import event.*
 import korlibs.datastructure.iterators.*
 import korlibs.image.color.*
 import korlibs.image.text.*
+import korlibs.io.async.*
 import korlibs.korge.view.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
@@ -29,7 +30,7 @@ fun State.audit(debug: Text) {
         soundQueue.push(1)
         Audit.values().fastForEach { audit ->
             if (distance in audit.range) {
-//                spawnAudit(ghost.stick, audit)
+                spawnAudit(ghost.stick, audit)
                 container.dispatch(AuditEvent(ghost, audit))
                 @Suppress("LABEL_NAME_CLASH")
                 return@fastForEach
@@ -55,7 +56,7 @@ fun State.spawnAudit(view: View, audit: Audit) {
     note.alives.fastIterateRemove { it.stick == view }
     container.container {
         filter = IdentityFilter
-        text(" ${audit.text} ", 40f, color = audit.color) {
+        text(" ${audit.text} ", 30f, color = audit.color) {
             filter = BlurFilter(0.5f)
             alignment = TextAlignment.CENTER
             pos = view.pos

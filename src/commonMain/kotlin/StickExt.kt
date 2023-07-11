@@ -2,7 +2,6 @@ import korlibs.image.color.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
-import korlibs.time.*
 
 typealias Stick = FastRoundRect
 const val stickHeight = 500
