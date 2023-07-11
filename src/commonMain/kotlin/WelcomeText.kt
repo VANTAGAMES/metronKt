@@ -28,7 +28,6 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
                 ghostSpawner()
                 magnanimityEffect {
                     combo()
-//                startStickMove()
                     verdict()
                 }
             }

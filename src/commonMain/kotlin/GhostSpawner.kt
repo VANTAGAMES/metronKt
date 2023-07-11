@@ -22,7 +22,7 @@ class LivingGhost(
         state.spawnGhost()
     }
     private fun State.spawnGhost(): Stick = note.run {
-        val container = Container().addTo(container) {
+        Container().addTo(container) {
             filter = IdentityFilter
             stick = note(ColorPalette.ghost.hex()) {
                 rotation = angle
