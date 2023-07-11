@@ -39,8 +39,8 @@ class LivingGhost(
                     cancellable.cancel()
                     noteDisappearEffect {
                         removeFromParent()
+                        alives.fastIterateRemove { ghost -> ghost.stick == stick }
                     }
-                    alives.fastIterateRemove { ghost -> ghost.stick == stick }
                 }
             }
 
@@ -55,15 +55,15 @@ fun State.ghostSpawner(): Unit = note.run {
         if (iter.hasNext()) {
             val nextSec = curr.seconds * bpmToSec
             val prevSec = prev.seconds * bpmToSec
-//            if (nextSec - ghostStick.elapsed > state.bpmToSec.seconds/2) return@onEvent
+            if (ghostStick.elapsed <= 0.seconds) return@onEvent
             val prevAngle = ghostStick.performAngle(prevSec)
             val angle = ghostStick.performAngle(nextSec)
 //            println("note=$angle, stick=${stick.performAngle().degrees}")
             val distance = angle.absBetween180degrees(stickAngle.performAngle())
             val length = prevAngle.absBetween180degrees(angle)
 //                println("distance=$distance, length=$length")
-            if (distance <= length / 2) {
-                val lifeTime = 1.seconds
+            if (distance <= length/2) {
+                val lifeTime = bpmToSec.seconds
                 val ghost = LivingGhost(state, angle, lifeTime, prevSec)
                 alives.add(ghost)
                 state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))

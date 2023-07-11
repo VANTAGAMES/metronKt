@@ -25,10 +25,10 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
                 cancellable?.cancel()
                 makeThisDisappear()
                 countdownText()
+                ghostSpawner()
                 magnanimityEffect {
                     combo()
 //                startStickMove()
-                    ghostSpawner()
                     verdict()
                 }
             }

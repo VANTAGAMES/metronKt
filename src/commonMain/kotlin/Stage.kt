@@ -33,17 +33,16 @@ class State(
 
 }
 
-lateinit var soundChannel: CoroutineContext
 val soundQueue = IntStack()
 
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
-        val state = State(level, Container().addTo(containerRoot)).apply {
+        State(level, Container().addTo(containerRoot)).apply {
             val audioStream = resourcesVfs["hit.wav"].readMusic().toStream()
             hitSound = nativeSoundProvider.createStreamingSound(audioStream)
 
             //hot load
-            hitSound.playAndWait(startTime = Int.MAX_VALUE.seconds)
+//            hitSound.decode()
             spawnAudit(dummyView(), Audit.PERF)
 
 //            music = resourcesVfs["song.ogg"].readMusic()

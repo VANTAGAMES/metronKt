@@ -1,7 +1,7 @@
 import korlibs.korge.view.*
 import korlibs.time.*
 
-fun State.magnanimityEffect(period: TimeSpan = delay.seconds*bpmToSec, callback: () -> Unit) {
+fun State.magnanimityEffect(period: TimeSpan = (delay).seconds*bpmToSec/2, callback: () -> Unit) {
     val startTime = DateTime.now()
     magnanimity = .0
     container.dummyView().apply {
