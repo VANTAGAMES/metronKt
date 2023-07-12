@@ -19,7 +19,7 @@ class State(
     val bpm get() = level.bpm
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees
-    val note: Note = note(StickAngle(degrees, bpm, easing, this, - (delay).seconds*bpmToSec*2))
+    val note: Note = note(StickAngle(degrees, bpm, easing, - (delay).seconds*bpmToSec*2))
     lateinit var livingStick: LivingStick
     val bpmToSec get() = 60.0 / bpm
     lateinit var music: Sound

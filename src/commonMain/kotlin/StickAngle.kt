@@ -6,7 +6,6 @@ class StickAngle(
     private val angle: Angle,
     private val bpm: Double,
     private val easing: Easing,
-    private val state: State,
     var elapsed: TimeSpan,
 ) {
 
