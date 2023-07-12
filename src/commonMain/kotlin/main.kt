@@ -16,7 +16,7 @@ val defaultLevel get() = Level(
     offset = -1.7,
     magnanimity = 1.0,
     initialNote = 0.5,
-    map = (0..5).map {
+    map = (0..150).map {
         if (it == 0) .5 else when (it%4) {
             0 -> .5
             1 -> .5
