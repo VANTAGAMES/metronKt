@@ -1,3 +1,6 @@
+package effect
+
+import State
 import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*

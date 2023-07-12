@@ -1,5 +1,5 @@
+import effect.*
 import korlibs.audio.sound.*
-import korlibs.datastructure.*
 import korlibs.image.font.*
 import korlibs.io.file.std.*
 import korlibs.korge.scene.*
@@ -28,13 +28,10 @@ class State(
     lateinit var mediumFont: Font
 
     private fun getDefaultEasing() = Easing {
-//        Easing.EASE_IN_OUT.invoke(it)
         (((cos(PI * it) + 1) / 2) * magnanimity - 0.5 * magnanimity).toFloat() + 0.5f
     }
 
 }
-
-val soundQueue = IntStack()
 
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {

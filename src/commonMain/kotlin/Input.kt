@@ -11,7 +11,7 @@ fun State.registerInput() {
     container.containerRoot.apply {
         keys {
             down(Key.SPACE) { hit(it.deltaTime) }
-            down(Key.R) {
+            down(Key.ESCAPE) {
                 container.removeFromParent()
                 sceneContainer.changeTo<Stage>() { Stage(this@registerInput.level) }
             }

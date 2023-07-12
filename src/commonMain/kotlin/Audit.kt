@@ -27,7 +27,6 @@ fun State.audit(delta: TimeSpan, debug: Text?) {
         val sub = note.stickAngle.elapsed+delta - ghost.note
         val distance = abs(sub.seconds) - bpmToSec / 2
 //        debug.text = "$distance"
-        soundQueue.push(1)
         run {
             Audit.values().fastForEach { audit ->
                 if (distance in audit.range) {

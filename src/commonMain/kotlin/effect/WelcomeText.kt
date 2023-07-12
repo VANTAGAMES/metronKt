@@ -1,10 +1,11 @@
+package effect
+
+import ColorPalette
+import State
+import combo
 import event.*
-import korlibs.audio.sound.*
-import korlibs.event.*
-import korlibs.image.font.*
+import ghostSpawner
 import korlibs.image.text.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
 import korlibs.io.lang.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
@@ -12,11 +13,8 @@ import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
-import korlibs.math.interpolation.max
-import korlibs.math.interpolation.min
-import korlibs.time.*
-import kotlinx.coroutines.*
 import util.ColorUtil.hex
+import verdict
 import kotlin.math.*
 
 fun State.welcomeText() = txtWithFilter(" 스페이스바를 눌러! ") {

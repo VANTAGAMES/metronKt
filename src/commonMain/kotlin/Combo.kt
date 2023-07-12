@@ -1,11 +1,9 @@
+import effect.*
 import event.*
-import korlibs.image.color.*
 import korlibs.image.text.*
-import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
-import korlibs.math.interpolation.*
 import korlibs.time.*
 import util.ColorUtil.hex
 

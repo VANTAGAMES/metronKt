@@ -1,5 +1,9 @@
+package effect
+
+import State
 import korlibs.korge.view.*
 import korlibs.time.*
+import startStickMove
 
 fun State.magnanimityEffect(period: TimeSpan = (delay).seconds*bpmToSec/2, callback: () -> Unit) {
     val startTime = DateTime.now()
