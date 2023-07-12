@@ -5,7 +5,6 @@ import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
-import kotlinx.coroutines.*
 
 fun State.countdownText() {
     val count = 4
@@ -18,7 +17,7 @@ fun State.countdownText() {
                 startCode = {
                     hitSound.playNoCancel()
                 },
-                startTime = ((num).seconds) * bpmToSec - (bpmToSec.seconds/2),
+                startTime = ((num).seconds) * bpmToSec - initialNote.seconds*bpmToSec + max(0.seconds, offsetToSec.seconds),
                 period = bpmToSec.seconds/3
             ) {
                 hideIt(this, period = bpmToSec.seconds/3) {

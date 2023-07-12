@@ -10,7 +10,8 @@ data class Level(
     val offset: Double,
     val map: List<Double>,
     val degrees: Double,
-    val magnanimity: Double
+    val magnanimity: Double,
+    val initialNote: Double,
 ) {
     val bpmToSec get() = 60.0 / bpm
 

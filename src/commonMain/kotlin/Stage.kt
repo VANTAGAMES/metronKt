@@ -1,11 +1,9 @@
 import effect.*
 import event.*
-import korlibs.audio.format.*
 import korlibs.audio.sound.*
 import korlibs.image.font.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
-import korlibs.io.lang.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.korge.view.filter.*
@@ -13,15 +11,19 @@ import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlinx.coroutines.*
-import util.ColorUtil.hex
 import kotlin.coroutines.*
 import kotlin.math.*
 
 class State(
+    rootContainer: Container,
     val level: Level,
-    val container: Container,
     var magnanimity: Double = .0,
 ) {
+    val screenContainer: Container = Container().addTo(rootContainer)
+    val container: Container = Container().addTo(screenContainer)
+    val offset = level.offset
+    val offsetToSec = offset*bpmToSec
+    val initialNote = level.initialNote
     val delay: Double = bpmToSec*4.0
     val bpm get() = level.bpm
     val bpmToSec get() = level.bpmToSec
@@ -44,11 +46,11 @@ class State(
 
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
-        State(level, Container().addTo(containerRoot)).apply {
+        State(containerRoot, level).apply {
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
             hitSound = resourcesVfs["sounds/hit.wav"].readAudioStream().toSound()
-            music = resourcesVfs["levels/song.mp3"].readAudioStream().apply { this.totalLengthInSamples }.toSound()
+            music = resourcesVfs["levels/song.mp3"].readAudioStream().toSound()
             music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
             boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
@@ -75,7 +77,7 @@ class Stage(private val level: Level) : Scene() {
 fun State.reloadStage() {
     launchImmediately(currentCoroutineContext) {
 
-        container.removeFromParent()
+        screenContainer.removeFromParent()
         sceneContainer.changeTo<Stage> { Stage(this@reloadStage.level) }
     }
 }

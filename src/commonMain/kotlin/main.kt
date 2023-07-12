@@ -11,11 +11,12 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 val defaultLevel get() = Level(
-    bpm = 175.0/2,
+    bpm = 90.0,
     degrees = 45.0*2/3,
-    offset = 1.0,
+    offset = -1.7,
     magnanimity = 1.0,
-    map = (0..100).map {
+    initialNote = 0.5,
+    map = (0..5).map {
         if (it == 0) .5 else when (it%4) {
             0 -> .5
             1 -> .5

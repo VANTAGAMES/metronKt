@@ -38,10 +38,15 @@ fun State.initGame() {
     progressbar()
     countdownText()
     ghostSpawner()
+    score()
     combo()
     verdict()
     lateinit var cancellable: Cancellable
+    var elapsed = 0.seconds
     cancellable = container.onEvent(UpdateEvent) {
+        elapsed += it.deltaTime
+        val offset = max(.0, offset*-1).seconds
+        if (elapsed < offset) return@onEvent
         cancellable.cancel()
         playingMusic = music.playNoCancel()
         playingMusic.volume = 0.5
@@ -55,7 +60,7 @@ fun State.initGame() {
     note.stickAngle.resetElapsed()
 }
 
-fun State.txtWithFilter(txt: String, code: Container.() -> Unit) = Container().addTo(container) {
+fun State.txtWithFilter(txt: String, parent: Container = container, code: Container.() -> Unit) = Container().addTo(parent) {
     filter = IdentityFilter
     textBlock(
         RichTextData(txt, color = ColorPalette.text.hex(), textSize = 40f, font = boldFont),
