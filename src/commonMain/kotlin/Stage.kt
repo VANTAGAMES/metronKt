@@ -1,15 +1,13 @@
 import korlibs.audio.sound.*
 import korlibs.datastructure.*
-import korlibs.io.async.*
+import korlibs.image.font.*
 import korlibs.io.file.std.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
-import kotlinx.coroutines.*
 import util.ColorUtil.hex
-import kotlin.coroutines.*
 import kotlin.math.*
 
 class State(
@@ -26,6 +24,8 @@ class State(
     val bpmToSec get() = 60.0 / bpm
     lateinit var music: Sound
     lateinit var hitSound: Sound
+    lateinit var boldFont: Font
+    lateinit var mediumFont: Font
 
     private fun getDefaultEasing() = Easing {
 //        Easing.EASE_IN_OUT.invoke(it)
@@ -39,7 +39,9 @@ val soundQueue = IntStack()
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
         State(level, Container().addTo(containerRoot)).apply {
-            val audioStream = resourcesVfs["hit.wav"].readMusic().toStream()
+            boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-cBd.woff"].readWoffFont()
+
+            val audioStream = resourcesVfs["sounds/hit.wav"].readMusic().toStream()
             hitSound = nativeSoundProvider.createStreamingSound(audioStream)
 
             spawnAudit(dummyView(), Audit.PERF)

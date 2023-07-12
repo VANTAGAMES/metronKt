@@ -57,7 +57,7 @@ fun State.spawnAudit(view: View, audit: Audit) {
     note.alives.fastIterateRemove { it.stick == view }
     container.container {
         filter = IdentityFilter
-        text(" ${audit.text} ", 30f, color = audit.color) {
+        text(" ${audit.text} ", 30f, color = audit.color, font = boldFont) {
             filter = BlurFilter(0.5f)
             alignment = TextAlignment.CENTER
             pos = view.pos

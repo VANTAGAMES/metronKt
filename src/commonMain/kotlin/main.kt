@@ -16,7 +16,7 @@ lateinit var sceneContainer: SceneContainer
 
 suspend fun main() = Korge(backgroundColor = Colors[ColorPalette.background]) {
     sceneContainer = sceneContainer()
-    resourcesVfs["level.json"].writeString(Json.encodeToString(defaultLevel))
-    val level = Json.decodeFromString<Level>(resourcesVfs["level.json"].readString())
+    resourcesVfs["levels/level.json"].writeString(Json.encodeToString(defaultLevel))
+    val level = Json.decodeFromString<Level>(resourcesVfs["levels/level.json"].readString())
 	sceneContainer.changeTo { Stage(level) }
 }

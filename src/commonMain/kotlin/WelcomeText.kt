@@ -1,6 +1,7 @@
 import event.*
 import korlibs.audio.sound.*
 import korlibs.event.*
+import korlibs.image.font.*
 import korlibs.image.text.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
@@ -18,7 +19,7 @@ import kotlinx.coroutines.*
 import util.ColorUtil.hex
 import kotlin.math.*
 
-fun State.welcomeText() = txtWithFilter(" click space key to start ") {
+fun State.welcomeText() = txtWithFilter(" 스페이스바를 눌러! ") {
         keys {
             var cancellable: Cancellable? = null
             cancellable = onEvent(HitEvent) {
@@ -37,7 +38,7 @@ fun State.welcomeText() = txtWithFilter(" click space key to start ") {
 fun State.txtWithFilter(txt: String, code: Container.() -> Unit) = Container().addTo(container) {
     filter = IdentityFilter
     textBlock(
-        RichTextData(txt, color = ColorPalette.text.hex(), textSize = 40f),
+        RichTextData(txt, color = ColorPalette.text.hex(), textSize = 40f, font = boldFont),
         size = Size(1000, 95),
         align = TextAlignment.MIDDLE_CENTER
     ) {
