@@ -25,6 +25,7 @@ class State(
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees
     var note: Note = note()
+    lateinit var stage: Stage
     lateinit var music: Sound
     lateinit var hitSound: Sound
     lateinit var boldFont: Font
@@ -40,6 +41,7 @@ class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
         State(level, Container().addTo(containerRoot)).apply {
             currentCoroutineContext = currentCoroutineContext()
+            stage = this@Stage
             boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
             mediumFont = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
             val audioStream = resourcesVfs["sounds/hit.wav"].readMusic().toStream()

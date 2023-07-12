@@ -12,12 +12,18 @@ import kotlin.math.*
 
 fun State.progressBar() {
     val thick = 5f
-    container.solidRect(sceneContainer.width, thick, color = ColorPalette.text.hex()) {
-        pos = Point(.0f, sceneContainer.height - thick)
+    container.solidRect(sceneContainer.scaledWidth, thick, color = ColorPalette.text.hex()) {
+        pos = Point(.0f, sceneContainer.scaledHeight - thick)
         lateinit var cancellable1: Cancellable
+        var virtualWidth = sceneContainer.scaledWidth
+        onStageResized { width, height ->
+            val solidRect = this@solidRect
+            virtualWidth = width.toFloat()
+            solidRect.positionX(((sceneContainer.scaledWidth - virtualWidth)/2))
+        }
         cancellable1 = onEvent(UpdateEvent) {
             val ratio = max(0f, (min(1f, note.stickAngle.elapsed / level.playingTime)))
-            scaledWidth = ratio * sceneContainer.width
+            scaledWidth = ratio * virtualWidth
             if (ratio >= 1) {
                 cancellable1.cancel()
                 container.dispatch(GameEndEvent())
