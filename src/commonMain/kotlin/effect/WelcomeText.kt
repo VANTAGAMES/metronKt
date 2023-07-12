@@ -49,7 +49,6 @@ fun State.initGame() {
         if (elapsed < offset) return@onEvent
         cancellable.cancel()
         playingMusic = music.playNoCancel()
-        playingMusic.volume = 0.5
     }
     //                container.addUpdater((bpmToSec).timesPerSecond) {
 //                    audit(0.seconds, null)

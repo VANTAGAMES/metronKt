@@ -16,10 +16,13 @@ fun State.progressbar() {
         pos = Point(.0f, sceneContainer.scaledHeight - thick)
         lateinit var cancellable1: Cancellable
         var virtualWidth = sceneContainer.scaledWidth
+        var virtualHeight = sceneContainer.scaledHeight
         onStageResized { width, height ->
             val solidRect = this@solidRect
             virtualWidth = width.toFloat()
+            virtualHeight = height.toFloat()
             solidRect.positionX(((sceneContainer.scaledWidth - virtualWidth)/2))
+            solidRect.positionY(height - thick)
         }
         cancellable1 = onEvent(UpdateEvent) {
             if (isPaused) return@onEvent
