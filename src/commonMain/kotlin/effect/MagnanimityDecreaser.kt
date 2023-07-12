@@ -3,11 +3,10 @@ package effect
 import State
 import korlibs.korge.view.*
 import korlibs.time.*
-import startStickMove
 
-fun State.magnanimityDecreasing(period: TimeSpan = (delay).seconds/2, callback: () -> Unit) {
+fun State.magnanimityDecreasing(period: TimeSpan = (delay).seconds/2, callback: () -> Unit): DummyView {
     val startTime = DateTime.now()
-    container.dummyView().apply {
+    return container.dummyView().apply {
         onEvent(UpdateEvent) {
             val now = DateTime.now()
             val span = now - startTime

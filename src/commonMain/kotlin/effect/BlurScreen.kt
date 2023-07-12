@@ -7,11 +7,14 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlin.math.*
 
-fun State.blur(from: Float = 20f, to: Float = 0f, period: TimeSpan = 1.seconds, easing: Easing, callback: () -> Unit = {}) {
+fun State.blur(
+    from: Float = 20f, to: Float = 0f,
+    period: TimeSpan = 1.seconds, easing: Easing, callback: () -> Unit = {}
+): DummyView {
     val blur = BlurFilter(from)
     container.filter = blur
     val startTime = DateTime.now()
-    container.dummyView().apply {
+    return container.dummyView().apply {
         onEvent(UpdateEvent) {
             val now = DateTime.now()
             val span = now - startTime

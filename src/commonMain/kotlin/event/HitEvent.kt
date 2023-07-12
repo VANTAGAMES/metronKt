@@ -1,10 +1,6 @@
 package event
 
-import Audit
-import LivingStick
-import Stick
 import korlibs.event.*
-import korlibs.math.geom.*
 import korlibs.time.*
 
 class HitEvent(val delta: TimeSpan) : Event(), TEvent<HitEvent> {

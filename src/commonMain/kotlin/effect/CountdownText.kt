@@ -19,9 +19,9 @@ fun State.countdownText() {
                     hitSound.playNoCancel()
                 },
                 startTime = (now - bpmToSec.seconds/2) + ((num).seconds) * bpmToSec,
-                period = bpmToSec.seconds/2
+                period = bpmToSec.seconds/3
             ) {
-                hideIt(period = bpmToSec.seconds/2) {
+                hideIt(period = bpmToSec.seconds/3, ay = 25.0) {
                     removeFromParent()
                 }
             }
@@ -30,7 +30,7 @@ fun State.countdownText() {
 
 }
 
-fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT, callback: () -> Unit) {
+fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT, ay: Double = 100.0 * period.seconds, callback: () -> Unit) {
     val startTime = DateTime.now()
     val originY = pos.y
     zIndex = 10f
@@ -45,7 +45,7 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
         } else {
             val i = (span / period)
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
-            positionY(originY + (1 - alpha) * 100)
+            positionY(originY + (1 - alpha) * ay)
         }
     }
 

@@ -1,14 +1,18 @@
 import effect.*
 import event.*
 import korlibs.image.text.*
+import korlibs.io.async.*
+import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import util.ColorUtil.hex
 
 fun State.combo() {
     var combo = 0
+    var lastCombo = false
     var lastComboUpdated = DateTime.now()
     fun formattedCombo() = " $combo \n-COMBO- "
     Container().addTo(container) {
@@ -29,18 +33,33 @@ fun State.combo() {
                     combo = 0
                     lastComboUpdated = DateTime.now()
                     plainText = formattedCombo()
+                    lastCombo = false
+                    hideCombo(originY, this)
+                }
+            }
+            lateinit var cancellable: Cancellable
+            cancellable = onEvent(GameEndEvent) {
+                cancellable.cancel()
+                println("AF")
+                launch(Dispatchers.Unconfined) {
+                    lastCombo = false
                     hideCombo(originY, this)
                 }
             }
             onEvent(AuditEvent) {
                 if (it.audit == Audit.PERF) {
-                    combo += 1
-                    if (!visible) {
-                        showCombo(this)
+                    if (lastCombo) {
+                        combo += 1
+                        if (!visible) {
+                            showCombo(this)
+                        }
                     }
+                    lastCombo = true
+
                 }
                 else {
                     combo = 0
+                    lastCombo = false
                     hideCombo(originY, this)
                 }
                 lastComboUpdated = DateTime.now()

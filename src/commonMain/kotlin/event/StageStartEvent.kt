@@ -1,10 +1,6 @@
 package event
 
-import LivingStick
-import Stick
 import korlibs.event.*
-import korlibs.math.geom.*
-import korlibs.time.*
 
 class StageStartEvent(
 ) : Event(), TEvent<StageStartEvent> {

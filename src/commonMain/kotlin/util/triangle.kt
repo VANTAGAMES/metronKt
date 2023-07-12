@@ -8,11 +8,6 @@ import korlibs.math.geom.*
 import korlibs.math.geom.Circle
 import korlibs.math.geom.vector.*
 
-/**
- * Creates a [Circle] of [radius] and [fill].
- * The [autoScaling] determines if the underlying texture will be updated when the hierarchy is scaled.
- * The [callback] allows to configure the [Circle] instance.
- */
 inline fun Container.triangle(
     pointList: PointList = pointArrayListOf(Point()),
     fill: Paint = Colors.WHITE,
@@ -23,10 +18,6 @@ inline fun Container.triangle(
     callback: @ViewDslMarker Triangle.() -> Unit = {}
 ): Triangle = Triangle(pointList, fill, stroke, strokeThickness, autoScaling, renderer).addTo(this, callback)
 
-/**
- * A [CpuGraphics] class that automatically keeps a circle shape with [radius] and [color].
- * The [autoScaling] property determines if the underlying texture will be updated when the hierarchy is scaled.
- */
 open class Triangle(
     private val pointList: PointList = pointArrayListOf(Point()),
     fill: Paint = Colors.WHITE,

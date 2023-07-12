@@ -16,6 +16,7 @@ import kotlin.math.*
 fun State.verdict() {
     val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
     container.onEvent(HitEvent) {
+        if (note.stickAngle.elapsed < 0.seconds) return@onEvent
         audit(it.delta, debug)
     }
 }

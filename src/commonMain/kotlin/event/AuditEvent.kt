@@ -2,7 +2,6 @@ package event
 
 import Audit
 import LivingGhost
-import LivingStick
 import Stick
 import korlibs.event.*
 import korlibs.math.geom.*

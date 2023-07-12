@@ -3,11 +3,6 @@ import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 
-class LivingStick(
-    val view: Stick,
-    val stick: StickAngle
-)
-
 typealias Stick = FastRoundRect
 const val stickHeight = 480
 
@@ -24,11 +19,5 @@ fun Container.note(color: RGBA, callback: Stick.() -> Unit): Stick {
     ) {
         configurePosition()
         callback(this)
-    }
-}
-
-fun State.startStickMove() {
-    livingStick.view.apply {
-        onEvent(UpdateEvent) { rotation = note.stickAngle.setTo(it.deltaTime) }
     }
 }

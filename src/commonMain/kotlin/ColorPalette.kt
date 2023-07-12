@@ -12,10 +12,10 @@ object ColorPalette {
 //    const val text = "3F2305"
 
     //2
-//    const val background = "27374D"
-//    const val stick = "526D82"
-//    const val ghost = "9DB2BF"
-//    const val text = "DDE6ED"
+    const val background = "27374D"
+    const val stick = "526D82"
+    const val ghost = "9DB2BF"
+    const val text = "DDE6ED"
 
     //3
 //    const val background = "2D2727"
@@ -34,10 +34,10 @@ object ColorPalette {
 //    const val ghost = "EF6262"
 //    const val text = "F3AA60"
 
-    const val background = "1A5D1A"
-    const val stick = "F1C93B"
-    const val ghost = "FAE392"
-    const val text = "FAE392"
+//    const val background = "1A5D1A"
+//    const val stick = "F1C93B"
+//    const val ghost = "FAE392"
+//    const val text = "FAE392"
 
 
 

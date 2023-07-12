@@ -23,22 +23,28 @@ fun State.welcomeText() = txtWithFilter(" 스페이스바를 클릭하세요 ") 
     showUpThis {  }
         keys {
             var cancellable: Cancellable? = null
-            progressBar()
             cancellable = onEvent(HitEvent) {
                 cancellable?.cancel()
+                startGame()
                 makeThisDisappear()
-                countdownText()
-                ghostSpawner()
-//                container.addUpdater((bpmToSec).timesPerSecond) {
-//                    audit(0.seconds, null)
-//                }
-                magnanimityEffect {
-                    combo()
-                    verdict()
-                }
             }
         }
     }
+
+fun State.startGame() {
+    progressBar()
+    countdownText()
+    ghostSpawner()
+    combo()
+    verdict()
+//                container.addUpdater((bpmToSec).timesPerSecond) {
+//                    audit(0.seconds, null)
+//                }
+    magnanimityEffect {
+        magnanimity = level.magnanimity
+    }
+    note.stickAngle.resetElapsed()
+}
 
 fun State.txtWithFilter(txt: String, code: Container.() -> Unit) = Container().addTo(container) {
     filter = IdentityFilter

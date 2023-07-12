@@ -13,5 +13,6 @@ data class Level(
 ) {
     val bpmToSec get() = 60.0 / bpm
 
-    val playingTime: TimeSpan get() = bpmToSec.seconds * map.reduce { acc, d -> acc + d }
+    @Transient
+    val playingTime = bpmToSec.seconds * map.reduce { acc, d -> acc + d }
 }

@@ -6,8 +6,13 @@ class StickAngle(
     private val angle: Angle,
     private val bpm: Double,
     private val easing: Easing,
-    var elapsed: TimeSpan,
+    private val state: State,
+    var elapsed: TimeSpan = (-state.delay.seconds),
 ) {
+
+    fun resetElapsed() {
+        elapsed = -state.delay.seconds
+    }
 
     fun update(delta: TimeSpan) {
         elapsed += delta

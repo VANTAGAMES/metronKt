@@ -1,8 +1,6 @@
 package event
 
 import LivingGhost
-import LivingStick
-import Stick
 import korlibs.event.*
 import korlibs.math.geom.*
 import korlibs.time.*
