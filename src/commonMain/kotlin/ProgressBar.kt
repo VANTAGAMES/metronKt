@@ -38,9 +38,10 @@ fun State.progressBar() {
                     println(magnanimity)
                     magnanimityEffect(magnanimity) {}
                     blur.removeFromParent()
+                    this.removeFromParent()
                     progressBar()
                     val from = (container.filter as? BlurFilter)?.radius ?: 0f
-                    blur(from = from, to = 0f, easing = Easing.EASE_OUT, period = bpmToSec.seconds / 2)
+                    blur(from = from, to = 0f, easing = Easing.EASE_OUT, period = delay.seconds/2)
                 }
             }
         }

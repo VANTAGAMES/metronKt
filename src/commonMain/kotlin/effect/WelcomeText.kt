@@ -21,7 +21,7 @@ import kotlin.math.*
 
 fun State.welcomeText() = txtWithFilter(" 스페이스바를 클릭하세요 ") {
     visible = false
-    val showCancel = showUpThis {  }
+    val showCancel = showUpThis(easing = Easing.EASE_IN) {  }
         keys {
             var cancellable: Cancellable? = null
             cancellable = onEvent(HitEvent) {
