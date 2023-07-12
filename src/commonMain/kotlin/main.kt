@@ -11,7 +11,7 @@ val defaultLevel get() = Level(
     bpm = 60.0,
     degrees = 45.0*2/3,
     magnanimity = 1.0,
-    map = (0..1000).map { .5 }
+    map = (0..5).map { .5 }
 )
 
 lateinit var sceneContainer: SceneContainer

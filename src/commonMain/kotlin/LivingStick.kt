@@ -9,15 +9,15 @@ class LivingStick(
 )
 
 typealias Stick = FastRoundRect
-const val stickHeight = 500
+const val stickHeight = 480
 
 fun View.configurePosition() {
     if (this is Anchorable) anchor(0.5f, 1 - (width/2) / height)
     centerXOnStage()
-    alignY(root, 0.85, true)
+    alignY(root, 0.8, true)
 }
 fun Container.note(color: RGBA, callback: Stick.() -> Unit): Stick {
-    val width = 15
+    val width = 12
     return fastRoundRect(
         corners = RectCorners(1),
         size = Size(width, stickHeight), color = color

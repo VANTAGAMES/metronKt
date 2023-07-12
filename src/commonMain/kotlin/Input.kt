@@ -12,8 +12,7 @@ fun State.registerInput() {
         keys {
             down(Key.SPACE) { hit(it.deltaTime) }
             down(Key.ESCAPE) {
-                container.removeFromParent()
-                sceneContainer.changeTo<Stage>() { Stage(this@registerInput.level) }
+                reloadStage()
             }
         }
         onEvent(TouchEvent.Type.START) { hit(it.currentTime - DateTime.now()) }

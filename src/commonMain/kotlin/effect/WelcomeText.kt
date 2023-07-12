@@ -13,13 +13,17 @@ import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import progressBar
 import util.ColorUtil.hex
 import verdict
 import kotlin.math.*
 
-fun State.welcomeText() = txtWithFilter(" 스페이스바를 눌러! ") {
+fun State.welcomeText() = txtWithFilter(" 스페이스바를 클릭하세요 ") {
+    visible = false
+    showUpThis {  }
         keys {
             var cancellable: Cancellable? = null
+            progressBar()
             cancellable = onEvent(HitEvent) {
                 cancellable?.cancel()
                 makeThisDisappear()

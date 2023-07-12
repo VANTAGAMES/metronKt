@@ -12,6 +12,7 @@ class Note(
     val stickAngle: StickAngle = state.run {
         StickAngle(degrees, bpm, easing, - (delay).seconds)
     }
+    var count = 0
     val iter = state.level.map.iterator()
     var prev = 0.0
     var curr = 0.5

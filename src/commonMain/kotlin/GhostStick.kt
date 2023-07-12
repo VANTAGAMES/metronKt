@@ -69,6 +69,7 @@ fun State.ghostSpawner(): Unit = note.run {
                 state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))
                 prev = curr
                 curr += iter.next()
+                count++
             }
         }
     }
