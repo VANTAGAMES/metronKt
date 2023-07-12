@@ -2,13 +2,15 @@ import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
+import korlibs.korge.view.*
+import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 val defaultLevel get() = Level(
     bpm = 100.0,
-    degrees = 20.0,
-    magnanimity =1.0,
+    degrees = 45.0*2/3,
+    magnanimity = 1.0,
     map = (0..1000).map { .5 }
 )
 

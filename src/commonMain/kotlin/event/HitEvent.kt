@@ -7,7 +7,7 @@ import korlibs.event.*
 import korlibs.math.geom.*
 import korlibs.time.*
 
-class HitEvent : Event(), TEvent<HitEvent> {
+class HitEvent(val delta: TimeSpan) : Event(), TEvent<HitEvent> {
     companion object : EventType<HitEvent>
     override val type: EventType<HitEvent> get() = HitEvent
 

@@ -27,6 +27,9 @@ fun State.welcomeText() = txtWithFilter(" 스페이스바를 눌러! ") {
                 makeThisDisappear()
                 countdownText()
                 ghostSpawner()
+//                container.addUpdater((bpmToSec).timesPerSecond) {
+//                    audit(0.seconds, null)
+//                }
                 magnanimityEffect {
                     combo()
                     verdict()

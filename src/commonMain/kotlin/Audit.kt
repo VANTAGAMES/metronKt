@@ -16,15 +16,15 @@ import kotlin.math.*
 fun State.verdict() {
     val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
     container.onEvent(HitEvent) {
-        audit(debug)
+        audit(it.delta, debug)
     }
 }
 
-fun State.audit(debug: Text) {
+fun State.audit(delta: TimeSpan, debug: Text?) {
     hitSound.playNoCancel()
     note.alives.fastForEach { ghost ->
-
-        val sub = note.stickAngle.elapsed - ghost.note
+        debug.setText(delta.toString())
+        val sub = note.stickAngle.elapsed+delta - ghost.note
         val distance = abs(sub.seconds) - bpmToSec / 2
 //        debug.text = "$distance"
         soundQueue.push(1)
@@ -43,8 +43,8 @@ fun State.audit(debug: Text) {
 @Suppress("unused")
 enum class Audit(val text: String, val color: RGBA, val range: ClosedFloatingPointRange<Double>) {
     PERF("정확!", Colors.GREEN, -0.05..0.05),
-    FAST("빠름!", Colors.YELLOW, -0.05..1.0),
-    SLOW("느림!", Colors.YELLOW, -1.0..0.05),
+    FAST("빠름!", Colors.YELLOW, -1.0..0.05),
+    SLOW("느림!", Colors.YELLOW, -0.05..1.0),
     TOO_FAST("너무 빠름!", Colors.RED, -2.0..-1.0),
     TOO_SLOW("너무 느림!", Colors.RED, 1.0..2.0),
 }

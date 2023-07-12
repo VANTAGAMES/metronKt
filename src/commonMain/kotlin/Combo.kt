@@ -15,7 +15,7 @@ fun State.combo() {
     fun formattedCombo() = " $combo \n-COMBO- "
     Container().addTo(container) {
         textBlock(
-            RichTextData(formattedCombo(), color = ColorPalette.text.hex(), textSize = 40f, font = boldFont),
+            RichTextData(formattedCombo(), color = ColorPalette.text.hex(), textSize = 30f, font = boldFont),
             size = Size(1000, 95),
             align = TextAlignment.MIDDLE_CENTER,
         ) {
