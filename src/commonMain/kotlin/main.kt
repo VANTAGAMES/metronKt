@@ -14,7 +14,7 @@ val defaultLevel get() = Level(
     bpm = 85.0,
     degrees = 45.0*2/3,
     magnanimity = 1.0,
-    map = (0..30).map { fastArrayListOf(1.0).fastRandom() }
+    map = (0..10).map { fastArrayListOf(0.5).fastRandom() }
 )
 
 lateinit var sceneContainer: SceneContainer

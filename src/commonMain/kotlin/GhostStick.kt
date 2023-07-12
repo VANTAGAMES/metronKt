@@ -57,14 +57,9 @@ fun State.ghostSpawner() {
                 val nextSec = curr.seconds * bpmToSec
                 val prevSec = prev.seconds * bpmToSec
                 if (ghostStick.elapsed <= 0.seconds) return@onEvent
-                val prevAngle = ghostStick.performAngle(prevSec)
-                val angle = ghostStick.performAngle(nextSec)
-//            println("note=$angle, stick=${stick.performAngle().degrees}")
-                val distance = angle.absBetween180degrees(stickAngle.performAngle())
-                val length = prevAngle.absBetween180degrees(angle)
-//                println("distance=$distance, length=$length")
-                if (distance <= length / 2) {
+                if (ghostStick.elapsed > nextSec - (nextSec - prevSec)*bpmToSec) {
                     val lifeTime = bpmToSec.seconds
+                    val angle = ghostStick.performAngle(nextSec)
                     val ghost = LivingGhost(state, angle, lifeTime, prevSec)
                     alives.add(ghost)
                     state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))

@@ -22,7 +22,6 @@ fun State.verdict() {
 }
 
 fun State.audit(delta: TimeSpan, debug: Text?) {
-    hitSound.playNoCancel()
     note.alives.fastForEach { ghost ->
         val sub = note.stickAngle.elapsed+delta - ghost.note
         val distance = abs(sub.seconds) - bpmToSec / 2
@@ -30,6 +29,7 @@ fun State.audit(delta: TimeSpan, debug: Text?) {
         run {
             Audit.values().fastForEach { audit ->
                 if (distance in audit.range) {
+                    hitSound.playNoCancel()
                     spawnAudit(ghost.stick, audit)
                     container.dispatch(AuditEvent(ghost, audit))
                     return@run
