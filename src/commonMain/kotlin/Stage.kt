@@ -9,17 +9,18 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import util.ColorUtil.hex
 import kotlin.math.*
+import kotlin.time.*
 
 class State(
     val level: Level,
     val container: Container,
     var magnanimity: Double = level.magnanimity,
 ) {
-    val delay: Int = (bpmToSec*4).seconds.seconds.toInt()
+    val delay: Double = bpmToSec*4.0
     val bpm get() = level.bpm
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees
-    val note: Note = note(StickAngle(degrees, bpm, easing, - (delay).seconds*bpmToSec*2))
+    val note: Note = note()
     lateinit var livingStick: LivingStick
     val bpmToSec get() = 60.0 / bpm
     lateinit var music: Sound

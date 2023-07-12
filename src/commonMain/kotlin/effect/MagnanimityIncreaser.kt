@@ -5,7 +5,7 @@ import korlibs.korge.view.*
 import korlibs.time.*
 import startStickMove
 
-fun State.magnanimityEffect(period: TimeSpan = (delay).seconds*bpmToSec/2, callback: () -> Unit) {
+fun State.magnanimityEffect(period: TimeSpan = (delay).seconds/2, callback: () -> Unit) {
     val startTime = DateTime.now()
     magnanimity = .0
     container.dummyView().apply {

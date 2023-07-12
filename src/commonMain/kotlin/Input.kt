@@ -8,7 +8,7 @@ import korlibs.time.*
 import kotlinx.coroutines.*
 
 fun State.registerInput() {
-    container.containerRoot.apply {
+    container.apply {
         keys {
             down(Key.SPACE) { hit(it.deltaTime) }
             down(Key.ESCAPE) {
