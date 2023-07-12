@@ -21,7 +21,7 @@ fun State.countdownText() {
                 startTime = (now - bpmToSec.seconds/2) + ((num).seconds) * bpmToSec,
                 period = bpmToSec.seconds/3
             ) {
-                hideIt(period = bpmToSec.seconds/3, ay = 25.0) {
+                hideIt(period = bpmToSec.seconds/3) {
                     removeFromParent()
                 }
             }
@@ -30,7 +30,7 @@ fun State.countdownText() {
 
 }
 
-fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT, ay: Double = 100.0 * period.seconds, callback: () -> Unit) {
+fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT, ay: Double = 100.0 * period.seconds, callback: () -> Unit): Cancellable {
     val startTime = DateTime.now()
     val originY = pos.y
     zIndex = 10f
@@ -48,6 +48,7 @@ fun View.hideIt(period: TimeSpan = 0.7.seconds, easing: Easing = Easing.EASE_OUT
             positionY(originY + (1 - alpha) * ay)
         }
     }
+    return listener
 
 }
 
@@ -55,7 +56,7 @@ fun View.showUpThis(
     startCode: () -> Unit = {},
     startTime: DateTime = DateTime.now(), period: TimeSpan = 0.7.seconds,
     easing: Easing = Easing.EASE_IN, isUp: Boolean = false, callback: () -> Unit,
-) {
+): CloseableCancellable {
     val originY = pos.y
     zIndex = 10f
     var listener: CloseableCancellable? = null
@@ -75,11 +76,11 @@ fun View.showUpThis(
             var i = (span / period)
             if (!isUp) i = 1 - i
             alpha = 1 - kotlin.math.min(1f, kotlin.math.max(0f, easing.invoke(i)))
-            positionY(originY - (1 - alpha) * 100)
+            positionY(originY - (1 - alpha) * 100*period.seconds)
         }
         if (!visible) visible = true
     }
     listener = onEvent(UpdateEvent) { code.run() }
     code.run()
-
+    return listener
 }

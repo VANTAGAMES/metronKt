@@ -13,6 +13,7 @@ import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import korlibs.time.*
 import progressBar
 import util.ColorUtil.hex
 import verdict
@@ -20,13 +21,14 @@ import kotlin.math.*
 
 fun State.welcomeText() = txtWithFilter(" 스페이스바를 클릭하세요 ") {
     visible = false
-    showUpThis {  }
+    val showCancel = showUpThis {  }
         keys {
             var cancellable: Cancellable? = null
             cancellable = onEvent(HitEvent) {
                 cancellable?.cancel()
                 startGame()
-                makeThisDisappear()
+                showCancel.cancel()
+                hideIt(period = bpmToSec.seconds/3) {  }
             }
         }
     }
