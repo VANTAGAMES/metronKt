@@ -27,7 +27,11 @@ val defaultLevel get() = Level(
 
 lateinit var sceneContainer: SceneContainer
 
-suspend fun main() = Korge(scaleMode = ScaleMode.COVER, backgroundColor = Colors[ColorPalette.background]) {
+suspend fun main() = Korge(
+    title = "Metron",
+    scaleMode = ScaleMode.COVER,
+    backgroundColor = Colors[ColorPalette.background]
+) {
     sceneContainer = sceneContainer()
     resourcesVfs["levels/level.json"].writeString(Json.encodeToString(defaultLevel))
     val level = Json.decodeFromString<Level>(resourcesVfs["levels/level.json"].readString())
