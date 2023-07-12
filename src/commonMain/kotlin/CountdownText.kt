@@ -8,7 +8,7 @@ fun State.countdownText() {
     val now = DateTime.now()
     val count = 4
     (1..count).forEach { num ->
-        txtWithFilter(if (num == count) "Start!" else " ${count - num} ") {
+        txtWithFilter(if (num == count) "시작!" else " ${count - num} ") {
             alpha = 1f
             visible = false
             showUpThis(
