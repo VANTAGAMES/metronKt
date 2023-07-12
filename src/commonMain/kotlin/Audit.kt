@@ -23,7 +23,6 @@ fun State.verdict() {
 fun State.audit(delta: TimeSpan, debug: Text?) {
     hitSound.playNoCancel()
     note.alives.fastForEach { ghost ->
-        debug.setText(delta.toString())
         val sub = note.stickAngle.elapsed+delta - ghost.note
         val distance = abs(sub.seconds) - bpmToSec / 2
 //        debug.text = "$distance"
