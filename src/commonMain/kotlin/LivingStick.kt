@@ -1,7 +1,10 @@
+import event.*
 import korlibs.image.color.*
+import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
+import util.ColorUtil.hex
 
 typealias Stick = FastRoundRect
 const val stickHeight = 480
@@ -19,5 +22,15 @@ fun Container.note(color: RGBA, callback: Stick.() -> Unit): Stick {
     ) {
         configurePosition()
         callback(this)
+    }
+}
+
+fun State.livingStick() {
+    container.note(ColorPalette.stick.hex()) {
+        zIndex = 1f
+        onEvent(UpdateEvent) {
+            if (isPaused) return@onEvent
+            rotation = note.stickAngle.setTo(it.deltaTime)
+        }
     }
 }

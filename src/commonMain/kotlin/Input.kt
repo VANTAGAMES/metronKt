@@ -1,3 +1,4 @@
+import effect.*
 import event.*
 import korlibs.event.*
 import korlibs.io.async.*
@@ -12,7 +13,12 @@ fun State.registerInput() {
         keys {
             down(Key.SPACE) { hit(it.deltaTime) }
             down(Key.ESCAPE) {
-                reloadStage()
+                isPaused = !isPaused
+                if (isPaused) {
+                    playingMusic.pause()
+                } else {
+                    playingMusic.resume()
+                }
             }
         }
         onEvent(TouchEvent.Type.START) { hit(it.currentTime - DateTime.now()) }

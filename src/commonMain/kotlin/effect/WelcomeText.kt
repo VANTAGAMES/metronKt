@@ -14,32 +14,39 @@ import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
-import progressBar
+import progressbar
 import util.ColorUtil.hex
 import verdict
 import kotlin.math.*
 
 fun State.welcomeText() = txtWithFilter(" 스페이스바를 클릭하세요 ") {
     visible = false
-    val showCancel = showUpThis(easing = Easing.EASE_IN) {  }
+    val showCancel = showUpThis(this, easing = Easing.EASE_IN) {  }
         keys {
             var cancellable: Cancellable? = null
             cancellable = onEvent(HitEvent) {
                 cancellable?.cancel()
-                startGame()
+                initGame()
                 showCancel.cancel()
-                hideIt(period = bpmToSec.seconds/3) {  }
+                hideIt(this@txtWithFilter, period = bpmToSec.seconds/3) {  }
             }
         }
     }
 
-fun State.startGame() {
-    progressBar()
+fun State.initGame() {
+    isPaused = false
+    progressbar()
     countdownText()
     ghostSpawner()
     combo()
     verdict()
-//                container.addUpdater((bpmToSec).timesPerSecond) {
+    lateinit var cancellable: Cancellable
+    cancellable = container.onEvent(UpdateEvent) {
+        cancellable.cancel()
+        playingMusic = music.playNoCancel()
+        playingMusic.volume = 0.5
+    }
+    //                container.addUpdater((bpmToSec).timesPerSecond) {
 //                    audit(0.seconds, null)
 //                }
     magnanimityEffect {

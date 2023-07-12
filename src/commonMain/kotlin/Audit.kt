@@ -24,7 +24,7 @@ fun State.verdict() {
 fun State.audit(delta: TimeSpan, debug: Text?) {
     note.alives.fastForEach { ghost ->
         val sub = note.stickAngle.elapsed+delta - ghost.note
-        val distance = abs(sub.seconds) - bpmToSec / 2
+        val distance = abs(sub.seconds)
 //        debug.text = "$distance"
         run {
             Audit.values().fastForEach { audit ->

@@ -1,8 +1,11 @@
 import effect.*
+import event.*
+import korlibs.audio.format.*
 import korlibs.audio.sound.*
 import korlibs.image.font.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.io.lang.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.korge.view.filter.*
@@ -25,8 +28,10 @@ class State(
     var easing: Easing = getDefaultEasing()
     val degrees: Angle = level.degrees.degrees
     var note: Note = note()
+    var isPaused: Boolean = false
     lateinit var stage: Stage
     lateinit var music: Sound
+    lateinit var playingMusic: SoundChannel
     lateinit var hitSound: Sound
     lateinit var boldFont: Font
     lateinit var mediumFont: Font
@@ -42,15 +47,16 @@ class Stage(private val level: Level) : Scene() {
         State(level, Container().addTo(containerRoot)).apply {
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
+            hitSound = resourcesVfs["sounds/hit.wav"].readAudioStream().toSound()
+            music = resourcesVfs["levels/song.mp3"].readAudioStream().apply { this.totalLengthInSamples }.toSound()
+            music.apply { play().apply { volume = .0 } }
+            hitSound.apply { play().apply { volume = .0 } }
             boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
             mediumFont = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-            val audioStream = resourcesVfs["sounds/hit.wav"].readMusic().toStream()
-            hitSound = nativeSoundProvider.createStreamingSound(audioStream)
-            container.note(ColorPalette.stick.hex()) {
-                zIndex = 1f
-                onEvent(UpdateEvent) {
-                    rotation = note.stickAngle.setTo(it.deltaTime)
-                }
+
+            livingStick()
+            container.onEvent(GameEndEvent) {
+                playingMusic.stop()
             }
             blur(from = 50f, to = 0f, easing = Easing.EASE_OUT, period = 0.5.seconds) {
                 container.filter = null

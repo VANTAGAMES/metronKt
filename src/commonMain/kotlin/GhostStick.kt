@@ -32,7 +32,7 @@ class LivingGhost(
             lateinit var cancellable: Cancellable
             cancellable = onEvent(UpdateEvent) {
                 elapsed += it.deltaTime
-                if (elapsed > lifeTime * bpmToSec / 2) {
+                if (elapsed > lifeTime) {
                     cancellable.cancel()
                     noteDisappearEffect {
                         this@spawnGhost.container.dispatch(
@@ -51,16 +51,19 @@ class LivingGhost(
 
 fun State.ghostSpawner() {
     note.view.onEvent(UpdateEvent) {
+        if (isPaused) return@onEvent
         note.run {
-            ghostStick.update(it.deltaTime)
             if (iter.hasNext()) {
                 val nextSec = curr.seconds * bpmToSec
                 val prevSec = prev.seconds * bpmToSec
-                if (ghostStick.elapsed <= 0.seconds) return@onEvent
-                if (ghostStick.elapsed > nextSec - (nextSec - prevSec)*bpmToSec) {
-                    val lifeTime = bpmToSec.seconds
-                    val angle = ghostStick.performAngle(nextSec)
-                    val ghost = LivingGhost(state, angle, lifeTime, prevSec)
+                if (stickAngle.elapsed <= 0.seconds) {
+                    return@run
+                }
+                val distance = (nextSec - prevSec) * bpmToSec
+                if (stickAngle.elapsed >= nextSec - distance) {
+                    val lifeTime = distance*4/3
+                    val angle = stickAngle.performAngle(nextSec)
+                    val ghost = LivingGhost(state, angle, lifeTime, nextSec)
                     alives.add(ghost)
                     state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))
                     prev = curr
@@ -69,6 +72,7 @@ fun State.ghostSpawner() {
                 }
             }
         }
+        note.ghostStick.update(it.deltaTime)
     }
 }
 

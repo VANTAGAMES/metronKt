@@ -10,7 +10,7 @@ import korlibs.time.*
 import util.ColorUtil.hex
 import kotlin.math.*
 
-fun State.progressBar() {
+fun State.progressbar() {
     val thick = 5f
     container.solidRect(sceneContainer.scaledWidth, thick, color = ColorPalette.text.hex()) {
         pos = Point(.0f, sceneContainer.scaledHeight - thick)
@@ -22,6 +22,7 @@ fun State.progressBar() {
             solidRect.positionX(((sceneContainer.scaledWidth - virtualWidth)/2))
         }
         cancellable1 = onEvent(UpdateEvent) {
+            if (isPaused) return@onEvent
             val ratio = max(0f, (min(1f, note.stickAngle.elapsed / level.playingTime)))
             scaledWidth = ratio * virtualWidth
             if (ratio >= 1) {
@@ -45,7 +46,7 @@ fun State.progressBar() {
                     magnanimityEffect(magnanimity) {}
                     blur.removeFromParent()
                     this.removeFromParent()
-                    progressBar()
+                    progressbar()
                     val from = (container.filter as? BlurFilter)?.radius ?: 0f
                     blur(from = from, to = 0f, easing = Easing.EASE_OUT, period = delay.seconds/2)
                 }

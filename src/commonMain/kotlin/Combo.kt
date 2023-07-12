@@ -40,8 +40,7 @@ fun State.combo() {
             lateinit var cancellable: Cancellable
             cancellable = onEvent(GameEndEvent) {
                 cancellable.cancel()
-                println("AF")
-                launch(Dispatchers.Unconfined) {
+                launch(currentCoroutineContext) {
                     lastCombo = false
                     hideCombo(originY, this)
                 }
@@ -71,13 +70,13 @@ fun State.combo() {
 
 fun State.hideCombo(originY: Float, container: Container) {
     if (!container.visible) return
-    container.hideIt(period = bpmToSec.seconds/6) {
+    hideIt(container, period = bpmToSec.seconds/6) {
         container.positionY(originY)
     }
 }
 
 fun State.showCombo(container: Container) {
     container.visible = true
-    container.showUpThis(period = bpmToSec.seconds/6) {
+    showUpThis(container, period = bpmToSec.seconds/6) {
     }
 }

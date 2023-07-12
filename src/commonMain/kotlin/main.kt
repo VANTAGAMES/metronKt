@@ -11,10 +11,18 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 val defaultLevel get() = Level(
-    bpm = 85.0,
+    bpm = 175.0/2,
     degrees = 45.0*2/3,
+    offset = 1.0,
     magnanimity = 1.0,
-    map = (0..10).map { fastArrayListOf(0.5).fastRandom() }
+    map = (0..100).map {
+        if (it == 0) .5 else when (it%4) {
+            0 -> .5
+            1 -> .5
+            2 -> .5
+            else -> .5
+        }
+    }
 )
 
 lateinit var sceneContainer: SceneContainer
