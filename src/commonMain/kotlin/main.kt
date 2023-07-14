@@ -1,6 +1,7 @@
 import korlibs.image.color.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
+import korlibs.korge.render.SDFShaders.pow
 import korlibs.korge.scene.*
 import korlibs.math.geom.*
 import kotlinx.serialization.*
@@ -12,15 +13,11 @@ val defaultLevel get() = Level(
     offset = -1.7,
     magnanimity = 1.0,
     initialNote = 0.5,
-    map = (0..2*60 + 27 / 4).map {
-        if (it == 0) .5 else when (it%4) {
-            0 -> .5
-            1 -> .5
-            2 -> .5
-            else -> .5
-        }
+).also {
+    (0..((2*60 + 27) * it.bpmToSec*4).toInt()).forEach { i ->
+        it.map.add(0.5)
     }
-)
+}
 
 lateinit var sceneContainer: SceneContainer
 

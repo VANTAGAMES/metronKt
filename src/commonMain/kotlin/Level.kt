@@ -1,3 +1,4 @@
+import korlibs.datastructure.*
 import korlibs.time.*
 import korlibs.time.seconds
 import kotlinx.serialization.*
@@ -8,7 +9,7 @@ data class Level(
     @SerialName("Bpm")
     val bpm: Double,
     val offset: Double,
-    val map: List<Double>,
+    val map: MutableList<Double> = fastArrayListOf(),
     val degrees: Double,
     val magnanimity: Double,
     val initialNote: Double,
@@ -16,5 +17,7 @@ data class Level(
     val bpmToSec get() = 60.0 / bpm
 
     @Transient
-    val playingTime = bpmToSec.seconds * map.reduce { acc, d -> acc + d }
+    val playingTime by lazy {
+        bpmToSec.seconds * map.reduce { acc, d -> acc + d }
+    }
 }

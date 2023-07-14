@@ -53,8 +53,9 @@ class Stage(private val level: Level) : Scene() {
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
             hitSound = resourcesVfs["sounds/hit.wav"].readAudioStream().toSound()
-            val formats = standardAudioFormats().apply { register(OGG) }
-            music = resourcesVfs["levels/song.mp3"].readAudioStream(formats).toSound()
+            music = nativeSoundProvider.createStreamingSound(
+                resourcesVfs["levels/song.mp3"].readAudioStream()
+            )
 //            music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
             boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
