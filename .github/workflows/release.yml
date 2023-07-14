@@ -27,7 +27,7 @@ jobs:
 
       - run: git tag ${{github.run_number}}
       - name: Execute Gradle build
-        run: ./gradlew linkDebugExecutableMingwX64
+        run: ./gradlew mingwX64MainBinaries
 
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
