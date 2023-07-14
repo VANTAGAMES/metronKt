@@ -7,6 +7,7 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
@@ -48,6 +49,7 @@ class State(
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
         State(containerRoot, level).apply {
+            containerRatio()
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
             hitSound = resourcesVfs["sounds/hit.wav"].readAudioStream().toSound()

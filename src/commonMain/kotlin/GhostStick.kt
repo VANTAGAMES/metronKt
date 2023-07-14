@@ -24,7 +24,7 @@ class LivingGhost(
     private fun State.spawnGhost(): Stick = note.run {
         Container().addTo(container) {
             filter = IdentityFilter
-            stick = note(ColorPalette.ghost.hex()) {
+            stick = note(this, ColorPalette.ghost.hex()) {
                 rotation = angle
                 zIndex = 0f
             }
