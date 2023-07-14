@@ -52,7 +52,8 @@ Using gradle tasks on the terminal:
 ```bash
 ./gradlew linkDebugExecutableMacosX64         # Outputs to /build/bin/macosX64/mainDebugExecutable/main.kexe
 ./gradlew linkDebugExecutableLinuxX64         # Outputs to /build/bin/linuxX64/mainDebugExecutable/main.kexe
-./gradlew linkDebugExecutableMingwX64         # Outputs to /build/bin/mingwX64/mainDebugExecutable/main.exe
+./gradlew 
+         # Outputs to /build/bin/mingwX64/mainDebugExecutable/main.exe
 ```
 
 Note that windows executables doesn't have icons bundled.
