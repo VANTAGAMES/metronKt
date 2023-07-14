@@ -1,12 +1,8 @@
-import korlibs.datastructure.*
-import korlibs.datastructure.random.*
-import korlibs.korge.*
-import korlibs.korge.scene.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
-import korlibs.korge.view.*
+import korlibs.korge.*
+import korlibs.korge.scene.*
 import korlibs.math.geom.*
-import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
@@ -16,7 +12,7 @@ val defaultLevel get() = Level(
     offset = -1.7,
     magnanimity = 1.0,
     initialNote = 0.5,
-    map = (0..150).map {
+    map = (0..2*60 + 27 / 4).map {
         if (it == 0) .5 else when (it%4) {
             0 -> .5
             1 -> .5

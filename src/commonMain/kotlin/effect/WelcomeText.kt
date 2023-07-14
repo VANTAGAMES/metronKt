@@ -2,6 +2,7 @@ package effect
 
 import ColorPalette
 import State
+import autoMacro
 import combo
 import event.*
 import ghostSpawner
@@ -41,6 +42,7 @@ fun State.initGame() {
     score()
     combo()
     verdict()
+    autoMacro()
     lateinit var cancellable: Cancellable
     var elapsed = 0.seconds
     cancellable = container.onEvent(UpdateEvent) {

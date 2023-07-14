@@ -14,8 +14,6 @@ korge {
 // To enable targets based on properties/environment variables
 	//targetDefault()
 
-// To selectively enable targets
-	
 	targetJvm()
 	targetJs()
 	targetDesktop()

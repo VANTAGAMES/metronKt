@@ -52,8 +52,7 @@ Using gradle tasks on the terminal:
 ```bash
 ./gradlew linkDebugExecutableMacosX64         # Outputs to /build/bin/macosX64/mainDebugExecutable/main.kexe
 ./gradlew linkDebugExecutableLinuxX64         # Outputs to /build/bin/linuxX64/mainDebugExecutable/main.kexe
-./gradlew 
-         # Outputs to /build/bin/mingwX64/mainDebugExecutable/main.exe
+./gradlew linkDebugExecutableMingwX64         # Outputs to /build/bin/mingwX64/mainDebugExecutable/main.exe
 ```
 
 Note that windows executables doesn't have icons bundled.
@@ -143,8 +142,8 @@ It uses [XCodeGen](https://github.com/yonaskolb/XcodeGen) for the project genera
 and [ios-deploy](https://github.com/ios-control/ios-deploy) for deploying to real devices.
 
 ## JS-game deployment to GitHub Pages
- - Go to [settings page](../../settings) and enable GitHub Pages
- - Choose branch `github-pages` and select folder `/ (root)`      
- - After that you can use link:  
-[link to JS-game](../../deployments/activity_log?environment=github-pages), click "View Deployment"  
- - When you push to main or master branch, - deployment process will start again with GitHub Actions.  
+- Go to [settings page](../../settings) and enable GitHub Pages
+- Choose branch `github-pages` and select folder `/ (root)`
+- After that you can use link:  
+  [link to JS-game](../../deployments/activity_log?environment=github-pages), click "View Deployment"
+- When you push to main or master branch, - deployment process will start again with GitHub Actions.  
