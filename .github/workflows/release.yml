@@ -23,7 +23,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew linkReleaseExecutableMingwX64
+        run: chmod +x ./gradlew :linkReleaseExecutableMingwX64
 
       - run: git tag ${{github.run_number}}
       - name: Execute Gradle build
