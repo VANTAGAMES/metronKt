@@ -9,7 +9,7 @@ korge {
 
 // To enable all targets at once
 
-	//targetAll()
+	targetAll()
 
 // To enable targets based on properties/environment variables
 	//targetDefault()
