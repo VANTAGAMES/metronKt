@@ -12,8 +12,8 @@ import kotlin.math.*
 
 fun State.progressbar() {
     val thick = 5f
-    container.solidRect(sceneContainer.scaledWidth, thick, color = ColorPalette.text.hex()) {
-        pos = Point(.0f, sceneContainer.scaledHeight - thick)
+    screenContainer.solidRect(sceneContainer.scaledWidth, thick, color = ColorPalette.text.hex()) {
+        pos = Point(0, sceneContainer.scaledHeight - thick)
         lateinit var cancellable1: Cancellable
         var virtualWidth = sceneContainer.scaledWidth
         var virtualHeight = sceneContainer.scaledHeight
@@ -21,16 +21,17 @@ fun State.progressbar() {
             val solidRect = this@solidRect
             virtualWidth = width.toFloat()
             virtualHeight = height.toFloat()
-            solidRect.positionX(((sceneContainer.scaledWidth - virtualWidth)/2))
-            solidRect.positionY(height - thick)
+//            solidRect.positionX(-width/2)
+            solidRect.positionX(((sceneContainer.width - virtualWidth)/2))
+            solidRect.positionY((sceneContainer.height) - thick - (sceneContainer.height - height)/2)
         }
-        cancellable1 = onEvent(UpdateEvent) {
+        cancellable1 = this@progressbar.container.onEvent(UpdateEvent) {
             if (isPaused) return@onEvent
             val ratio = max(0f, (min(1f, note.stickAngle.elapsed / level.playingTime)))
             scaledWidth = ratio * virtualWidth
             if (ratio >= 1) {
                 cancellable1.cancel()
-                container.dispatch(GameEndEvent())
+                screenContainer.dispatch(GameEndEvent())
             }
         }
         lateinit var cancellable2: Cancellable
@@ -40,7 +41,7 @@ fun State.progressbar() {
             magnanimityDecreasing(bpmToSec.seconds * 2) {
                 lateinit var cancellable3: Cancellable
                 cancellable3 = onEvent(HitEvent) {
-                    container.dispatch(GameDisposeEvent())
+                    screenContainer.dispatch(GameDisposeEvent())
                     cancellable3.cancel()
                     launchImmediately(currentCoroutineContext) {
                         note = note(view = note.view)

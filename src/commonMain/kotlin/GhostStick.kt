@@ -35,7 +35,7 @@ class LivingGhost(
                 if (elapsed > lifeTime) {
                     cancellable.cancel()
                     noteDisappearEffect {
-                        this@spawnGhost.container.dispatch(
+                        screenContainer.dispatch(
                             GhostDrawedEvent(this@LivingGhost, isNaturally = true)
                         )
                         removeFromParent()
@@ -65,7 +65,7 @@ fun State.ghostSpawner() {
                     val angle = stickAngle.performAngle(nextSec)
                     val ghost = LivingGhost(state, angle, lifeTime, nextSec)
                     alives.add(ghost)
-                    state.container.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))
+                    state.screenContainer.dispatch(GhostSpawnEvent(angle, lifeTime, ghost))
                     prev = curr
                     curr += iter.next()
                     count++

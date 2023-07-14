@@ -12,7 +12,7 @@ fun State.configurePosition(container: View) {
         if (this is Anchorable) anchor(0.5f, 1 - (width/2) / height)
     }
     container.centerXOnStage()
-    container.alignY(container.root, 0.8, true)
+    container.positionY(sceneContainer.height*7/8)
 }
 fun State.note(container: Container, color: RGBA, callback: Stick.() -> Unit): Stick {
     val width = 12

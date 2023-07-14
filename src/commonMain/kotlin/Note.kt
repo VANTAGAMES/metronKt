@@ -1,5 +1,6 @@
 import korlibs.datastructure.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 
 fun State.note(view: View? = null) = if (view === null) Note(this) else Note(this, view)
 

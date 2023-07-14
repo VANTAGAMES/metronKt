@@ -15,9 +15,9 @@ fun State.registerInput() {
             down(Key.ESCAPE) {
                 isPaused = !isPaused
                 if (isPaused) {
-                    playingMusic.pause()
+                    playingMusic?.pause()
                 } else {
-                    playingMusic.resume()
+                    playingMusic?.resume()
                 }
             }
         }
@@ -25,6 +25,6 @@ fun State.registerInput() {
     }
 }
 
-private fun Container.hit(delta: TimeSpan) {
-    dispatch(HitEvent(delta))
+private fun State.hit(delta: TimeSpan) {
+    screenContainer.dispatch(HitEvent(delta))
 }

@@ -61,7 +61,7 @@ fun State.initGame() {
     note.stickAngle.resetElapsed()
 }
 
-fun State.txtWithFilter(txt: String, parent: Container = container, code: Container.() -> Unit) = Container().addTo(parent) {
+fun State.txtWithFilter(txt: String, parent: Container = screenContainer, code: Container.() -> Unit) = Container().addTo(parent) {
     filter = IdentityFilter
     textBlock(
         RichTextData(txt, color = ColorPalette.text.hex(), textSize = 40f, font = boldFont),

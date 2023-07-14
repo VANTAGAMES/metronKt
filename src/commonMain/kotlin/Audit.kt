@@ -31,7 +31,7 @@ fun State.audit(delta: TimeSpan, debug: Text? = null) {
                 if (distance in audit.range) {
                     hitSound.playNoCancel()
                     spawnAudit(ghost.stick, audit)
-                    container.dispatch(AuditEvent(ghost, audit))
+                    screenContainer.dispatch(AuditEvent(ghost, audit))
                     return@run
                 }
             }

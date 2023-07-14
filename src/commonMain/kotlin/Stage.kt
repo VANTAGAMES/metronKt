@@ -35,7 +35,7 @@ class State(
     var isPaused: Boolean = false
     lateinit var stage: Stage
     lateinit var music: Sound
-    lateinit var playingMusic: SoundChannel
+    var playingMusic: SoundChannel? = null
     lateinit var hitSound: Sound
     lateinit var boldFont: Font
     lateinit var mediumFont: Font
@@ -62,7 +62,7 @@ class Stage(private val level: Level) : Scene() {
 
             livingStick()
             container.onEvent(GameEndEvent) {
-                playingMusic.stop()
+                playingMusic?.stop()
             }
             blur(from = 50f, to = 0f, easing = Easing.EASE_OUT, period = 0.5.seconds) {
                 container.filter = null
