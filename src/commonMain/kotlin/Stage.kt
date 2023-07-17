@@ -54,7 +54,7 @@ class Stage(private val level: Level) : Scene() {
             stage = this@Stage
             hitSound = resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readSound()
             music = resourcesVfs["levels/song.mp3"].apply { cachedToMemory() } .readSound()
-//            music.apply { play().apply { volume = .0 } }
+            music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
             boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
             mediumFont = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()

@@ -14,7 +14,7 @@ val defaultLevel get() = Level(
     magnanimity = 1.0,
     initialNote = 0.5,
 ).also {
-    (0..((2*60 + 27)*2*(it.bpm/60.0)).toInt()).forEach { i ->
+    (0..5).forEach { i ->
         it.map.add(0.5)
     }
 }

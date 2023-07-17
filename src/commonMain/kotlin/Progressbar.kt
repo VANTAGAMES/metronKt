@@ -45,11 +45,10 @@ fun State.progressbar() {
                     cancellable3.cancel()
                     launchImmediately(currentCoroutineContext) {
                         note = note(view = note.view)
-                        countdownText()
+                        initGame()
                         magnanimityEffect(magnanimity) {}
                         blur.removeFromParent()
                         this.removeFromParent()
-                        progressbar()
                         val from = (container.filter as? BlurFilter)?.radius ?: 0f
                         blur(from = from, to = 0f, easing = Easing.EASE_OUT, period = delay.seconds/2)
                     }
