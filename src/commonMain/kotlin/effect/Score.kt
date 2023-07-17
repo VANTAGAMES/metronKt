@@ -21,12 +21,16 @@ fun State.score() {
         visible = false
         alignY(root, 0.35, true)
     }
+    val originY = scoreTxt.y
     container.dummyView().apply {
         onEvent(GameEndEvent) {
+            scoreTxt.positionY(originY)
             showUpThis(scoreTxt) {}
         }
         onEvent(GameDisposeEvent) {
-            hideIt(scoreTxt) {}
+            hideIt(scoreTxt) {
+                scoreTxt.positionY(originY)
+            }
         }
     }
 
