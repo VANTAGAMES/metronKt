@@ -5,6 +5,7 @@ import korlibs.audio.sound.*
 import korlibs.image.font.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.io.lang.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
@@ -13,6 +14,7 @@ import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlinx.coroutines.*
+import util.ColorUtil.hex
 import kotlin.coroutines.*
 import kotlin.math.*
 
@@ -21,6 +23,7 @@ class State(
     val level: Level,
     var magnanimity: Double = .0,
 ) {
+    lateinit var version: String
     val screenContainer: Container = Container().addTo(rootContainer)
     val container: Container = Container().addTo(screenContainer)
     val offset = level.offset
@@ -49,6 +52,10 @@ class State(
 class Stage(private val level: Level) : Scene() {
     override suspend fun SContainer.sceneMain() {
         State(containerRoot, level).apply {
+            version = resourcesVfs["client.properties"].readProperties()["version"]!!
+            val debugTextSize = 20f
+            val debug = sceneContainer.text(version, textSize = debugTextSize, color = ColorPalette.text.hex())
+                .positionY(sceneContainer.height - debugTextSize)
             containerRatio()
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage

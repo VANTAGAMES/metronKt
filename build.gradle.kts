@@ -29,3 +29,10 @@ dependencies {
     //add("commonMainApi", project(":korge-dragonbones"))
 }
 
+@Suppress("UnstableApiUsage")
+tasks.withType<ProcessResources> {
+    filesMatching("client.properties") {
+        expand(properties)
+    }
+}
+

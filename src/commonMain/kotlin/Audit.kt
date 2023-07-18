@@ -3,6 +3,8 @@ import korlibs.datastructure.iterators.*
 import korlibs.image.color.*
 import korlibs.image.text.*
 import korlibs.io.async.*
+import korlibs.io.file.std.*
+import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
@@ -14,10 +16,9 @@ import kotlin.coroutines.*
 import kotlin.math.*
 
 fun State.verdict() {
-    val debug = container.text("", textSize = 20f, color = ColorPalette.text.hex())
     container.onEvent(HitEvent) {
         if (note.stickAngle.elapsed < 0.seconds) return@onEvent
-        audit(it.delta, debug)
+        audit(it.delta)
     }
 }
 
