@@ -32,7 +32,8 @@ dependencies {
 @Suppress("UnstableApiUsage")
 tasks.withType<ProcessResources> {
     filesMatching("client.properties") {
-        expand(properties)
+        println(properties["version"])
+        expand("version" to properties["version"])
     }
 }
 
