@@ -30,20 +30,20 @@ fun State.combo() {
                     if (lastComboUpdated > it.livingGhost.startTime) {
                         return@onEvent
                     }
-                    combo = 0
                     lastComboUpdated = DateTime.now()
                     plainText = formattedCombo()
                     lastCombo = false
+                    combo = 0
                     hideCombo(originY, this)
                 }
             }
             lateinit var cancellable: Cancellable
             cancellable = onEvent(GameEndEvent) {
                 cancellable.cancel()
-                launch(currentCoroutineContext) {
                     lastCombo = false
-                    hideCombo(originY, this)
-                }
+                    hideCombo(originY, this) {
+                        combo = 0
+                    }
             }
             onEvent(AuditEvent) {
                 if (it.audit == Audit.PERF) {
@@ -68,10 +68,11 @@ fun State.combo() {
     }
 }
 
-fun State.hideCombo(originY: Float, container: Container) {
+fun State.hideCombo(originY: Float, container: Container, callback: (() -> Unit)? = null) {
     if (!container.visible) return
     hideIt(container, period = bpmToSec.seconds/6) {
         container.positionY(originY)
+        callback?.invoke()
     }
 }
 
