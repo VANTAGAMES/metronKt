@@ -54,8 +54,7 @@ class Stage(private val level: Level) : Scene() {
         State(containerRoot, level).apply {
             version = resourcesVfs["client.properties"].readProperties()["version"]!!
             val debugTextSize = 20f
-            val debug = sceneContainer.text(version, textSize = debugTextSize, color = ColorPalette.text.hex())
-                .positionY(sceneContainer.height - debugTextSize)
+            sceneContainer.text(version, textSize = debugTextSize, color = ColorPalette.text.hex())
             containerRatio()
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
