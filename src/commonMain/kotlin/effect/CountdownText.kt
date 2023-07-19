@@ -14,9 +14,7 @@ fun State.countdownText() {
             visible = false
             showUpThis(
                 this,
-                startCode = {
-                    hitSound.playNoCancel()
-                },
+                startCode = {},
                 startTime = ((num).seconds) * bpmToSec - initialNote.seconds*bpmToSec + max(0.seconds, offsetToSec.seconds),
                 period = bpmToSec.seconds/3
             ) {

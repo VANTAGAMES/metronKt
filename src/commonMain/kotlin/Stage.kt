@@ -58,7 +58,9 @@ class Stage(private val level: Level) : Scene() {
             containerRatio()
             currentCoroutineContext = currentCoroutineContext()
             stage = this@Stage
-            hitSound = resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readSound()
+            hitSound = nativeSoundProvider.createNonStreamingSound(
+                resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readAudioData()
+            )
             music = resourcesVfs["levels/song.mp3"].apply { cachedToMemory() } .readSound()
             music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
