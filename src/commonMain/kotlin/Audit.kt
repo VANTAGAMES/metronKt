@@ -30,7 +30,9 @@ fun State.audit(delta: TimeSpan, debug: Text? = null) {
         run {
             Audit.values().fastForEach { audit ->
                 if (sub.seconds in audit.range) {
-                    hitSound.playNoCancel()
+                    launchImmediately(currentCoroutineContext) {
+                        hitSound.play()
+                    }
                     spawnAudit(ghost.stick, audit)
                     screenContainer.dispatch(AuditEvent(ghost, audit))
                     return@run
