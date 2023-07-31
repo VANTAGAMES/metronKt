@@ -10,7 +10,7 @@ import kotlin.math.*
 
 fun State.autoMacro() {
     val txt = txtWithFilter("자동 플레이") {}.alignX(sceneContainer, 2.0, true)
-//        .visible(false)
+        .visible(false)
     container.keys {
         down(Key.P) {
             txt.visible = !txt.visible
