@@ -1,6 +1,8 @@
+import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.time.*
+import kotlin.coroutines.*
 import kotlin.math.*
 
 fun State.musicPlayer() {
@@ -11,6 +13,8 @@ fun State.musicPlayer() {
         val offset = max(.0, offset * -1).seconds
         if (elapsed < offset) return@onEvent
         cancellable.cancel()
-        playingMusic = music.playNoCancel()
+        launchImmediately(currentCoroutineContext) {
+            playingMusic = music.play()
+        }
     }
 }
