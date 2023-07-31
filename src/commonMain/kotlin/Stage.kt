@@ -61,6 +61,7 @@ class Stage(private val level: Level) : Scene() {
             hitSound = nativeSoundProvider.createNonStreamingSound(
                 resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readAudioData()
             )
+            hitSound.volume = 0.7
             music = resourcesVfs["levels/song.mp3"].apply { cachedToMemory() } .readSound()
             music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
