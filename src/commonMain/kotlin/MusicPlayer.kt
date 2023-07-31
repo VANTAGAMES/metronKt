@@ -14,7 +14,7 @@ fun State.musicPlayer() {
         if (elapsed < offset) return@onEvent
         cancellable.cancel()
         launchImmediately(currentCoroutineContext) {
-            playingMusic = music.play()
+            playingMusic = music.play().apply { volume = 0.3 }
         }
     }
 }

@@ -12,7 +12,7 @@ import util.ColorUtil.hex
 fun State.score() {
     val scoreTxt =
     screenContainer.textBlock(
-        RichTextData(" 레벨 1 클리어 ", color = ColorPalette.text.hex(), textSize = 80f, font = boldFont),
+        RichTextData(" 레벨 클리어 ", color = ColorPalette.text.hex(), textSize = 80f, font = boldFont),
         size = Size(1000, 95),
         align = TextAlignment.MIDDLE_CENTER
     ) {

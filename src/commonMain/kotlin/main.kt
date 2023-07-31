@@ -8,13 +8,13 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 val defaultLevel get() = Level(
-    bpm = 87.4275,
+    bpm = 87.5,
     degrees = 45.0*2/3,
-    offset = -2.9,
+    offset = -3.0,
     magnanimity = 1.0,
     initialNote = 0.5,
 ).also {
-    (0..((2*60 + 27)*2*(it.bpm/60.0)).toInt()).forEach { i ->
+    (0..((1*60 + 57)*2*(it.bpm/60.0)).toInt()).forEach { i ->
         it.map.add(0.5)
     }
 }

@@ -1,6 +1,7 @@
 package effect
 
 import State
+import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*
@@ -14,7 +15,11 @@ fun State.countdownText() {
             visible = false
             showUpThis(
                 this,
-                startCode = {},
+                startCode = {
+                            launchImmediately(currentCoroutineContext) {
+                                hitSound.play()
+                            }
+                },
                 startTime = ((num).seconds) * bpmToSec - initialNote.seconds*bpmToSec + max(0.seconds, offsetToSec.seconds),
                 period = bpmToSec.seconds/3
             ) {
