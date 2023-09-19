@@ -74,6 +74,7 @@ data class Stage(
         val ratio = easedRatioInTween.toRatio()
         return ratio.interpolateAngleNormalized(-angle, angle)
     }
+
     companion object {
         suspend operator fun invoke(levelName: String, configuration: WorldConfiguration.(Stage) -> Unit): Stage {
             val hitSound = nativeSoundProvider.createNonStreamingSound(
