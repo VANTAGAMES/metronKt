@@ -1,6 +1,8 @@
+/client/build
+/shared/build
 /.gradle
 /.idea
-**/build
+/build/
 /modules
 /bundles
 /deps
