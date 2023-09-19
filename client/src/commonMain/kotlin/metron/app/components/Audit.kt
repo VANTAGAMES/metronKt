@@ -3,18 +3,12 @@ package metron.app.components
 import com.github.quillraven.fleks.*
 import korlibs.datastructure.iterators.*
 import korlibs.image.text.*
-import korlibs.korge.ui.*
 import korlibs.korge.view.*
-import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
-import korlibs.math.geom.max
-import korlibs.math.geom.min
-import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
 import metron.app.*
-import metron.app.Stage
 import metron.util.*
 
 class Audit private constructor() : Component<Audit> {
