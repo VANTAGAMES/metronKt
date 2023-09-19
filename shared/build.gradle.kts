@@ -14,6 +14,7 @@ korge {
     targetJs()
     targetDesktop()
     //targetDesktopCross()
+    serializationJson()
 }
 
 tasks.create<Delete>("disableKRes") {

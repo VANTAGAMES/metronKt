@@ -5,7 +5,7 @@ plugins {
     id("com.soywiz.kproject.settings") version "0.3.1"
 }
 
-rootProject.name = "template"
+rootProject.name = "metron"
 kproject("./deps")
 
 include(":client")

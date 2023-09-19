@@ -6,6 +6,7 @@ import korlibs.korge.gradle.targets.ProjectType
 import korlibs.korge.gradle.targets.desktop.configureNativeDesktop
 import korlibs.korge.gradle.targets.desktop.configureNativeDesktopCross
 import korlibs.korge.gradle.targets.desktop.configureNativeDesktopRun
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
@@ -34,6 +35,7 @@ korge {
         """<uses-permission android:name="android.permission.INTERNET" />""",
         """<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />"""
     ))
+    serializationJson()
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

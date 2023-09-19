@@ -10,6 +10,8 @@ import korlibs.korge.style.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 import metron.app.*
 import metron.event.*
 import util.*
@@ -30,9 +32,7 @@ lateinit var font: Font
 
 suspend fun startMain() {
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-
-
-
+    resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
         windowSize = Size(960, 540),
 //        title = "",
