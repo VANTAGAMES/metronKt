@@ -1,0 +1,7 @@
+[plugins]
+korge = { id = "com.soywiz.korge", version = "4.0.7" }
+#korge = { id = "com.soywiz.korge", version = "999.0.0.999" }
+
+
+[libraries]
+kotlinx-uuid = { module = "app.softwork:kotlinx-uuid-core", version = "0.0.21" }
