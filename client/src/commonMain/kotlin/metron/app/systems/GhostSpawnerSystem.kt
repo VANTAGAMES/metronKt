@@ -11,7 +11,7 @@ import metron.app.entities.*
 
 class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
     family {
-        all(GhostSpawner)
+        all(GhostStickSpawner)
     },
 ) {
     override fun onTickEntity(entity: Entity): Unit = stage.run {
@@ -24,7 +24,7 @@ class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
         if (elapsedSeconds >= nextSec - distance) {
             val lifeTime = distance * 4 / 3
             val angle = performAngle(nextSec)
-            val spawner = entity[GhostSpawner]
+            val spawner = entity[GhostStickSpawner]
             val ghost = createGhostNote(spawner, angle, lifeTime, nextSec)
             alives.add(ghost)
             screen.dispatch(GhostSpawnEvent(ghost))

@@ -1,12 +1,5 @@
 package metron.app
 
-import korlibs.image.color.*
-import korlibs.image.text.*
-import korlibs.korge.view.*
-import korlibs.korge.view.filter.*
-import korlibs.math.geom.*
-import korlibs.time.*
-import metron.*
 import metron.app.components.*
 import metron.app.entities.*
 import metron.app.systems.*
@@ -16,7 +9,7 @@ suspend fun mainView() {
     val stage = Stage("level1") { stage ->
         components {
             add(GhostStick)
-            add(GhostSpawner)
+            add(GhostStickSpawner)
             add(PlayerStick)
         }
         systems {

@@ -18,7 +18,7 @@ import metron.app.Stage
 import metron.util.*
 
 class Audit private constructor() : Component<Audit> {
-    override fun type() = Audit
+    override fun type() = Companion
 
     companion object : ComponentHooks<Audit>() {
         operator fun invoke(ghostStick: GhostStick, audit: AuditType): Audit {

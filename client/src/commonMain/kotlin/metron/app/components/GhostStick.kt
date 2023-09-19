@@ -8,7 +8,6 @@ import korlibs.io.lang.*
 import korlibs.korge.time.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
-import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
@@ -51,7 +50,7 @@ data class GhostStick(
 
         operator fun invoke(
             stage: Stage,
-            spawner: GhostSpawner,
+            spawner: GhostStickSpawner,
             angle: Angle,
             lifeTime: TimeSpan,
             nextNote: TimeSpan,

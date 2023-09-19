@@ -7,7 +7,7 @@ import metron.app.components.*
 
 
 fun Stage.createGhostNote(
-    spawner: GhostSpawner, angle: Angle, lifeTime: TimeSpan, nextNote: TimeSpan
+    spawner: GhostStickSpawner, angle: Angle, lifeTime: TimeSpan, nextNote: TimeSpan
 ) = GhostStick(this, spawner, angle, lifeTime, nextNote).apply {
     world.entity {
         val note = this@apply
@@ -21,7 +21,7 @@ fun Stage.createPlayerStick() = world.entity {
 
 
 fun Stage.createGhostSpawner() = world.entity {
-    it += GhostSpawner()
+    it += GhostStickSpawner()
 }
 
 fun Stage.createAudit(ghostStick: GhostStick, audit: AuditType) = world.entity {

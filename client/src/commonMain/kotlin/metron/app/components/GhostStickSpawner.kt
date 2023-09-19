@@ -6,11 +6,11 @@ import korlibs.korge.view.filter.*
 import metron.*
 import metron.util.*
 
-class GhostSpawner : Component<GhostSpawner> {
+class GhostStickSpawner : Component<GhostStickSpawner> {
     lateinit var ghostContainer: Container
     override fun type() = Companion
-    companion object : ComponentHooks<GhostSpawner>() {
-        override val onAdded: ComponentHook<GhostSpawner> = { entity, ghostSpawner ->
+    companion object : ComponentHooks<GhostStickSpawner>() {
+        override val onAdded: ComponentHook<GhostStickSpawner> = { entity, ghostSpawner ->
             ghostSpawner.ghostContainer = screen.container() {
                 filter = null
             }
