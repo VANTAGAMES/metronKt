@@ -12,7 +12,8 @@ import kotlin.math.*
 
 class LivingGhost(
     val state: State,
-    val angle: Angle,
+    val
+    angle: Angle,
     val lifeTime: TimeSpan,
     val note: TimeSpan,
 ) {

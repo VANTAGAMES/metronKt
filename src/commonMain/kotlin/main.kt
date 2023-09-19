@@ -23,7 +23,7 @@ lateinit var sceneContainer: SceneContainer
 
 suspend fun main() = Korge(
     title = "Metron",
-    scaleMode = ScaleMode.SHOW_ALL,
+    scaleMode = ScaleMode.COVER,
     backgroundColor = Colors[ColorPalette.background]
 ) {
     sceneContainer = sceneContainer()
