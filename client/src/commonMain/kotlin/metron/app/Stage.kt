@@ -29,7 +29,7 @@ data class Stage(
     val angle: Angle = level.degrees.degrees
     val bpm get() = level.bpm
     val bpmToSec get() = level.bpmToSec
-    val initalNote get() = level.initialNote
+    val initialNote get() = level.initialNote
     val delay get() = bpmToSec*4.0
     val offset get() = level.offset
     val offsetToSec get() = offset*bpmToSec
@@ -39,14 +39,14 @@ data class Stage(
 
     var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
-    val isPaused = isForcePaused || isPausedByUser
+    val isPaused get() = isForcePaused || isPausedByUser
     var magnanimity = .0
     var elapsedSeconds: TimeSpan = defaultElapsed()
     val alives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0
     var noteIterator = level.map.iterator()
     var previousNote = .0
-    var currentNote = initalNote
+    var currentNote = initialNote
 
     fun defaultElapsed() =
         - (delay.seconds + max(0.seconds, offsetToSec.seconds))

@@ -6,7 +6,6 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 import metron.*
 import metron.app.Stage
-import metron.app.components.GhostStick.Companion.configurePosition
 import metron.util.*
 import util.*
 

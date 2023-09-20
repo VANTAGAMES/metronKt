@@ -16,10 +16,10 @@ fun launchAsync(context: CoroutineContext = GlobalScope.coroutineContext, callba
     CoroutineScope(context).asyncImmediately(callback)
 }
 
-fun View.schedule(timeSpan: TimeSpan, onDelay: (TimeSpan) -> Unit, onStopped: () -> Unit) {
+fun View.schedule(timeSpan: TimeSpan, onDelay: (TimeSpan) -> Unit, onStopped: () -> Unit): Cancellable {
     val startTime = DateTime.now()
     var cancelllable: Cancellable? = null
-    cancelllable = onEvent(ViewsUpdateEvent) { event ->
+    cancelllable = addOptFixedUpdater { event ->
         val elapsed = DateTime.now() - startTime
         if (elapsed >= timeSpan) {
             onStopped()
@@ -28,4 +28,5 @@ fun View.schedule(timeSpan: TimeSpan, onDelay: (TimeSpan) -> Unit, onStopped: ()
             onDelay(elapsed)
         }
     }
+    return cancelllable
 }

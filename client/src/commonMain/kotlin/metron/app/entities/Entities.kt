@@ -27,8 +27,3 @@ fun Stage.createGhostSpawner() = world.entity {
 fun Stage.createAudit(ghostStick: GhostStick, audit: AuditType) = world.entity {
     it += Audit(ghostStick, audit)
 }
-
-fun Stage.createText(text: String, effect: EasingEffect? = null) = world.entity {
-    val stage = this@createText
-    it += Text(stage, text)
-}
