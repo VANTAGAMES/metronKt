@@ -8,6 +8,7 @@ import metron.*
 import metron.app.Stage
 import metron.app.components.GhostStick.Companion.configurePosition
 import metron.util.*
+import util.*
 
 class PlayerStick(val stage: Stage) : Component<PlayerStick> {
     lateinit var body: View
@@ -16,8 +17,9 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
         override val onAdded: ComponentHook<PlayerStick> = { entity, playerStick ->
             playerStick.body = screen.fastRoundRect(
                 corners = RectCorners(1),
-                size = Size(stickWidth, stickHeight), color = Colors.WHITESMOKE
+                size = stickSize, color = Colors["526D82"]
             ) {
+                transform { size(stickSize) }
                 configurePosition(this)
                 zIndex = 1f
             }

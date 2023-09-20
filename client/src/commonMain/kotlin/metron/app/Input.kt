@@ -15,7 +15,7 @@ fun Stage.enableInput() = screen.apply {
     keys {
         down(Key.SPACE) { hit(it.deltaTime) }
         down(Key.ESCAPE) {
-            isPaused = !isPaused
+            isPausedByUser = !isPausedByUser
             if (isPaused) {
                 playingMusic?.pause()
             } else {

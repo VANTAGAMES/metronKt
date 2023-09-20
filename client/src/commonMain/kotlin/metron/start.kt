@@ -34,13 +34,13 @@ suspend fun startMain() {
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
     resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
-        windowSize = Size(960, 540),
+        windowSize = Size(1280, 720),
 //        title = "",
 //        icon = "images/logo.png",
         scaleMode = ScaleMode.NO_SCALE,
         clipBorders = false,
         scaleAnchor = Anchor.TOP_LEFT,
-        backgroundColor = Colors["#2b2b2b"]
+        backgroundColor = Colors["#27374D"]
     ) {
         scene = sceneContainer()
         scene.changeTo({ MainScene() })

@@ -24,7 +24,7 @@ class Audit private constructor() : Component<Audit> {
             }
             val stage = ghostStick.stage
             stage.alives.fastIterateRemove { it.body == body }
-            screen.text(" ${audit.text} ", 30f, color = audit.color, font = stage.boldFont) {
+            screen.text(" ${audit.text} ", 45f, color = audit.color, font = stage.boldFont) {
                 filter = BlurFilter(0.5f)
                 alignment = TextAlignment.CENTER
                 globalPos = body.globalPos
