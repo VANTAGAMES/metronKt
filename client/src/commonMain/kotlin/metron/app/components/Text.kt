@@ -24,7 +24,7 @@ data class Text(val stage: Stage, val text: String) : Component<Text> {
         }
     }
     fun enableBody() {
-        val textHeight = 95f*2.75f
+        val textHeight = screen.height
         val stage = stage
         body = screen.uiText(
             text,
@@ -39,7 +39,7 @@ data class Text(val stage: Stage, val text: String) : Component<Text> {
                 println(styles.textSize)
                 filter = BlurFilter((sqrt(screen.height / scene.height).pow(1f)-1).apply(::println))
                 centerXOn(screen)
-                positionY((screen.height - stickHeight)/4 - textHeight/2)
+                positionY((screen.height - stickHeight)/4 - textHeight/2f + stickHeight/20)
             }
         }
     }

@@ -36,7 +36,7 @@ data class GhostStick(
         fun configurePosition(container: View) = container.transform {
             if (this is Anchorable) anchor(0.5f, 1 - (width/2) / height)
             centerXOn(screen)
-            positionY(screen.height*7/8)
+            positionY(screen.height*8/9)
         }
 
         override val onAdded: ComponentHook<GhostStick> = { entity, ghostStick ->

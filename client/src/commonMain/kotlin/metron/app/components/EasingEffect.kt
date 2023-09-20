@@ -18,15 +18,8 @@ class EasingEffect(
     val timeSpan: TimeSpan,
     val isDown: Boolean,
     val view: View
-) : Component<EasingEffect> {
-
+) {
     lateinit var onDestroyView: Cancellable
-    override fun type() = EasingEffect
-    companion object : ComponentHooks<EasingEffect>() {
-        override val onAdded: ComponentHook<EasingEffect> = { entity, easingEffect ->
-            easingEffect.enableEffect()
-        }
-    }
 
     fun enableEffect() {
         val span = timeSpan

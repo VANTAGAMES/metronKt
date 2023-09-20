@@ -20,7 +20,6 @@ suspend fun mainView() {
             add(PlayerStick)
             add(Audit)
             add(AuditSpawner)
-            add(EasingEffect)
             add(Text)
         }
         systems {
