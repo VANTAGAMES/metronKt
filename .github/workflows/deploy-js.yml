@@ -41,14 +41,13 @@ jobs:
       - name: Buid JS bundle
         run: |
           ./gradlew :client:jsBrowserProductionWebpack
-
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './build/distributions'
+          path: './client/build/distributions'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
