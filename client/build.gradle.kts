@@ -1,7 +1,4 @@
-import korlibs.korge.gradle.KorgeGradlePlugin
-import korlibs.korge.gradle.Orientation
-import korlibs.korge.gradle.korge
-import korlibs.korge.gradle.kormaVersion
+import korlibs.korge.gradle.*
 import korlibs.korge.gradle.targets.ProjectType
 import korlibs.korge.gradle.targets.desktop.configureNativeDesktop
 import korlibs.korge.gradle.targets.desktop.configureNativeDesktopCross
