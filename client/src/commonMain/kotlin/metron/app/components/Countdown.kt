@@ -57,7 +57,6 @@ fun Stage.countdown(times: Int = 4) {
                             effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
                         )
                     ) {
-                        println("removed")
                         removeFromParent()
                     }
                 }

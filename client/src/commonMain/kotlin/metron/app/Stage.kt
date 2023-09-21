@@ -32,6 +32,7 @@ data class Stage(
         get() = worldOrNull!!
         set(value) { worldOrNull = value }
 
+    val playingTime get() = level.playingTime
     val angle: Angle = level.degrees.degrees
     val bpm get() = level.bpm
     val bpmToSec get() = level.bpmToSec

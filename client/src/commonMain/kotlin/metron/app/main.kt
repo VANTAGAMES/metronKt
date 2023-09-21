@@ -1,8 +1,5 @@
 package metron.app
 
-import korlibs.korge.view.*
-import korlibs.time.*
-import metron.*
 import metron.app.components.*
 import metron.app.entities.*
 import metron.app.systems.*
@@ -22,8 +19,10 @@ suspend fun mainView() = Stage("level1") { stage ->
         add(AuditSpawnerSystem(stage))
     }
 }.apply {
+    createProgressbar()
     createIntro()
     createGhostSpawner()
     createPlayerStick()
     enableInput()
+    enableCombo()
 }

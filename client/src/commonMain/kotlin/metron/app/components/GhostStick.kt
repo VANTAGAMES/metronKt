@@ -1,6 +1,7 @@
 package metron.app.components
 
 import com.github.quillraven.fleks.*
+import event.*
 import korlibs.datastructure.iterators.*
 import korlibs.image.color.*
 import korlibs.io.lang.*
@@ -33,6 +34,7 @@ data class GhostStick(
                     ghostStick.lifeTime/2, Easing.EASE_OUT,
                     effects = arrayOf(effectAlpha(1f, isDown = true))
                 ) {
+                    screen.dispatch(GhostDrawedEvent(ghostStick, isNaturally = true))
                     removeFromParent()
                     ghostStick.stage.alives.fastIterateRemove { it.body == ghostStick.body }
                     entity.remove()
