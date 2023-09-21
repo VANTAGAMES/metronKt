@@ -15,7 +15,9 @@ class Combo(val stage: Stage) {
     private var viewOrNull: View? = null
     val view: View
         get() = viewOrNull?: run {
-            viewOrNull = stage.createTitle("", fontSize = 30)
+            viewOrNull = stage.createTitle("", fontSize = 30) {
+                positionY(pos.y - 70f)
+            }
             viewOrNull!!
         }
 
@@ -46,7 +48,7 @@ class Combo(val stage: Stage) {
         viewOrNull = null
         view.easingEffect(
             span, Easing.EASE_OUT, arrayOf(
-                effectAlpha(1f),
+                effectAlpha(1.2f),
                 effectPosY(span.seconds.toFloat() * 100f)
             )
         )
@@ -55,7 +57,7 @@ class Combo(val stage: Stage) {
         val span = 0.7.seconds
         viewOrNull?.easingEffect(
             span, Easing.EASE_IN, arrayOf(
-                effectAlpha(1f, isDown = true),
+                effectAlpha(1.2f, isDown = true),
                 effectPosY(span.seconds.toFloat() * 100f)
             )
         ) {

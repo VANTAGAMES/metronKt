@@ -12,7 +12,7 @@ import metron.app.Stage
 import util.*
 import kotlin.math.*
 
-fun Stage.createTitle(text: String, fontSize: Int = 41) = screen.uiText(text, size = screen.size) {
+fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.() -> Unit = {}) = screen.uiText(text, size = screen.size) {
     styles {
         textFont = boldFont
         textAlignment = TextAlignment.MIDDLE_CENTER
@@ -24,4 +24,5 @@ fun Stage.createTitle(text: String, fontSize: Int = 41) = screen.uiText(text, si
 //        filter = BlurFilter((sqrt(screen.height / scene.height) - 1))
         positionY((screen.height - stickHeight) / 4 - screen.height / 2f)
     }
+    configuration(this)
 }
