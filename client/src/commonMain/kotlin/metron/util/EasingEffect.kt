@@ -4,9 +4,11 @@ import korlibs.datastructure.*
 import korlibs.datastructure.iterators.*
 import korlibs.event.*
 import korlibs.io.lang.*
+import korlibs.korge.tween.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import kotlinx.uuid.*
 import metron.*
 import metron.util.Effect.Companion.EffectComponentKey
@@ -20,19 +22,21 @@ class EasingEffect(
     val view: View
 ) {
     private lateinit var onDestroyView: Cancellable
-    private lateinit var scheduledTask: Cancellable
+    private lateinit var scheduledTask: Deferred<*>
 
     fun enableEffect() {
         val span = timeSpan
         startEffect()
-        scheduledTask = screen.schedule(span,
-            onDelay = { elapsed ->
-                val period = elapsed / span
-                effects.fastForEach { it.applyEffect(view, easing(period)) }
-            }, onStopped = {
-                stopEffect()
+        launchNow {
+            scheduledTask = view.tweenAsync(
+                V2Callback { ratio ->
+                    effects.fastForEach { it.applyEffect(view, ratio.value) }
+                },
+                time = span, easing = easing,
+            ) {
+                if (it == 1f) stopEffect()
             }
-        )
+        }
     }
 
     fun startEffect() {
@@ -52,7 +56,6 @@ class EasingEffect(
     }
 
     fun stopEffect() {
-        val originalParent = view.parent?.parent?: return
         val tuckedParent = view.parent
         val thisEasingEffect = this
         scheduledTask.cancel()
@@ -63,6 +66,11 @@ class EasingEffect(
                 }
             }
         }
+        val originalParent = (view.parent?: run {
+            onDestroyView.cancel()
+            finishing(view)
+            return
+        }).parent!!
         tuckedParent?.removeFromParent()
         view.removeFromParent()
         view.addTo(originalParent)
@@ -84,12 +92,12 @@ fun interface Effect {
             effects: Array<Effect>,
             finishing: View.() -> Unit = {},
         ) = EasingEffect(
-            easing = easing,
-            finishing = finishing,
-            timeSpan = timeSpan,
-            effects = effects,
-            view = this
-        ).enableEffect()
+                easing = easing,
+                finishing = finishing,
+                timeSpan = timeSpan,
+                effects = effects,
+                view = this
+            ).enableEffect()
         fun posX(magnanimity: Float, isDown: Boolean = false): Effect {
             var origin: Float? = null
             return Effect { view, value ->

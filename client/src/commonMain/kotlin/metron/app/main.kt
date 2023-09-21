@@ -1,5 +1,8 @@
 package metron.app
 
+import korlibs.korge.view.*
+import korlibs.time.*
+import metron.*
 import metron.app.components.*
 import metron.app.entities.*
 import metron.app.systems.*

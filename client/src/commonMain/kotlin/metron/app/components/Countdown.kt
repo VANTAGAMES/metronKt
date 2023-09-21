@@ -13,7 +13,10 @@ import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.effectPosY
 import kotlin.math.*
 
-fun Stage.createIntro() {
+suspend fun Stage.createIntro() {
+    magnanimity = .0
+    isForcePaused = true
+
     val title = createTitle("스페이스바를 클릭하세요").apply {
         easingEffect(
             0.7.seconds, Easing.EASE_OUT, arrayOf(
@@ -22,19 +25,14 @@ fun Stage.createIntro() {
             )
         )
     }
-
-    val node = screen.dummyView()
-    node.onEvent(HitEvent) {
+    val hitEventNode = screen.dummyView()
+    hitEventNode.onEvent(HitEvent) {
         isForcePaused = false
-        println(isPausedByUser)
-        println(isForcePaused)
-        println(false || false)
-        println(isPaused)
-        node.removeFromParent()
+        hitEventNode.removeFromParent()
         title.easingEffect((bpmToSec/3).seconds, Easing.EASE_OUT, arrayOf(
             effectAlpha(1f, isDown = true),
             effectPosY(70f)
-        ))
+        )) { removeFromParent() }
         countdown()
         screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
             Effect { _, value -> magnanimity = value * level.magnanimity }
@@ -59,6 +57,7 @@ fun Stage.countdown(times: Int = 4) {
                             effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
                         )
                     ) {
+                        println("removed")
                         removeFromParent()
                     }
                 }

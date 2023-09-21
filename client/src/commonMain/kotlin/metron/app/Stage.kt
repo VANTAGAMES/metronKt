@@ -4,14 +4,20 @@ import com.github.quillraven.fleks.*
 import korlibs.audio.sound.*
 import korlibs.datastructure.*
 import korlibs.image.font.*
+import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.korge.time.*
+import korlibs.korge.tween.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import metron.*
 import metron.app.components.*
+import util.*
+import kotlin.coroutines.*
 import kotlin.math.*
 
 data class Stage(
@@ -37,10 +43,10 @@ data class Stage(
     val easing: Easing = getDefaultEasing()
     var playingMusic: SoundChannel? = null
 
-    var isForcePaused: Boolean = true
+    var isForcePaused: Boolean = false
     var isPausedByUser: Boolean = false
     val isPaused get() = isForcePaused || isPausedByUser
-    var magnanimity = .0
+    var magnanimity = level.magnanimity
     var elapsedSeconds: TimeSpan = defaultElapsed()
     val alives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0
@@ -82,7 +88,7 @@ data class Stage(
             val hitSound = nativeSoundProvider.createNonStreamingSound(
                 resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readAudioData()
             ).also { it.volume = 0.7 }
-            val music = resourcesVfs["$levelName/song.mp3"].apply { cachedToMemory() } .readSound()
+            val music = resourcesVfs["$levelName/song.mp3"].apply { cachedToMemory() }.readSound()
             music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }
             val boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
@@ -97,9 +103,10 @@ data class Stage(
             ).also {
                 it.world = configureWorld { configuration(this, it) }
                     .also { world ->
-                        screen.addUpdater { deltaTime ->
-                            world.update(deltaTime.seconds.toFloat())
+                        screen.onEvent(UpdateEvent) {
+                            world.update(it.deltaTime.seconds.toFloat())
                         }
+
                     }
             }
         }
