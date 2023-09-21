@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform") version libs.versions.kotlin
 }
