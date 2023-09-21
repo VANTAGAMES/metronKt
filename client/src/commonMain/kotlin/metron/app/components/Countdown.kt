@@ -6,11 +6,13 @@ import korlibs.korge.view.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
+import metron.app.*
 import metron.app.Stage
 import metron.util.Effect
 import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.effectPosY
+import util.*
 import kotlin.math.*
 
 suspend fun Stage.createIntro() {
@@ -34,6 +36,7 @@ suspend fun Stage.createIntro() {
             effectPosY(70f)
         )) { removeFromParent() }
         countdown()
+        launchNow { enableMusic() }
         screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
             Effect { _, value -> magnanimity = value * level.magnanimity }
         )) { magnanimity = level.magnanimity; removeFromParent() }

@@ -31,17 +31,19 @@ class Combo(val stage: Stage) {
         }
 
     fun stepCombo() {
-        if (++stack == 1) {
+        if (stack == 1) {
             showCombo()
         }
+        stack++
     }
     fun resetCombo() {
-        stack = 0
         hideCombo()
+        stack = 0
     }
 
     private fun showCombo() {
         val span = 0.7.seconds
+        viewOrNull = null
         view.easingEffect(
             span, Easing.EASE_OUT, arrayOf(
                 effectAlpha(1f),
@@ -56,7 +58,11 @@ class Combo(val stage: Stage) {
                 effectAlpha(1f, isDown = true),
                 effectPosY(span.seconds.toFloat() * 100f)
             )
-        ) { removeView() }
+        ) {
+            removeFromParent()
+        }.also {
+            viewOrNull = null
+        }
     }
 
 
