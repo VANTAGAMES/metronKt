@@ -10,7 +10,6 @@ import kotlin.math.*
 suspend fun Stage.enableMusic() {
     val offset = max(.0, offset * -1).seconds
     screen.timers.timeout(offset) {
-        println("A")
         launchNow { playingMusic = music.play().apply { volume = 0.55 } }
     }
 }

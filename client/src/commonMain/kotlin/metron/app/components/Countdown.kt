@@ -47,6 +47,7 @@ fun Stage.countdown(times: Int = 4) {
     (1..times).forEach { num ->
         val countdownEffectPeriod = (bpmToSec / 3).seconds
         screen.timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
+            launchNow { hitSound.play() }
             createTitle(if (num == times) "시작!" else " ${times - num} ")
                 .easingEffect(
                     countdownEffectPeriod, Easing.EASE_IN_QUAD, arrayOf(
