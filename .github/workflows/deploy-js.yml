@@ -35,7 +35,7 @@ jobs:
         with:
           java-version: 11
       - name: Prepare Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@main
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Buid JS bundle
