@@ -21,11 +21,6 @@ class Combo(val stage: Stage) {
             viewOrNull!!
         }
 
-    private fun removeView() {
-        view.removeFromParent()
-        viewOrNull = null
-    }
-
     private var stack: Int = 0
         set(value) {
             field = value
