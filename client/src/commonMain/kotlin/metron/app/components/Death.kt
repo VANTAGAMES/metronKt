@@ -4,4 +4,5 @@ import korlibs.korge.view.*
 import metron.*
 
 fun enableDeath() {
+
 }

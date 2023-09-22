@@ -8,7 +8,6 @@ import metron.*
 import metron.app.*
 import metron.app.components.*
 import metron.app.entities.*
-import util.*
 
 class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
     family {
@@ -27,7 +26,7 @@ class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
             val angle = performAngle(nextSec)
             val spawner = entity[GhostStickSpawner]
             val ghost = createGhostNote(spawner, angle, lifeTime, nextSec)
-            alives.add(ghost)
+            lives.add(ghost)
             screen.dispatch(GhostSpawnEvent(ghost))
             previousNote = currentNote
             currentNote += noteIterator.next()

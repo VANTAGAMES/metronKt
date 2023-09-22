@@ -1,3 +1,2 @@
 dependencies:
   - https://github.com/korlibs/korge-fleks/tree/main/fleks
-  - https://github.com/korlibs/korma-triangulator/tree/main/korma-triangulator

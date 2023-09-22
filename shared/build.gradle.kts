@@ -10,8 +10,6 @@ plugins {
 }
 
 korge {
-    println(kotlinVersion)
-    println(korgeVersion)
     targetJvm()
     targetJs()
     targetDesktop()

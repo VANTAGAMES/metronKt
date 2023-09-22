@@ -4,7 +4,6 @@ import com.github.quillraven.fleks.*
 import korlibs.datastructure.iterators.*
 import korlibs.image.text.*
 import korlibs.korge.view.*
-import korlibs.korge.view.filter.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import metron.*
@@ -23,7 +22,7 @@ class Audit private constructor() : Component<Audit> {
                 body.removeFromParent()
             }
             val stage = ghostStick.stage
-            stage.alives.fastIterateRemove { it.body == body }
+            stage.lives.fastIterateRemove { it.body == body }
             screen.text(" ${audit.text} ", 45f, color = audit.color, font = stage.boldFont) {
 //                filter = BlurFilter(0.5f)
                 alignment = TextAlignment.CENTER

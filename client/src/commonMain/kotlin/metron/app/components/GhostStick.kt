@@ -36,7 +36,7 @@ data class GhostStick(
                 ) {
                     screen.dispatch(GhostDrawedEvent(ghostStick, isNaturally = true))
                     removeFromParent()
-                    ghostStick.stage.alives.fastIterateRemove { it.body == ghostStick.body }
+                    ghostStick.stage.lives.fastIterateRemove { it.body == ghostStick.body }
                     entity.remove()
                 }
             }

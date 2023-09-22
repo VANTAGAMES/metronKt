@@ -4,20 +4,14 @@ import com.github.quillraven.fleks.*
 import korlibs.audio.sound.*
 import korlibs.datastructure.*
 import korlibs.image.font.*
-import korlibs.io.async.*
 import korlibs.io.file.std.*
-import korlibs.korge.time.*
-import korlibs.korge.tween.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
-import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import metron.*
 import metron.app.components.*
-import util.*
-import kotlin.coroutines.*
 import kotlin.math.*
 
 data class Stage(
@@ -40,7 +34,6 @@ data class Stage(
     val delay get() = bpmToSec*4.0
     val offset get() = level.offset
     val offsetToSec get() = offset*bpmToSec
-    val degrees get() = level.degrees.degrees
     val easing: Easing = getDefaultEasing()
     var playingMusic: SoundChannel? = null
 
@@ -49,7 +42,7 @@ data class Stage(
     val isPaused get() = isForcePaused || isPausedByUser
     var magnanimity = level.magnanimity
     var elapsedSeconds: TimeSpan = defaultElapsed()
-    val alives: MutableList<GhostStick> = fastArrayListOf()
+    val lives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0
     var noteIterator = level.map.iterator()
     var previousNote = .0

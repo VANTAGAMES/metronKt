@@ -23,7 +23,7 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
     companion object {
         private val auditTypes = AuditType.values()
         fun Stage.audit(delta: TimeSpan) {
-            alives.fastForEach { ghost ->
+            lives.fastForEach { ghost ->
                 val sub = elapsedSeconds+delta - ghost.nextNote
                 run {
                     auditTypes.fastForEach { audit ->
