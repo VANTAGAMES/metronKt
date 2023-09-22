@@ -19,10 +19,10 @@ suspend fun mainView() = Stage("level1") { stage ->
         add(AuditSpawnerSystem(stage))
     }
 }.apply {
-    createProgressbar()
-    createIntro()
+    enableIntro()
     createGhostSpawner()
     createPlayerStick()
     enableInput()
     enableCombo()
+    enableProgressbar()
 }

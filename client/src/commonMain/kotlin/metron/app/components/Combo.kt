@@ -11,8 +11,20 @@ import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.effectPosY
 
+fun Stage.enableCombo() {
+    Combo(this).apply {
+        screen.onEvent(GhostDrawedEvent) {
+            if (it.isNaturally) resetCombo()
+        }
+        screen.onEvent(AuditEvent) {
+            if (it.audit == AuditType.PERF) stepCombo() else resetCombo()
+        }
+    }
+}
+
 class Combo(val stage: Stage) {
     private var viewOrNull: View? = null
+
     val view: View
         get() = viewOrNull?: run {
             viewOrNull = stage.createTitle("", fontSize = 30) {
@@ -26,18 +38,17 @@ class Combo(val stage: Stage) {
             field = value
             if (value > 0) viewOrNull.setText(formattedCombo(value))
         }
-
     fun stepCombo() {
         if (stack == 1) {
             showCombo()
         }
         stack++
     }
+
     fun resetCombo() {
         hideCombo()
         stack = 0
     }
-
     private fun showCombo() {
         val span = 0.7.seconds
         viewOrNull = null
@@ -63,19 +74,7 @@ class Combo(val stage: Stage) {
     }
 
 
+    private fun formattedCombo(combo: Int) = " ${combo - 1} \n-COMBO- "
 }
 
-
-fun Stage.enableCombo() {
-    Combo(this).apply {
-        screen.onEvent(GhostDrawedEvent) {
-            if (it.isNaturally) resetCombo()
-        }
-        screen.onEvent(AuditEvent) {
-            if (it.audit == AuditType.PERF) stepCombo() else resetCombo()
-        }
-    }
-}
-
-private fun formattedCombo(combo: Int) = " ${combo - 1} \n-COMBO- "
 

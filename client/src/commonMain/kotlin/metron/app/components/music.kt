@@ -1,9 +1,9 @@
-package metron.app
+package metron.app.components
 
-import korlibs.io.async.*
 import korlibs.korge.time.*
 import korlibs.time.*
 import metron.*
+import metron.app.Stage
 import util.*
 import kotlin.math.*
 
