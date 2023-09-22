@@ -28,7 +28,7 @@ class Audit private constructor() : Component<Audit> {
 //                filter = BlurFilter(0.5f)
                 alignment = TextAlignment.CENTER
                 globalPos = body.globalPos
-                val auditHeight = stickHeight + 50
+                val auditHeight = stickHeight + 70
                 pos = Point(pos.x + auditHeight * cos(angle + offset), pos.y + auditHeight * sin(angle + offset))
                 var elapsed = 0.milliseconds
                 onEvent(UpdateEvent) {

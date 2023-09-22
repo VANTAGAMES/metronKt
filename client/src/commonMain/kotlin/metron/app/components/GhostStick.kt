@@ -55,7 +55,7 @@ data class GhostStick(
                 size = stickSize, color = Colors["9DB2BF"]
             ) {
                 transform { size(stickSize) }
-                configurePosition(this)
+                configurePositionAndAnchor(this)
                 rotation = angle
                 zIndex = 0f
             }
