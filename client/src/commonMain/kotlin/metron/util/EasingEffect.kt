@@ -4,12 +4,12 @@ import korlibs.datastructure.*
 import korlibs.datastructure.iterators.*
 import korlibs.event.*
 import korlibs.io.lang.*
+import korlibs.io.util.*
 import korlibs.korge.tween.*
 import korlibs.korge.view.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlinx.coroutines.*
-import kotlinx.uuid.*
 import metron.*
 import metron.util.Effect.Companion.EffectComponentKey
 import util.*
@@ -85,7 +85,7 @@ fun interface Effect {
     fun applyEffect(view: View, value: Float)
 
     companion object {
-        val EffectComponentKey = UUID.generateUUID().toString()
+        val EffectComponentKey = UUID.randomUUID().toString()
         fun View.easingEffect(
             timeSpan: TimeSpan,
             easing: Easing = Easing.EASE_OUT,

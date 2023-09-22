@@ -41,7 +41,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(libs.kotlinx.uuid)
+//                api(libs.kotlinx.uuid)
             }
         }
     }

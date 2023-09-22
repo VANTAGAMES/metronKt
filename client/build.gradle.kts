@@ -46,7 +46,7 @@ kotlin {
 //            kotlin.addSrcDir(File(project(":shared").projectDir, "src/commonMain/kotlin"))
             dependencies {
                 api(project(":deps"))
-                api(libs.kotlinx.uuid)
+//                api(libs.kotlinx.uuid)
 //                api(project(":shared"))
             }
         }
@@ -60,7 +60,10 @@ fun SourceDirectorySet.addSrcDir(file: File) {
 
 @Suppress("UnstableApiUsage")
 tasks.withType<ProcessResources> {
-    filesMatching("client.properties") {
-        expand(rootProject.properties)
+    filesMatching("./client.properties") {
+        expand(*listOf(
+            "server",
+            "version"
+        ).map { it to property(it) }.toTypedArray())
     }
 }
