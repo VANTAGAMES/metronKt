@@ -60,10 +60,9 @@ fun SourceDirectorySet.addSrcDir(file: File) {
 
 @Suppress("UnstableApiUsage")
 tasks.withType<ProcessResources> {
-    filesMatching("./client.properties") {
-        expand(*listOf(
-            "server",
-            "version"
-        ).map { it to property(it) }.toTypedArray())
+    afterEvaluate {
+        filesMatching("client.properties") {
+            expand(rootProject.properties)
+        }
     }
 }
