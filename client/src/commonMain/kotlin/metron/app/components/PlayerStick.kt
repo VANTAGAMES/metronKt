@@ -26,7 +26,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
             val baseUpperWidth = 225f
             val baseWidth = 400f
             val roofHeight = -(stickHeight/20)
-            val ratio = 1/6f
+            val ratio = 1/6.2f
             val bottomBaseHeight = stickHeight*ratio
             val side = sqrt(((baseWidth - baseUpperWidth) / 2f).pow(2) + stickHeight.pow(2))
             val outline = sqrt((side * ratio).pow(2) - bottomBaseHeight.pow(2))
@@ -50,7 +50,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                 }.zIndex(-10),
                 screen.container {
                     shapeView(pointArrayListOf(
-                        Point(-outline*(7.nextPowerOfTwo), 0),
+                        Point(-(baseWidth - baseUpperWidth) + outline*2f, 0),
                         Point(bottomBaseWidth, 0),
                         Point(baseWidth, bottomBaseHeight),
                         Point(baseUpperWidth - baseWidth, bottomBaseHeight)
