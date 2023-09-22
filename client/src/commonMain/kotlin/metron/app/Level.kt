@@ -10,6 +10,10 @@ import kotlin.time.*
 
 @Serializable
 data class Level(
+    @SerialName("Name")
+    val name: String,
+    @SerialName("Author")
+    val author: String,
     @SerialName("Bpm")
     val bpm: Double,
     @SerialName("Offset")
@@ -31,6 +35,7 @@ data class Level(
     }
     companion object {
         val default get() = Level(
+            name = "Intruder", author = "Riya",
             bpm = 87.5,
             degrees = 45.0*2/3,
             offset = -3.0,

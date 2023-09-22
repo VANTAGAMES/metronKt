@@ -3,6 +3,7 @@ package metron.app.components
 import event.*
 import korlibs.korge.time.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
@@ -18,7 +19,8 @@ suspend fun Stage.enableIntro() {
     magnanimity = .0
     isForcePaused = true
 
-    val title = createTitle("스페이스바를 클릭하세요").apply {
+    val title = createTitle("스페이스바를 클릭하세요") {
+        transform { centerXOn(screen) }
         easingEffect(
             0.7.seconds, Easing.EASE_OUT, arrayOf(
                 effectAlpha(1.25f),
@@ -47,8 +49,9 @@ fun Stage.countdown(times: Int = 4) {
         val countdownEffectPeriod = (bpmToSec / 3).seconds
         screen.timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
             launchNow { hitSound.play() }
-            createTitle(if (num == times) "시작!" else " ${times - num} ")
-                .easingEffect(
+            createTitle(if (num == times) "시작!" else " ${times - num} ") {
+                transform { centerXOn(screen) }
+                easingEffect(
                     countdownEffectPeriod, Easing.EASE_IN_QUAD, arrayOf(
                         effectAlpha(1f),
                         effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
@@ -63,6 +66,7 @@ fun Stage.countdown(times: Int = 4) {
                         removeFromParent()
                     }
                 }
+            }
         }
     }
 }

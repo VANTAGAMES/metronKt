@@ -6,26 +6,27 @@ import korlibs.image.text.*
 import korlibs.korge.style.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
-import korlibs.korge.view.align.*
-import korlibs.korge.view.filter.*
 import metron.*
 import metron.app.Stage
 import metron.util.*
 import util.*
-import kotlin.math.*
 
-fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.() -> Unit = {}) = screen.uiText(text, size = screen.size) {
-    styles {
-        textFont = boldFont
-        textAlignment = TextAlignment.MIDDLE_CENTER
-        textColor = Colors["DDE6ED"]
-    }
-    transform {
-        size(screen.size).centerXOn(screen)
-        styles.textSize = fontSize * ((screen.height / scene.height))
+val globalTextColor = Colors["DDE6ED"]
+
+fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.() -> Unit = {}): UIText {
+    return screen.uiText(text, size = screen.size) {
+        styles {
+            textFont = boldFont
+            textAlignment = TextAlignment.MIDDLE_CENTER
+            textColor = globalTextColor
+        }
+        transform {
+            size(screen.size)
+            styles.textSize = fontSize * ((screen.height / scene.height))
 //        filter = BlurFilter((sqrt(screen.height / scene.height) - 1))
-        positionY(getExtra(Effect.EffectedPosY)?.fastCastTo<Float>()?.times(screen.height)
-            ?: (screen.height / -2.3f))
+            positionY(getExtra(Effect.EffectedPosY)?.fastCastTo<Float>()?.times(screen.height)
+                ?: (screen.height / -2.3f))
+        }
+        configuration(this)
     }
-    configuration(this)
 }

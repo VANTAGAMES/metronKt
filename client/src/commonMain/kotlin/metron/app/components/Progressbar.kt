@@ -1,5 +1,6 @@
 package metron.app.components
 
+import event.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import metron.*
@@ -14,5 +15,8 @@ fun Stage.enableProgressbar() {
         positionY(screen.height - progressbarThickness)
     }.addUpdater {
         scaleX = elapsedSeconds / playingTime
+        if (scaleX >= 1) {
+            screen.dispatch(GameEndEvent())
+        }
     }
 }

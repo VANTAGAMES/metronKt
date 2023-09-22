@@ -25,4 +25,6 @@ suspend fun mainView() = Stage("level1") { stage ->
     enableInput()
     enableCombo()
     enableProgressbar()
+    enableScore()
+    enableSongTitle()
 }

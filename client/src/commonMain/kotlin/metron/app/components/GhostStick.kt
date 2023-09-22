@@ -31,8 +31,8 @@ data class GhostStick(
         override val onAdded: ComponentHook<GhostStick> = { entity, ghostStick ->
             screen.timers.timeout(ghostStick.lifeTime) {
                 ghostStick.body.easingEffect(
-                    ghostStick.lifeTime/2, Easing.EASE_OUT,
-                    effects = arrayOf(effectAlpha(1f, isDown = true))
+                    (ghostStick.stage.bpmToSec).seconds, Easing.LINEAR,
+                    effects = arrayOf(effectAlpha(0.5f, isDown = true))
                 ) {
                     screen.dispatch(GhostDrawedEvent(ghostStick, isNaturally = true))
                     removeFromParent()
@@ -52,8 +52,9 @@ data class GhostStick(
         ): GhostStick {
             val body = spawner.ghostContainer.fastRoundRect(
                 corners = RectCorners(1),
-                size = stickSize, color = Colors["9DB2BF"]
+                size = stickSize, color = Colors.WHITESMOKE
             ) {
+                alpha = 0.5f
                 transform { size(stickSize) }
                 configurePositionAndAnchor(this)
                 rotation = angle
