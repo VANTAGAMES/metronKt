@@ -31,7 +31,7 @@ data class GhostStick(
         override val onAdded: ComponentHook<GhostStick> = { entity, ghostStick ->
             screen.timers.timeout(ghostStick.lifeTime) {
                 ghostStick.body.easingEffect(
-                    (ghostStick.stage.bpmToSec).seconds, Easing.LINEAR,
+                    ghostStick.lifeTime/2, Easing.EASE_OUT,
                     effects = arrayOf(effectAlpha(0.5f, isDown = true))
                 ) {
                     screen.dispatch(GhostDrawedEvent(ghostStick, isNaturally = true))
