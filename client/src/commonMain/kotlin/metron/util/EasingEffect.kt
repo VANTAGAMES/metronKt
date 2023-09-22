@@ -86,6 +86,8 @@ fun interface Effect {
 
     companion object {
         val EffectComponentKey = UUID.randomUUID().toString()
+        val EffectedPosY = UUID.randomUUID().toString()
+        val EffectedPosX = UUID.randomUUID().toString()
         fun View.easingEffect(
             timeSpan: TimeSpan,
             easing: Easing = Easing.EASE_OUT,
@@ -103,6 +105,7 @@ fun interface Effect {
             return Effect { view, value ->
                 if (origin === null) origin = view.pos.x
                 view.positionX(origin!! + magnanimity * if (isDown) 1 - value else value)
+                view.setExtra(EffectedPosX, view.pos.x/screen.width)
             }
         }
         fun effectPosY(magnanimity: Float, isDown: Boolean = false): Effect {
@@ -110,6 +113,7 @@ fun interface Effect {
             return Effect { view, value ->
                 if (origin === null) origin = view.pos.y
                 view.positionY(origin!! + magnanimity * if (isDown) 1 - value else value)
+                view.setExtra(EffectedPosY, view.pos.y/screen.height)
             }
         }
         fun effectAlpha(magnanimity: Float, isDown: Boolean = false) = Effect { view, value ->

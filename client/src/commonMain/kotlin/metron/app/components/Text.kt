@@ -1,5 +1,6 @@
 package metron.app.components
 
+import korlibs.datastructure.*
 import korlibs.image.color.*
 import korlibs.image.text.*
 import korlibs.korge.style.*
@@ -9,6 +10,7 @@ import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import metron.*
 import metron.app.Stage
+import metron.util.*
 import util.*
 import kotlin.math.*
 
@@ -22,7 +24,8 @@ fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.()
         size(screen.size).centerXOn(screen)
         styles.textSize = fontSize * ((screen.height / scene.height))
 //        filter = BlurFilter((sqrt(screen.height / scene.height) - 1))
-        positionY((screen.height - stickHeight) / 4 - screen.height / 2f)
+        positionY(getExtra(Effect.EffectedPosY)?.fastCastTo<Float>()?.times(screen.height)
+            ?: (screen.height / -2.3f))
     }
     configuration(this)
 }
