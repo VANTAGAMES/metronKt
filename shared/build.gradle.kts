@@ -1,5 +1,4 @@
-import korlibs.korge.gradle.KorgeGradlePlugin
-import korlibs.korge.gradle.korge
+import korlibs.korge.gradle.*
 import korlibs.korge.gradle.typedresources.GenerateTypedResourcesTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -11,6 +10,8 @@ plugins {
 }
 
 korge {
+    println(kotlinVersion)
+    println(korgeVersion)
     targetJvm()
     targetJs()
     targetDesktop()
