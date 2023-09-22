@@ -1,0 +1,3 @@
+[submodule "korge"]
+	path = korge
+	url = https://github.com/korlibs/korge

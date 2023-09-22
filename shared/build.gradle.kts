@@ -7,7 +7,7 @@ apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.korge)
 }
 
 korge {

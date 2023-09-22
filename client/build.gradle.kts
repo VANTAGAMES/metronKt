@@ -10,7 +10,6 @@ apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.korge)
-    kotlin("multiplatform")
 }
 
 korge {
@@ -46,9 +45,9 @@ kotlin {
         val commonMain by getting {
 //            kotlin.addSrcDir(File(project(":shared").projectDir, "src/commonMain/kotlin"))
             dependencies {
-                api("de.cketti.unicode:kotlin-codepoints-deluxe:0.6.1")
                 api(project(":deps"))
-                api(project(":shared"))
+                api(libs.kotlinx.uuid)
+//                api(project(":shared"))
             }
         }
     }
