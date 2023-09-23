@@ -25,6 +25,10 @@ fun Stage.enableScore() {
             positionY(padding)
         }
     }
+    screen.onEvent(GameStartEvent) {
+        score = 0
+        body.setText("$score")
+    }
     screen.onEvent(AuditEvent) { event ->
         val scoreAdder = when(event.audit) {
             AuditType.TOO_FAST -> 0
