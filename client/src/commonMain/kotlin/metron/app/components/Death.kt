@@ -36,16 +36,16 @@ fun Stage.enableDeath() {
                 healthBar.modifyHealth(-0.98f)
             }
             onEvent(GhostDrawedEvent) {
-                healthBar.decreaseHealth(15f)
+                healthBar.decreaseHealth(10f)
             }
             onEvent(AuditEvent) {
                 healthBar.decreaseHealth(
                     when (it.audit) {
                         AuditType.TOO_FAST -> 20f
                         AuditType.TOO_SLOW -> 20f
-                        AuditType.FAST -> 15f
-                        AuditType.SLOW -> 15f
-                        AuditType.PERF -> -10f
+                        AuditType.FAST -> 10f
+                        AuditType.SLOW -> 10f
+                        AuditType.PERF -> -15f
                     }
                 )
             }
