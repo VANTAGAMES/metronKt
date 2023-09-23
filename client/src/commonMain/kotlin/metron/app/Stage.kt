@@ -37,10 +37,11 @@ data class Stage(
     val easing: Easing = getDefaultEasing()
     var playingMusic: SoundChannel? = null
 
-    var isForcePaused: Boolean = false
+    var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
     val isPaused get() = isForcePaused || isPausedByUser
-    var magnanimity = level.magnanimity
+    var isStopped = false
+    var magnanimity = .0
     var elapsedSeconds: TimeSpan = defaultElapsed()
     val lives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0

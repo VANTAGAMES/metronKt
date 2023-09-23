@@ -17,45 +17,58 @@ import kotlin.math.*
 
 val deathGageHeight get() = stickHeight
 
+class HealthBar(val stage: Stage, val view: View)
+
 fun Stage.enableDeath() {
-    screen.fastRoundRect(Size(stickWidth, deathGageHeight), RectCorners(1), color = PlayerStick.baseBodyColor) {
+    screen.container {
+        fastRoundRect(Size(stickWidth, deathGageHeight), RectCorners(1), PlayerStick.baseBodyColor)
+        fastRoundRect(Size(stickWidth, deathGageHeight), RectCorners(1), globalTextColor) {
+            val stage = this@enableDeath
+            val healthBar = HealthBar(stage, this)
+            onEvent(GameStartEvent) {
+                height = deathGageHeight
+            }
+            scaleY = -1f
+            positionY(pos.y + height)
+            addUpdater {
+                if (isPaused) return@addUpdater
+                if (elapsedSeconds < 0.seconds) return@addUpdater
+                healthBar.modifyHealth(-0.98f)
+            }
+            onEvent(GhostDrawedEvent) {
+                healthBar.decreaseHealth(15f)
+            }
+            onEvent(AuditEvent) {
+                healthBar.decreaseHealth(
+                    when (it.audit) {
+                        AuditType.TOO_FAST -> 20f
+                        AuditType.TOO_SLOW -> 20f
+                        AuditType.FAST -> 15f
+                        AuditType.SLOW -> 15f
+                        AuditType.PERF -> -10f
+                    }
+                )
+            }
+        }
         transform {
             val padding = 65
             alignY(screen, 0.48, true)
             positionX(padding)
         }
     }
-    screen.fastRoundRect(Size(stickWidth, deathGageHeight), RectCorners(1), color = globalTextColor) {
-        transform {
-            scaleY = -1f
-            val padding = 65
-            alignY(screen, 0.48, false)
-            positionX(padding)
-        }
-        addUpdater {
-            if (isPaused) return@addUpdater
-            if (elapsedSeconds < 0.seconds) return@addUpdater
-            val newValue = height-0.98f
-            height = min(newValue, deathGageHeight)
-        }
-        onEvent(GhostDrawedEvent) {
-            decreaseHealth(15f)
-        }
-        onEvent(AuditEvent) {
-            decreaseHealth(when (it.audit) {
-                AuditType.TOO_FAST -> 20f
-                AuditType.TOO_SLOW -> 20f
-                AuditType.FAST -> 15f
-                AuditType.SLOW -> 15f
-                AuditType.PERF -> -10f
-            })
-        }
-    }
 }
 
-private fun View.decreaseHealth(amount: Float) {
-    easingEffect(0.1.seconds, Easing.EASE_OUT, arrayOf(Effect { view, _ ->
-        val newValue = view.height-amount
-        view.height = min(newValue, deathGageHeight)
+private fun HealthBar.decreaseHealth(amount: Float): Unit = view.run {
+    screen.dummyView().easingEffect(0.1.seconds, Easing.EASE_OUT, arrayOf(Effect { view, _ ->
+        modifyHealth(-amount)
     }))
+}
+
+private fun HealthBar.modifyHealth(adder: Float): Unit = view.run {
+    if (this@modifyHealth.stage.isStopped) return@run
+    val newValue = height + adder
+    height = min(newValue, deathGageHeight)
+    if (height <= 0) {
+        screen.dispatch(GameEndEvent(isSuccess = false))
+    }
 }

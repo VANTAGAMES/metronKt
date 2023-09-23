@@ -12,7 +12,7 @@ import metron.util.*
 import util.*
 
 val globalTextColor = Colors["DDE6ED"]
-
+val titlePosY get() = screen.height / -2.3f
 fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.() -> Unit = {}): UIText {
     return screen.uiText(text, size = screen.size) {
         styles {
@@ -25,7 +25,7 @@ fun Stage.createTitle(text: String, fontSize: Int = 41, configuration: UIText.()
             styles.textSize = fontSize * ((screen.height / scene.height))
 //        filter = BlurFilter((sqrt(screen.height / scene.height) - 1))
             positionY(getExtra(Effect.EffectedPosY)?.fastCastTo<Float>()?.times(screen.height)
-                ?: (screen.height / -2.3f))
+                ?: (titlePosY))
         }
         configuration(this)
     }

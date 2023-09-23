@@ -15,7 +15,7 @@ class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
     },
 ) {
     override fun onTickEntity(entity: Entity): Unit = stage.run {
-        if (isPaused) return
+        if (isPaused || isStopped) return
         if (!noteIterator.hasNext()) return
         val nextSec = currentNote.seconds * bpmToSec
         val prevSec = previousNote.seconds * bpmToSec

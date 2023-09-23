@@ -21,6 +21,7 @@ suspend fun mainView() = Stage("level1") { stage ->
         add(AuditSpawnerSystem(stage))
     }
 }.apply {
+    enableMusic()
     enableIntro()
     createGhostSpawner()
     createPlayerStick()
@@ -30,4 +31,5 @@ suspend fun mainView() = Stage("level1") { stage ->
     enableScore()
     enableSongTitle()
     enableDeath()
+    enableGameFinishing()
 }

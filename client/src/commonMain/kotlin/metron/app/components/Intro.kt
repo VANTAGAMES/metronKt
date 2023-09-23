@@ -15,11 +15,8 @@ import metron.util.Effect.Companion.effectPosY
 import util.*
 import kotlin.math.*
 
-suspend fun Stage.enableIntro() {
-    magnanimity = .0
-    isForcePaused = true
-
-    val title = createTitle("스페이스바를 클릭하세요") {
+suspend fun Stage.enableIntro(intro: String = "스페이스바를 클릭하세요") {
+    val title = createTitle(intro) {
         transform { centerXOn(screen) }
         easingEffect(
             0.7.seconds, Easing.EASE_OUT, arrayOf(
@@ -30,14 +27,19 @@ suspend fun Stage.enableIntro() {
     }
     val hitEventNode = screen.dummyView()
     hitEventNode.onEvent(HitEvent) {
+        elapsedSeconds = defaultElapsed()
         isForcePaused = false
+        isStopped = false
+        noteIterator = level.map.iterator()
+        previousNote = .0
+        currentNote = .0
+        screen.dispatch(GameStartEvent())
         hitEventNode.removeFromParent()
         title.easingEffect((bpmToSec/3).seconds, Easing.EASE_OUT, arrayOf(
             effectAlpha(1f, isDown = true),
             effectPosY(70f)
         )) { removeFromParent() }
         countdown()
-        launchNow { enableMusic() }
         screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
             Effect { _, value -> magnanimity = value * level.magnanimity }
         )) { magnanimity = level.magnanimity; removeFromParent() }
