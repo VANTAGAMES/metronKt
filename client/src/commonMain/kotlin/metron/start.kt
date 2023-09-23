@@ -9,10 +9,12 @@ import korlibs.korge.scene.*
 import korlibs.korge.style.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.app.*
+import metron.app.components.*
 import metron.event.*
 import util.*
 
@@ -23,7 +25,7 @@ val defaultStyle: ViewStyles.() -> Unit = {
     textFont = font
     textAlignment = TextAlignment.MIDDLE_CENTER
     textSize = 100f
-    textColor = Colors.BLACK
+    textColor = globalTextColor
 }
 
 lateinit var scene: SceneContainer
@@ -63,6 +65,11 @@ class MainScene : Scene() {
             positionY(screen.height - height - padding)
             positionX(padding*2)
         }
+        val loading = uiText("로딩 중...") {
+            styles(defaultStyle)
+            centerOn(screen)
+        }
         mainView()
+        loading.removeFromParent()
     }
 }

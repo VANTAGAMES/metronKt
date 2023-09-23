@@ -70,7 +70,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                 }
             }
 
-            playerStick.body = screen.container().apply {
+            playerStick.body = screen.container().apply body@{
                 fastRoundRect(
                     corners = RectCorners(1),
                     size = stickSize, color = playerStickColor
@@ -82,16 +82,19 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                     }
                 }
                 configurePosition(this)
-                shapeView().transform {
-                    pointArrayListOf(
-                        Point(0, 0),
-                        Point(100, 0),
-                        Point(70, 100),
-                        Point(100 - 70, 100),
-                    ).toPolygon()
+                shapeView(pointArrayListOf(
+                    Point(0, 0),
+                    Point(100, 0),
+                    Point(70, 100),
+                    Point(100 - 70, 100),
+                ).toPolygon()).transform {
                     colorMul(playerStickColor)
                     anchor(0.5, 0.5)
-                    alignY(this@apply, 0.4, true)
+                    alignY(this@body, 0.4, true)
+                }.apply {
+                    addUpdater {
+                        alignY(this@body, 0.4 - min(0.1, playerStick.stage.magnanimity), true)
+                    }
                 }
             }
         }

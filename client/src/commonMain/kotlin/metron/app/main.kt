@@ -1,5 +1,7 @@
 package metron.app
 
+import korlibs.korge.ui.*
+import metron.*
 import metron.app.components.*
 import metron.app.entities.*
 import metron.app.systems.*
@@ -27,4 +29,5 @@ suspend fun mainView() = Stage("level1") { stage ->
     enableProgressbar()
     enableScore()
     enableSongTitle()
+    enableDeath()
 }

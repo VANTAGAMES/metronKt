@@ -51,7 +51,7 @@ data class Stage(
     fun defaultElapsed() =
         - (delay.seconds + max(0.seconds, offsetToSec.seconds))
     private fun getDefaultEasing() =
-        Easing { (((cos(PI * it) + 1) / 2) * magnanimity - 0.5 * magnanimity).toFloat() + 0.5f }
+        Easing { ((((cos(PI * it) + 1) / 2) * magnanimity - 0.5 * magnanimity).toFloat() + 0.5f) }
 
     fun resetElapsed() {
         elapsedSeconds = defaultElapsed()
