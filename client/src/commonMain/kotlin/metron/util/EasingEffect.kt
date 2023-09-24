@@ -100,7 +100,7 @@ fun interface Effect {
                 effects = effects,
                 view = this
             ).enableEffect()
-        fun posX(magnanimity: Float, isDown: Boolean = false): Effect {
+        fun effectPosX(magnanimity: Float, isDown: Boolean = false): Effect {
             var origin: Float? = null
             return Effect { view, value ->
                 if (origin === null) origin = view.pos.x

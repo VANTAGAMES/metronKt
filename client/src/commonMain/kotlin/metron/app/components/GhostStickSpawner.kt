@@ -11,7 +11,7 @@ class GhostStickSpawner : Component<GhostStickSpawner> {
     override fun type() = Companion
     companion object : ComponentHooks<GhostStickSpawner>() {
         override val onAdded: ComponentHook<GhostStickSpawner> = { entity, ghostSpawner ->
-            ghostSpawner.ghostContainer = screen.container() {
+            ghostSpawner.ghostContainer = camera.container() {
                 filter = null
             }
         }

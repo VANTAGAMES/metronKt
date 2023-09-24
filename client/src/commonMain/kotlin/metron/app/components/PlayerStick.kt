@@ -33,7 +33,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
         override val onAdded: ComponentHook<PlayerStick> = { entity, playerStick ->
 
             arrayOf(
-                screen.container {
+                camera.container {
                     shapeView().transform {
                             path = pointArrayListOf(
                                 Point(0, -roofHeight),
@@ -52,7 +52,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                         ).toPolygon()
                     }.colorMul(baseBodyColor)
                 }.zIndex(-10),
-                screen.container {
+                camera.container {
                     shapeView().transform {
                         path = pointArrayListOf(
                             Point(-(baseWidth - baseUpperWidth) + outline*2f, 0),
@@ -70,7 +70,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                 }
             }
 
-            playerStick.body = screen.container().apply body@{
+            playerStick.body = camera.container().apply body@{
                 fastRoundRect(
                     corners = RectCorners(1),
                     size = stickSize, color = playerStickColor

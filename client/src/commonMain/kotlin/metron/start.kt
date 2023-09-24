@@ -11,11 +11,16 @@ import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
+import korlibs.math.interpolation.*
+import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.app.*
 import metron.app.components.*
 import metron.event.*
+import metron.util.Effect.Companion.easingEffect
+import metron.util.Effect.Companion.effectAlpha
+import metron.util.Effect.Companion.effectPosX
 import util.*
 
 lateinit var currentUrl: String
@@ -31,6 +36,7 @@ val defaultStyle: ViewStyles.() -> Unit = {
 lateinit var scene: SceneContainer
 lateinit var screen: UIContainer
 lateinit var font: Font
+lateinit var camera: Camera
 
 suspend fun startMain() {
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
@@ -52,6 +58,7 @@ suspend fun startMain() {
 class MainScene : Scene() {
     override suspend fun SContainer.sceneMain() {
         screen = uiContainer(size) { styles(defaultStyle) }
+        camera = screen.camera()
         onStageResized { width, height ->
             screen.size(width, height)
             dispatch(ResizedEvent())
@@ -69,7 +76,15 @@ class MainScene : Scene() {
             styles(defaultStyle)
             centerOn(screen)
         }
+        loading.alignY(screen, 0.48, true)
+        val curtain = camera.solidRect(screen.size, color = Colors.BLACK).zIndex(10)
+            .transform { size(screen.size) }
         mainView()
-        loading.removeFromParent()
+        loading.easingEffect(0.2.seconds, Easing.SMOOTH, arrayOf(
+            effectAlpha(1f, isDown = true)
+        )) { removeFromParent() }
+        curtain.easingEffect(0.5.seconds, Easing.SMOOTH, arrayOf(
+            effectAlpha(1f, isDown = true)
+        )) { removeFromParent() }
     }
 }

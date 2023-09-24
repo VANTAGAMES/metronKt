@@ -25,7 +25,7 @@ class Audit private constructor() : Component<Audit> {
             }
             val stage = ghostStick.stage
             stage.lives.fastIterateRemove { it.body == body }
-            screen.text(" ${audit.text} ", 45f, color = audit.color, font = stage.boldFont) {
+            camera.text(" ${audit.text} ", 45f, color = audit.color, font = stage.boldFont) {
                 alignment = TextAlignment.CENTER
                 globalPos = body.globalPos
                 val auditHeight = stickHeight + 70
