@@ -5,6 +5,7 @@ import korlibs.korge.time.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.interpolation.*
+import korlibs.memory.*
 import korlibs.time.*
 import metron.*
 import metron.app.Stage
@@ -15,7 +16,9 @@ import metron.util.Effect.Companion.effectPosY
 import util.*
 import kotlin.math.*
 
-suspend fun Stage.enableIntro(intro: String = "스페이스바를 클릭하세요") {
+val isMobile get() = Platform.isAndroid || Platform.isAppleMobile
+
+suspend fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작하세요" else "스페이스바를 클릭하세요") {
     val title = createTitle(intro) {
         transform { centerXOn(screen) }
         easingEffect(
