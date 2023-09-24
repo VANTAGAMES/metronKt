@@ -53,7 +53,7 @@ fun Stage.enableDeath() {
             }
         }
         transform {
-            val padding = 65
+            val padding = 60
             alignY(screen, 0.48, true)
             positionX(padding)
         }
