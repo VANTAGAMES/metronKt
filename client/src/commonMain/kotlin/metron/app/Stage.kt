@@ -36,10 +36,11 @@ data class Stage(
     val offsetToSec get() = offset*bpmToSec
     val easing: Easing = getDefaultEasing()
     var playingMusic: SoundChannel? = null
-
+    val ghostContainer = camera.container()
     var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
     val isPaused get() = isForcePaused || isPausedByUser
+    var invulnerability = false
     var isStopped = false
     var magnanimity = .0
     var elapsedSeconds: TimeSpan = 0.seconds

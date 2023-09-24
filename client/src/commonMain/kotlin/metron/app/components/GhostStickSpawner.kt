@@ -7,13 +7,6 @@ import metron.*
 import metron.util.*
 
 class GhostStickSpawner : Component<GhostStickSpawner> {
-    lateinit var ghostContainer: Container
     override fun type() = Companion
-    companion object : ComponentHooks<GhostStickSpawner>() {
-        override val onAdded: ComponentHook<GhostStickSpawner> = { entity, ghostSpawner ->
-            ghostSpawner.ghostContainer = camera.container() {
-                filter = null
-            }
-        }
-    }
+    companion object : ComponentHooks<GhostStickSpawner>()
 }

@@ -9,7 +9,7 @@ import metron.app.Stage
 import metron.app.systems.AuditSpawnerSystem.Companion.audit
 
 fun Stage.enableInput() = screen.apply {
-    onEvent(HitEvent) {
+    screen.onEvent(HitEvent) {
         if (elapsedSeconds < 0.seconds) return@onEvent
         audit(it.delta)
     }
@@ -24,7 +24,7 @@ fun Stage.enableInput() = screen.apply {
             }
         }
     }
-    onEvent(TouchEvent.Type.START) { hit(it.currentTime - DateTime.now()) }
+    screen.onEvent(TouchEvent.Type.START) { hit(it.currentTime - DateTime.now()) }
 }
 
 private fun hit(delta: TimeSpan) {

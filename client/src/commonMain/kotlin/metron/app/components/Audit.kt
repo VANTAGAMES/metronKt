@@ -37,7 +37,7 @@ class Audit private constructor() : Component<Audit> {
                     )
                 )
                 var elapsed = 0.milliseconds
-                onEvent(UpdateEvent) {
+                screen.onEvent(UpdateEvent) {
                     elapsed += it.deltaTime
                     zIndex = 2f
                     if (elapsed >= ghostStick.lifeTime/2) {

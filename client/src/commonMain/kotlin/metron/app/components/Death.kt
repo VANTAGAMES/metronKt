@@ -25,7 +25,7 @@ fun Stage.enableDeath() {
         fastRoundRect(Size(stickWidth, deathGageHeight), RectCorners(1), globalTextColor) {
             val stage = this@enableDeath
             val healthBar = HealthBar(stage, this)
-            onEvent(GameStartEvent) {
+            screen.onEvent(GameStartEvent) {
                 if (height != deathGageHeight)
                     screen.dummyView().easingEffect(bpmToSec.seconds/4, Easing.SMOOTH,
                         arrayOf(Effect { _, value -> height = value*deathGageHeight }))
@@ -33,14 +33,18 @@ fun Stage.enableDeath() {
             scaleY = -1f
             positionY(pos.y + height)
             addUpdater {
+                healthBar.view.visible = !invulnerability
+                if (invulnerability) return@addUpdater
                 if (isPaused) return@addUpdater
                 if (elapsedSeconds < 0.seconds) return@addUpdater
                 healthBar.modifyHealth(-0.98f)
             }
-            onEvent(GhostDrawedEvent) {
+            screen.onEvent(GhostDrawedEvent) {
+                if (invulnerability) return@onEvent
                 healthBar.decreaseHealth(10f)
             }
-            onEvent(AuditEvent) {
+            screen.onEvent(AuditEvent) {
+                if (invulnerability) return@onEvent
                 healthBar.decreaseHealth(
                     when (it.audit) {
                         AuditType.TOO_FAST -> 20f

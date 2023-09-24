@@ -44,13 +44,12 @@ data class GhostStick(
 
         operator fun invoke(
             stage: Stage,
-            spawner: GhostStickSpawner,
             angle: Angle,
             lifeTime: TimeSpan,
             nextNote: TimeSpan,
             startTime: DateTime = DateTime.now()
         ): GhostStick {
-            val body = spawner.ghostContainer.fastRoundRect(
+            val body = stage.ghostContainer.fastRoundRect(
                 corners = RectCorners(1),
                 size = stickSize, color = Colors.WHITESMOKE
             ) {
