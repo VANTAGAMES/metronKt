@@ -90,10 +90,10 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                 ).toPolygon()).transform {
                     colorMul(playerStickColor)
                     anchor(0.5, 0.5)
-                    alignY(this@body, 0.45, true)
+                    alignY(this@body, 0.42, true)
                 }.apply {
                     addUpdater {
-                        alignY(this@body, 0.45 - min(0.08, playerStick.stage.magnanimity), true)
+                        alignY(this@body, 0.42 - min(0.08, playerStick.stage.magnanimity), true)
                     }
                 }
             }
