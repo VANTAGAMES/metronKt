@@ -89,7 +89,7 @@ data class Stage(
             hitSound.apply { play().apply { volume = .0 } }
             val boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
             val mediumFont = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-            val level = Json.decodeFromString<Level>(resourcesVfs["$levelName/level-backup.json"].readString())
+            val level = Json.decodeFromString<Level>(resourcesVfs["$levelName/level.json"].readString())
             return Stage(
                 music = music,
                 hitSound = hitSound,
