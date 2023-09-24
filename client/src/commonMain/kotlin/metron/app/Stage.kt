@@ -40,7 +40,7 @@ data class Stage(
     var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
     val isPaused get() = isForcePaused || isPausedByUser
-    var invulnerability = false
+    var isEditingMap = false
     var isStopped = false
     var magnanimity = .0
     var elapsedSeconds: TimeSpan = 0.seconds
@@ -89,7 +89,7 @@ data class Stage(
             hitSound.apply { play().apply { volume = .0 } }
             val boldFont = resourcesVfs["fonts/NanumSquareNeoTTF-eHv.woff"].readWoffFont()
             val mediumFont = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-            val level = Json.decodeFromString<Level>(resourcesVfs["$levelName/level.json"].readString())
+            val level = Json.decodeFromString<Level>(resourcesVfs["$levelName/level-backup.json"].readString())
             return Stage(
                 music = music,
                 hitSound = hitSound,

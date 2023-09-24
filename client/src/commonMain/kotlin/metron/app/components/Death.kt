@@ -11,7 +11,6 @@ import metron.app.*
 import metron.app.Stage
 import metron.util.Effect
 import metron.util.Effect.Companion.easingEffect
-import metron.util.Effect.Companion.effectPosY
 import util.*
 import kotlin.math.*
 
@@ -33,18 +32,18 @@ fun Stage.enableDeath() {
             scaleY = -1f
             positionY(pos.y + height)
             addUpdater {
-                healthBar.view.visible = !invulnerability
-                if (invulnerability) return@addUpdater
+                healthBar.view.visible = !isEditingMap
+                if (isEditingMap) return@addUpdater
                 if (isPaused) return@addUpdater
                 if (elapsedSeconds < 0.seconds) return@addUpdater
                 healthBar.modifyHealth(-0.98f)
             }
             screen.onEvent(GhostDrawedEvent) {
-                if (invulnerability) return@onEvent
+                if (isEditingMap) return@onEvent
                 healthBar.decreaseHealth(10f)
             }
             screen.onEvent(AuditEvent) {
-                if (invulnerability) return@onEvent
+                if (isEditingMap) return@onEvent
                 healthBar.decreaseHealth(
                     when (it.audit) {
                         AuditType.TOO_FAST -> 20f

@@ -20,7 +20,6 @@ import metron.app.components.*
 import metron.event.*
 import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha
-import metron.util.Effect.Companion.effectPosX
 import util.*
 
 lateinit var currentUrl: String
@@ -40,7 +39,7 @@ lateinit var camera: Camera
 
 suspend fun startMain() {
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-    resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
+//    resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
         windowSize = Size(1280, 720),
 //        title = "",

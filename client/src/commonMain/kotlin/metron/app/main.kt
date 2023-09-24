@@ -21,7 +21,6 @@ suspend fun mainView() = Stage("level1") { stage ->
         add(AuditSpawnerSystem(stage))
     }
 }.apply {
-//    enableMapEditor()
     enableHitEffect()
     enableMusic()
     enableIntro()

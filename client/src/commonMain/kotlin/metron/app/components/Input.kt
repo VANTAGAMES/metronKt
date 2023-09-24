@@ -22,6 +22,12 @@ fun Stage.enableInput() = screen.apply {
             } else {
                 playingMusic?.resume()
             }
+            if (isEditingMap) {
+                screen.dispatch(GameEndEvent(isSuccess = false))
+            }
+        }
+        down(Key.SHIFT, Key.E) {
+            enableMapEditor()
         }
     }
     screen.onEvent(TouchEvent.Type.START) { hit(it.currentTime - DateTime.now()) }
