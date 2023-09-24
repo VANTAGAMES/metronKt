@@ -26,7 +26,9 @@ fun Stage.enableDeath() {
             val stage = this@enableDeath
             val healthBar = HealthBar(stage, this)
             onEvent(GameStartEvent) {
-                height = deathGageHeight
+                if (height != deathGageHeight)
+                    screen.dummyView().easingEffect(bpmToSec.seconds/4, Easing.SMOOTH,
+                        arrayOf(Effect { _, value -> height = value*deathGageHeight }))
             }
             scaleY = -1f
             positionY(pos.y + height)
