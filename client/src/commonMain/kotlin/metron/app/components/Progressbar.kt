@@ -14,6 +14,7 @@ fun Stage.enableProgressbar() {
         scaleX = 0f
         positionY(screen.height - progressbarThickness)
     }.addUpdater {
+        if (isStopped) return@addUpdater
         scaleX = elapsedSeconds / playingTime
         if (scaleX >= 1) {
             screen.dispatch(GameEndEvent(isSuccess = true))
