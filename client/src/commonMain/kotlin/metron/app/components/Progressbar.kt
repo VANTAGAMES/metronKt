@@ -7,7 +7,7 @@ import metron.*
 import metron.app.Stage
 import util.*
 
-const val progressbarThickness = 10f
+const val progressbarThickness = 15f
 fun Stage.enableProgressbar() {
     screen.solidRect(Size()).transform {
         size(screen.width, progressbarThickness)
