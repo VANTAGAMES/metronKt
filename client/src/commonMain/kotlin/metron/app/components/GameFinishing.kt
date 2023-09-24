@@ -23,7 +23,12 @@ fun Stage.enableGameFinishing() {
         println("A")
         screen.dummyView().easingEffect((delay / 2).seconds, Easing.EASE, arrayOf(
             Effect { _, value -> magnanimity = 1 - value * level.magnanimity }
-        )) { magnanimity = .0; removeFromParent() }
+        )) {
+            magnanimity = .0
+            removeFromParent()
+            elapsedSeconds = 0.seconds
+            isForcePaused = true
+        }
         noteIterator = mutableListOf<Double>().iterator()
         lives.fastForEach {
             it.body.easingEffect(bpmToSec.seconds/6, Easing.EASE, arrayOf(

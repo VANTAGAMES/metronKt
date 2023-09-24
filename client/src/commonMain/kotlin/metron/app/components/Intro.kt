@@ -18,7 +18,7 @@ import kotlin.math.*
 
 val isMobile get() = Platform.isAndroid || Platform.isAppleMobile
 
-suspend fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작하세요" else "스페이스바를 클릭하세요") {
+fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작하세요" else "스페이스바를 클릭하세요") {
     val title = createTitle(intro) {
         transform { centerXOn(screen) }
         easingEffect(
@@ -30,6 +30,8 @@ suspend fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작
     }
     val hitEventNode = screen.dummyView()
     hitEventNode.onEvent(HitEvent) {
+        if (elapsedSeconds != 0.seconds) return@onEvent
+        hitEventNode.removeFromParent()
         elapsedSeconds = defaultElapsed()
         isForcePaused = false
         isStopped = false
@@ -37,7 +39,6 @@ suspend fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작
         previousNote = .0
         currentNote = .0
         screen.dispatch(GameStartEvent())
-        hitEventNode.removeFromParent()
         title.easingEffect((bpmToSec/3).seconds, Easing.EASE_OUT, arrayOf(
             effectAlpha(1f, isDown = true),
             effectPosY(70f)

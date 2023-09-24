@@ -42,7 +42,7 @@ data class Stage(
     val isPaused get() = isForcePaused || isPausedByUser
     var isStopped = false
     var magnanimity = .0
-    var elapsedSeconds: TimeSpan = defaultElapsed()
+    var elapsedSeconds: TimeSpan = 0.seconds
     val lives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0
     var noteIterator = level.map.iterator()
