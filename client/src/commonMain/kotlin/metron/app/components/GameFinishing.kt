@@ -37,12 +37,9 @@ fun Stage.enableGameFinishing() {
         }
         lives.clear()
         if (it.isSuccess) {
-            screen.uiText("클리어!") {
-                styles(defaultStyle)
-                centerOn(screen)
-            }
+            createTitle("클리어!")
             screen.dummyView().easingEffect(1.seconds, Easing.EASE, arrayOf(
-                Effect { _, value -> screen.filter = BlurFilter(value * 4f) }
+                Effect { _, value -> camera.filter = BlurFilter(value * 4f) }
             )) { removeFromParent() }
         } else {
             launchNow {
