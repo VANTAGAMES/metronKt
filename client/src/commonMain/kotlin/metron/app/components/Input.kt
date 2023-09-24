@@ -26,7 +26,7 @@ fun Stage.enableInput() = screen.apply {
                 screen.dispatch(GameEndEvent(isSuccess = false))
             }
         }
-        down(Key.SHIFT, Key.E) {
+        down(Key.E) {
             enableMapEditor()
         }
     }
