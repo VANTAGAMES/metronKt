@@ -4,11 +4,13 @@ import com.github.quillraven.fleks.*
 import korlibs.datastructure.iterators.*
 import korlibs.image.text.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import metron.*
 import metron.app.*
 import metron.util.*
+import kotlin.math.*
 
 class Audit private constructor() : Component<Audit> {
     override fun type() = Companion
@@ -24,11 +26,16 @@ class Audit private constructor() : Component<Audit> {
             val stage = ghostStick.stage
             stage.lives.fastIterateRemove { it.body == body }
             screen.text(" ${audit.text} ", 45f, color = audit.color, font = stage.boldFont) {
-//                filter = BlurFilter(0.5f)
                 alignment = TextAlignment.CENTER
                 globalPos = body.globalPos
                 val auditHeight = stickHeight + 70
                 pos = Point(pos.x + auditHeight * cos(angle + offset), pos.y + auditHeight * sin(angle + offset))
+                setPositionRelativeTo(screen,
+                    Point(
+                        max(min(getPositionRelativeTo(screen).x, screen.width - width/2), width/2),
+                        getPositionRelativeTo(screen).y
+                    )
+                )
                 var elapsed = 0.milliseconds
                 onEvent(UpdateEvent) {
                     elapsed += it.deltaTime
