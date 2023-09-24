@@ -77,7 +77,7 @@ class MainScene : Scene() {
             centerOn(screen)
         }
         loading.alignY(screen, 0.48, true)
-        val curtain = camera.solidRect(screen.size, color = Colors.BLACK).zIndex(10)
+        val curtain = camera.solidRect(screen.size, color = Colors.BLACK).zIndex(1000)
             .transform { size(screen.size) }
         mainView()
         loading.easingEffect(0.2.seconds, Easing.SMOOTH, arrayOf(
