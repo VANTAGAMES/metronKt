@@ -24,7 +24,7 @@ class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
         val lifeTime = distance
         if (elapsedSeconds >= nextSec - distance*bpmToSec) {
             val angle = performAngle(nextSec)
-            val ghost = createGhostNote(angle, lifeTime, nextSec)
+            val ghost = createGhostNote(angle, lifeTime*bpmToSec, nextSec)
             lives.add(ghost)
             screen.dispatch(GhostSpawnEvent(ghost))
             previousNote = currentNote

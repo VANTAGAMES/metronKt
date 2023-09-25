@@ -84,10 +84,11 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                 configurePosition(this)
                 shapeView(pointArrayListOf(
                     Point(0, 0),
-                    Point(100, 0),
-                    Point(70, 100),
-                    Point(100 - 70, 100),
-                ).toPolygon()).transform {
+                    Point(130, 0),
+                    Point(100, 130),
+                    Point(130 - 100, 130),
+                ).map { x, y -> Vector2(x*stickArea, y*stickArea) }.toPointArrayList().toPolygon())
+                    .transform {
                     colorMul(playerStickColor)
                     anchor(0.5, 0.5)
                     alignY(this@body, 0.42, true)

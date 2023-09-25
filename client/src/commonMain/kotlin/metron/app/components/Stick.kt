@@ -7,10 +7,11 @@ import metron.*
 import util.*
 import kotlin.math.*
 
-val stickHeight get() = screen.height*2/3
-val stickWidth get() = sqrt(stickHeight).pow(0.9f)
+val stickArea get() = 0.65f
+val stickHeight get() = screen.height*stickArea
+val stickWidth get() = stickArea*30f
 val stickSize get() = Size(stickWidth, stickHeight)
-val stickY get() = screen.height*8/9
+val stickY get() = (screen.height*2+stickHeight)/3f
 fun configureAnchor(container: View) = container.transform {
     if (this is Anchorable) anchor(0.5f, 1 - (width/2) / height)
 
