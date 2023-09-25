@@ -31,6 +31,7 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
                             launchNow { hitSound.play() }
                             createAudit(ghost, audit)
                             screen.dispatch(AuditEvent(ghost, audit))
+                            ghost.isHitted = true
                             return@run
                         }
                     }

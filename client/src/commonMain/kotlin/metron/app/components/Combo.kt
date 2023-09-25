@@ -16,7 +16,7 @@ import util.*
 fun Stage.enableCombo() {
     Combo(this).apply {
         screen.onEvent(GhostDrawedEvent) {
-            if (it.isNaturally) resetCombo()
+            if (!it.ghostStick.isHitted && it.isNaturally) resetCombo()
         }
         screen.onEvent(AuditEvent) {
             if (it.audit == AuditType.PERF) stepCombo() else resetCombo()

@@ -25,6 +25,7 @@ data class GhostStick(
     val startTime: DateTime,
     val lifeTime: TimeSpan,
     val nextNote: TimeSpan,
+    var isHitted: Boolean = false,
 ) : Component<GhostStick> {
     override fun type() = Companion
     companion object : ComponentHooks<GhostStick>() {
