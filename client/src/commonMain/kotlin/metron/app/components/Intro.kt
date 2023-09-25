@@ -16,7 +16,7 @@ import metron.util.Effect.Companion.effectPosY
 import util.*
 import kotlin.math.*
 
-val isMobile get() = Platform.isAndroid || Platform.isAppleMobile
+val isMobile get() = Platform.isAndroid || Platform.isIos
 
 fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작하세요" else "스페이스바를 클릭하세요") {
     val title = createTitle(intro) {
