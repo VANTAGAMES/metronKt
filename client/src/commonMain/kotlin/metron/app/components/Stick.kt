@@ -11,7 +11,7 @@ val stickArea get() = 0.65f
 val stickHeight get() = screen.height*stickArea
 val stickWidth get() = stickArea*30f
 val stickSize get() = Size(stickWidth, stickHeight)
-val stickY get() = (screen.height*2+stickHeight)/3f
+val stickY get() = (screen.height*2+stickHeight)/3f - (stickHeight - PlayerStick.metronomeHeight)
 fun configureAnchor(container: View) = container.transform {
     if (this is Anchorable) anchor(0.5f, 1 - (width/2) / height)
 

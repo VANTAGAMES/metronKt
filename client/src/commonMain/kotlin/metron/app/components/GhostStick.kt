@@ -60,6 +60,9 @@ data class GhostStick(
                 configurePositionAndAnchor(this)
                 rotation = angle
                 zIndex = 0f
+                easingEffect(stage.bpmToSec.seconds/4, Easing.EASE, arrayOf(
+                    effectAlpha(0.5f)
+                ))
             }
             return GhostStick(
                 stage = stage,
@@ -86,9 +89,11 @@ fun View.noteHitEffect(
             listener.cancel()
             callback()
         } else {
-            val i = (1 - (span / period))/15
-            val a = min(1f, max(0f, easing.invoke(i)))
-            scale(1 + a, 1 + a/12)
+            val i = (1 - (span / period))
+            val a = easing.invoke(i)
+println(a)
+
+            scale(1 + a, 1f)
         }
     }
 }

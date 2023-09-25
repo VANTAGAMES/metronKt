@@ -7,7 +7,6 @@ import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
-import korlibs.memory.*
 import metron.*
 import metron.app.Stage
 import metron.util.*
@@ -19,15 +18,16 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
     override fun type() = Companion
 
     companion object : ComponentHooks<PlayerStick>() {
-        val playerStickColor = Colors.WHITESMOKE
-        val baseBodyColor = Colors["818589"]
-        val upperBaseBodyColor = Colors["D3D3D3"]
-        val baseUpperWidth get() = stickHeight/4
+        val playerStickColor = Colors["FFFFFF"]
+        val baseBodyColor = Colors["8e8e8e"]
+        val upperBaseBodyColor = Colors["c8c8c8"]
+        val metronomeHeight get() = stickHeight*159/160
+        val baseUpperWidth get() = metronomeHeight/4
         val baseWidth get() = baseUpperWidth*2
-        val roofHeight get() = -(stickHeight/20)
+        val roofHeight get() = -(metronomeHeight/20)
         val ratio get() = 1/7f
-        val bottomBaseHeight get() = stickHeight*ratio
-        val side get() = sqrt(((baseWidth - baseUpperWidth) / 2f).pow(2) + stickHeight.pow(2))
+        val bottomBaseHeight get() = metronomeHeight*ratio
+        val side get() = sqrt(((baseWidth - baseUpperWidth) / 2f).pow(2) + metronomeHeight.pow(2))
         val outline get() = sqrt((side * ratio).pow(2) - bottomBaseHeight.pow(2))
         val bottomBaseWidth get() = baseWidth - outline *2f
         override val onAdded: ComponentHook<PlayerStick> = { entity, playerStick ->
@@ -47,8 +47,8 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                         path = pointArrayListOf(
                             Point(0, 0),
                             Point(baseUpperWidth, 0),
-                            Point(baseWidth, stickHeight),
-                            Point(-baseWidth + baseUpperWidth, stickHeight)
+                            Point(baseWidth, metronomeHeight),
+                            Point(-baseWidth + baseUpperWidth, metronomeHeight)
                         ).toPolygon()
                     }.colorMul(baseBodyColor)
                 }.zIndex(-10),
@@ -60,7 +60,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                             Point(baseWidth, bottomBaseHeight),
                             Point(baseUpperWidth - baseWidth, bottomBaseHeight)
                         ).toPolygon()
-                        positionY(stickHeight - height)
+                        positionY(metronomeHeight - height)
                     }.colorMul(upperBaseBodyColor)
                 }.zIndex(10)
             ).fastForEach {

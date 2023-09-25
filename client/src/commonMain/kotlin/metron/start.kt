@@ -47,7 +47,7 @@ suspend fun startMain() {
         scaleMode = ScaleMode.NO_SCALE,
         clipBorders = false,
         scaleAnchor = Anchor.TOP_LEFT,
-        backgroundColor = Colors["#000000"]
+        backgroundColor = Colors["#353535"]
     ) {
         scene = sceneContainer()
         scene.changeTo({ MainScene() })
