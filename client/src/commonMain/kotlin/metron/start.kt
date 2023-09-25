@@ -39,7 +39,7 @@ lateinit var camera: Camera
 
 suspend fun startMain() {
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
-//    resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
+    resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
         windowSize = Size(1280, 720),
 //        title = "",

@@ -42,8 +42,9 @@ data class Level(
             magnanimity = 1.0,
             initialNote = 0.5,
         ).also {
-            (0..((1*60 + 57)*2*(it.bpm/60.0)).toInt()).forEach { i ->
+            (0..((1*60 + 57)*2*(it.bpm/60.0)).toInt()/2).forEach { i ->
                 it.map.add(0.5)
+                it.map.add(1.5)
             }
         }
 
