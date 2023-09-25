@@ -91,8 +91,6 @@ fun View.noteHitEffect(
         } else {
             val i = (1 - (span / period))
             val a = easing.invoke(i)
-println(a)
-
             scale(1 + a, 1f)
         }
     }

@@ -20,7 +20,6 @@ fun Stage.enableGameFinishing() {
     screen.onEvent(GameEndEvent) {
         if (isStopped) return@onEvent
         isStopped = true
-        println(elapsedSeconds%(bpmToSec.seconds*4))
         screen.dummyView().easingEffect(bpmToSec.seconds - elapsedSeconds%(bpmToSec.seconds) + bpmToSec.seconds*1.5, Easing.SMOOTH, arrayOf(
             Effect { _, value -> magnanimity = (1 - value) * targetMagnanimity }
         )) {

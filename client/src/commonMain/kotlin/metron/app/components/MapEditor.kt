@@ -29,7 +29,6 @@ suspend fun Stage.enableMapEditor() {
         val currentNote = ((elapsedSeconds+it.delta) / bpmToSec).seconds
         val previousNote = (before / bpmToSec).seconds
         val distance = currentNote - previousNote
-        println(distance)
         createGhostNote(performAngle(roundRange(currentNote).seconds*bpmToSec), bpmToSec.seconds, 1.seconds)
         val note = roundRange(distance)
         before = elapsedSeconds
