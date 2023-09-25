@@ -22,7 +22,7 @@ fun Stage.enableGameFinishing() {
         isStopped = true
         println("A")
         screen.dummyView().easingEffect((delay / 2).seconds, Easing.EASE, arrayOf(
-            Effect { _, value -> magnanimity = 1 - value * level.magnanimity }
+            Effect { _, value -> magnanimity = 1 - value * targetMagnanimity }
         )) {
             magnanimity = .0
             removeFromParent()

@@ -43,6 +43,7 @@ data class Stage(
     var isEditingMap = false
     var isStopped = false
     var magnanimity = .0
+    val targetMagnanimity get() = level.magnanimity * bpmToSec
     var elapsedSeconds: TimeSpan = 0.seconds
     val lives: MutableList<GhostStick> = fastArrayListOf()
     var noteCounter = 0

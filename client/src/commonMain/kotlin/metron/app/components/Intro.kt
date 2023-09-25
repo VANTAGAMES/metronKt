@@ -45,8 +45,8 @@ fun Stage.enableIntro(intro: String = if (isMobile) "클릭해서 시작하세�
         )) { removeFromParent() }
         countdown()
         screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
-            Effect { _, value -> magnanimity = value * level.magnanimity }
-        )) { magnanimity = level.magnanimity; removeFromParent() }
+            Effect { _, value -> magnanimity = value * targetMagnanimity }
+        )) { magnanimity = targetMagnanimity; removeFromParent() }
     }
 }
 
