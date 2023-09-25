@@ -20,7 +20,7 @@ class Audit private constructor() : Component<Audit> {
             val body = ghostStick.body
             val angle = body.rotation
             val offset = (-90).degrees
-            body.noteHitEffect {
+            body.noteHitEffect(stage = ghostStick.stage) {
                 body.removeFromParent()
             }
             val stage = ghostStick.stage

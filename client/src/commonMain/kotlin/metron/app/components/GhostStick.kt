@@ -31,6 +31,7 @@ data class GhostStick(
     companion object : ComponentHooks<GhostStick>() {
         override val onAdded: ComponentHook<GhostStick> = { entity, ghostStick ->
             screen.timers.timeout(ghostStick.lifeTime) {
+                if (ghostStick.isHitted) return@timeout
                 ghostStick.body.easingEffect(
                     ghostStick.lifeTime/2, Easing.EASE_OUT,
                     effects = arrayOf(effectAlpha(0.5f, isDown = true))
@@ -73,7 +74,7 @@ data class GhostStick(
 }
 
 fun View.noteHitEffect(
-    period: TimeSpan = 0.2.seconds, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit
+    stage: Stage, period: TimeSpan = stage.bpmToSec.seconds/6, easing: Easing = Easing.EASE_OUT_QUAD, callback: () -> Unit
 ) {
     val startTime = DateTime.now()
     zIndex = 0f
