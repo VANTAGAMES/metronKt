@@ -24,7 +24,7 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
         private val auditTypes = AuditType.values()
         fun Stage.audit(delta: TimeSpan) {
 //            lives.fastForEach { ghost ->
-            val ghost = lives.minByOrNull { it.startTime }!!
+            val ghost = lives.minByOrNull { it.startTime }?: return
             val sub = (elapsedSeconds+delta - ghost.nextNote)/bpmToSec
                 run {
                     auditTypes.fastForEach { audit ->
