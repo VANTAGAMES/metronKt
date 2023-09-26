@@ -12,6 +12,7 @@ import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import korlibs.memory.*
 import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
@@ -63,7 +64,7 @@ class MainScene : Scene() {
             dispatch(ResizedEvent())
         }
         screen.container {
-            text(version, textSize = 30f) {
+            text("${Platform.rawPlatformName}+${Platform.rawOsName}", textSize = 30f) {
             }.zIndex(100)
             zIndex(100)
         }.transform {
