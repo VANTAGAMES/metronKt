@@ -13,6 +13,7 @@ plugins {
 }
 
 korge {
+    name = "Metron"
     id = "io.github.bruce0203.${rootProject.name}"
     targetAll()
     targetJvm()
