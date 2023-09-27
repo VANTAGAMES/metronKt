@@ -1,5 +1,5 @@
-import korlibs.io.file.std.resourcesVfs
-import korlibs.io.lang.readProperties
+import korlibs.io.file.std.*
+import korlibs.io.lang.*
 import metron.*
 
 suspend fun main() {

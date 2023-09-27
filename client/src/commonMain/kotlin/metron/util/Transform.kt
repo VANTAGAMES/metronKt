@@ -1,6 +1,6 @@
 package util
 
-import korlibs.korge.view.View
+import korlibs.korge.view.*
 import metron.event.*
 
 fun <T : View> T.transform(code: T.() -> Unit): T {

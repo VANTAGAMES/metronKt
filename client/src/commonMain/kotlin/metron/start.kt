@@ -17,7 +17,7 @@ import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.app.*
-import metron.app.handlers.globalTextColor
+import metron.app.handlers.*
 import metron.event.*
 import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha

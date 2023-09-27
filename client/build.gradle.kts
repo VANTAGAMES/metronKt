@@ -1,9 +1,4 @@
 import korlibs.korge.gradle.*
-import korlibs.korge.gradle.targets.ProjectType
-import korlibs.korge.gradle.targets.desktop.configureNativeDesktop
-import korlibs.korge.gradle.targets.desktop.configureNativeDesktopCross
-import korlibs.korge.gradle.targets.desktop.configureNativeDesktopRun
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")

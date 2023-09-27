@@ -7,7 +7,7 @@ import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.*
-import metron.app.Stage
+import metron.app.*
 import metron.app.entities.*
 import util.*
 

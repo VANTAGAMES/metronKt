@@ -1,6 +1,6 @@
-import korlibs.io.file.std.resourcesVfs
-import korlibs.io.lang.readProperties
-import kotlinx.coroutines.runBlocking
+import korlibs.io.file.std.*
+import korlibs.io.lang.*
+import kotlinx.coroutines.*
 import metron.*
 
 class Main

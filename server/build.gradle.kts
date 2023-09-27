@@ -1,6 +1,4 @@
 import korlibs.korge.gradle.*
-import korlibs.korge.gradle.typedresources.GenerateTypedResourcesTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")

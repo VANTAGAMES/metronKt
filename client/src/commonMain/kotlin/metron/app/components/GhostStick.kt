@@ -13,9 +13,9 @@ import korlibs.time.*
 import metron.*
 import metron.app.Stage
 import metron.app.handlers.*
-import metron.util.Effect.Companion.effectAlpha
-import metron.util.Effect.Companion.easingEffect
 import metron.util.*
+import metron.util.Effect.Companion.easingEffect
+import metron.util.Effect.Companion.effectAlpha
 import util.*
 
 data class GhostStick(

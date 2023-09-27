@@ -4,7 +4,7 @@ import event.*
 import korlibs.korge.time.*
 import korlibs.time.*
 import metron.*
-import metron.app.Stage
+import metron.app.*
 import util.*
 import kotlin.math.*
 

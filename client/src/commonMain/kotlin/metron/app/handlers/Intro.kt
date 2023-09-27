@@ -8,7 +8,7 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
 import metron.app.Stage
-import metron.util.Effect
+import metron.util.*
 import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.effectPosY

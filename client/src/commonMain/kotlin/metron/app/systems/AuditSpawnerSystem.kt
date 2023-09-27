@@ -7,7 +7,6 @@ import korlibs.datastructure.iterators.*
 import korlibs.time.*
 import metron.*
 import metron.app.*
-import metron.app.Stage
 import metron.app.components.*
 import metron.app.entities.*
 import util.*

@@ -3,7 +3,6 @@ package event
 import korlibs.event.*
 import metron.app.*
 import metron.app.components.*
-import metron.app.systems.*
 
 class AuditEvent(
     val ghostStick: GhostStick,

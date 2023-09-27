@@ -1,10 +1,7 @@
 package metron.util
 
-import com.github.quillraven.fleks.Component
-import com.github.quillraven.fleks.ComponentConfiguration
-import com.github.quillraven.fleks.ComponentHook
-import com.github.quillraven.fleks.ComponentType
-import korlibs.datastructure.iterators.fastForEach
+import com.github.quillraven.fleks.*
+import korlibs.datastructure.iterators.*
 
 abstract class ComponentHooks<T> : ComponentType<T>() {
     open val onAdded: ComponentHook<T> = { _, _ -> }

@@ -10,7 +10,7 @@ import metron.*
 import metron.app.*
 import metron.app.Stage
 import metron.app.components.*
-import metron.util.Effect
+import metron.util.*
 import metron.util.Effect.Companion.easingEffect
 import util.*
 import kotlin.math.*

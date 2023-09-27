@@ -4,9 +4,8 @@ import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.time.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.*
+import kotlin.coroutines.*
 
 fun launchNow(context: CoroutineContext = GlobalScope.coroutineContext, callback: suspend () -> Unit) {
     CoroutineScope(context).launchImmediately(callback)

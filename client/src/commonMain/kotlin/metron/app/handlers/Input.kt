@@ -5,7 +5,7 @@ import korlibs.event.*
 import korlibs.korge.input.*
 import korlibs.time.*
 import metron.*
-import metron.app.Stage
+import metron.app.*
 import metron.app.systems.AuditSpawnerSystem.Companion.audit
 
 fun Stage.enableInput() = screen.apply {

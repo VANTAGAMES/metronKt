@@ -6,9 +6,8 @@ import korlibs.korge.view.align.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
-import metron.app.*
 import metron.app.Stage
-import metron.util.Effect
+import metron.util.*
 import metron.util.Effect.Companion.easingEffect
 
 fun Stage.enableHitEffect() {
