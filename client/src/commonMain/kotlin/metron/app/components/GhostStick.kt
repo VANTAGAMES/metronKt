@@ -18,6 +18,15 @@ import metron.util.Effect.Companion.easingEffect
 import metron.util.Effect.Companion.effectAlpha
 import util.*
 
+fun Stage.createGhostNote(
+    angle: Angle, lifeTime: TimeSpan, nextNote: TimeSpan
+) = GhostStick(this, angle, lifeTime, nextNote).apply {
+    world.entity {
+        val note = this@apply
+        it += note
+    }
+}
+
 data class GhostStick(
     val stage: Stage,
     val body: View,

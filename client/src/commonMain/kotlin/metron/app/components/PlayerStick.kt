@@ -14,6 +14,11 @@ import metron.util.*
 import util.*
 import kotlin.math.*
 
+fun Stage.createPlayerStick() = world.entity {
+    val stage = this@createPlayerStick
+    it += PlayerStick(stage)
+}
+
 class PlayerStick(val stage: Stage) : Component<PlayerStick> {
     lateinit var body: View
     override fun type() = Companion

@@ -8,13 +8,17 @@ import korlibs.math.geom.*
 import korlibs.time.*
 import metron.*
 import metron.app.*
+import metron.app.Stage
 import metron.app.handlers.*
 import metron.util.*
 import kotlin.math.*
 
+fun Stage.createAudit(ghostStick: GhostStick, audit: AuditType) = world.entity {
+    it += Audit(ghostStick, audit)
+}
+
 class Audit private constructor() : Component<Audit> {
     override fun type() = Companion
-
     companion object : ComponentHooks<Audit>() {
         operator fun invoke(ghostStick: GhostStick, audit: AuditType): Audit {
             val body = ghostStick.body
