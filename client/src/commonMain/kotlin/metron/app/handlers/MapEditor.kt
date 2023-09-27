@@ -8,7 +8,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.*
 import metron.app.*
-import metron.app.entities.*
+import metron.app.components.*
 import util.*
 
 suspend fun Stage.enableMapEditor() {

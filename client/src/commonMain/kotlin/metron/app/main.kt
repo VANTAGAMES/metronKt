@@ -1,7 +1,6 @@
 package metron.app
 
 import metron.app.components.*
-import metron.app.entities.*
 import metron.app.handlers.*
 import metron.app.systems.*
 import metron.util.*
