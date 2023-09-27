@@ -10,3 +10,4 @@ kproject("./deps")
 
 include(":client")
 include(":shared")
+include(":server")
