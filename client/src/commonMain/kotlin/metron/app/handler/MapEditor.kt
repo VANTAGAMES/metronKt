@@ -1,11 +1,7 @@
-package metron.app.components
+package metron.app.handler
 
 import event.*
-import korlibs.image.text.*
 import korlibs.io.file.std.*
-import korlibs.korge.style.*
-import korlibs.korge.ui.*
-import korlibs.korge.view.*
 import korlibs.memory.*
 import korlibs.time.*
 import kotlinx.serialization.*

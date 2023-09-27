@@ -1,4 +1,4 @@
-package metron.app.components
+package metron.app.handler
 
 import event.*
 import korlibs.korge.view.*
@@ -9,6 +9,7 @@ import korlibs.time.*
 import metron.*
 import metron.app.*
 import metron.app.Stage
+import metron.app.components.*
 import metron.util.Effect
 import metron.util.Effect.Companion.easingEffect
 import util.*
@@ -27,7 +28,7 @@ fun Stage.enableDeath() {
             screen.onEvent(GameStartEvent) {
                 if (height != deathGageHeight)
                     screen.dummyView().easingEffect(bpmToSec.seconds/4, Easing.SMOOTH,
-                        arrayOf(Effect { _, value -> height = value*deathGageHeight }))
+                        arrayOf(Effect { _, value -> height = value* deathGageHeight }))
             }
             scaleY = -1f
             positionY(pos.y + height)

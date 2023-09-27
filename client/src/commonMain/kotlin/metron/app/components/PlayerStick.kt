@@ -9,6 +9,7 @@ import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
 import metron.*
 import metron.app.Stage
+import metron.app.handler.*
 import metron.util.*
 import util.*
 import kotlin.math.*
@@ -21,7 +22,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
         val playerStickColor = Colors["FFFFFF"]
         val baseBodyColor = Colors["8e8e8e"]
         val upperBaseBodyColor = Colors["c8c8c8"]
-        val metronomeHeight get() = stickHeight*159/160
+        val metronomeHeight get() = stickHeight *159/160
         val baseUpperWidth get() = metronomeHeight/4
         val baseWidth get() = baseUpperWidth*2
         val roofHeight get() = -(metronomeHeight/20)
@@ -87,7 +88,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                     Point(130, 0),
                     Point(100, 130),
                     Point(130 - 100, 130),
-                ).map { x, y -> Vector2(x*stickArea, y*stickArea) }.toPointArrayList().toPolygon())
+                ).map { x, y -> Vector2(x* stickArea, y* stickArea) }.toPointArrayList().toPolygon())
                     .transform {
                     colorMul(playerStickColor)
                     anchor(0.5, 0.5)

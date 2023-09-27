@@ -1,12 +1,10 @@
-package metron.app.components
+package metron.app.handler
 
 import korlibs.image.text.*
 import korlibs.korge.style.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
-import korlibs.korge.view.align.*
 import metron.*
-import metron.app.*
 import metron.app.Stage
 import util.*
 

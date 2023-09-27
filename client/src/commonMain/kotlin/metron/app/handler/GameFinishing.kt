@@ -1,11 +1,8 @@
-package metron.app.components
+package metron.app.handler
 
 import event.*
 import korlibs.datastructure.iterators.*
-import korlibs.korge.style.*
-import korlibs.korge.ui.*
 import korlibs.korge.view.*
-import korlibs.korge.view.align.*
 import korlibs.korge.view.filter.*
 import korlibs.math.interpolation.*
 import korlibs.time.*

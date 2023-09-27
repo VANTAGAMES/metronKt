@@ -1,4 +1,4 @@
-package metron.app.components
+package metron.app.handler
 
 import event.*
 import korlibs.event.*

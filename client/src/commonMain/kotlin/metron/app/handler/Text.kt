@@ -1,4 +1,4 @@
-package metron.app.components
+package metron.app.handler
 
 import korlibs.datastructure.*
 import korlibs.image.color.*

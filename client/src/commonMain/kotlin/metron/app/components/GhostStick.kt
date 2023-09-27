@@ -12,11 +12,11 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
 import metron.app.Stage
+import metron.app.handler.*
 import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.easingEffect
 import metron.util.*
 import util.*
-import kotlin.math.*
 
 data class GhostStick(
     val stage: Stage,
