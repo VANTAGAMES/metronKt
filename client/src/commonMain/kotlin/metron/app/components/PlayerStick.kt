@@ -9,7 +9,7 @@ import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
 import metron.*
 import metron.app.Stage
-import metron.app.handler.*
+import metron.app.handlers.*
 import metron.util.*
 import util.*
 import kotlin.math.*

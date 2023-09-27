@@ -1,4 +1,4 @@
-package metron.app.handler
+package metron.app.handlers
 
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*

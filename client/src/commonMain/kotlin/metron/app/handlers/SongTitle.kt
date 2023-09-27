@@ -1,4 +1,4 @@
-package metron.app.handler
+package metron.app.handlers
 
 import korlibs.image.text.*
 import korlibs.korge.style.*

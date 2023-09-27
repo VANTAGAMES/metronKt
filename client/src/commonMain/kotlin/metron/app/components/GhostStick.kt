@@ -12,7 +12,7 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import metron.*
 import metron.app.Stage
-import metron.app.handler.*
+import metron.app.handlers.*
 import metron.util.Effect.Companion.effectAlpha
 import metron.util.Effect.Companion.easingEffect
 import metron.util.*

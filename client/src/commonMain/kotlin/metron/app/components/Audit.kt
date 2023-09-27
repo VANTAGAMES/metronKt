@@ -8,7 +8,7 @@ import korlibs.math.geom.*
 import korlibs.time.*
 import metron.*
 import metron.app.*
-import metron.app.handler.*
+import metron.app.handlers.*
 import metron.util.*
 import kotlin.math.*
 
