@@ -19,23 +19,23 @@ class EasingEffect(
     val effects: Array<out Effect>,
     val finishing: View.() -> Unit,
     val timeSpan: TimeSpan,
-    val view: View
+    val view: View,
+    val interval: (TimeSpan) -> TimeSpan
 ) {
     private lateinit var onDestroyView: Cancellable
-    private lateinit var scheduledTask: Deferred<*>
+    private var scheduledTask: Cancellable? = null
 
     fun enableEffect() {
         val span = timeSpan
         startEffect()
-        launchNow {
-            scheduledTask = view.tweenAsync(
-                V2Callback { ratio ->
-                    effects.fastForEach { it.applyEffect(view, ratio.value) }
-                },
-                time = span, easing = easing,
-            ) {
-                if (it == 1f) stopEffect()
+        var elapsed = 0.seconds
+        scheduledTask = view.addUpdater {
+            elapsed += interval(it)
+            if (elapsed > span) {
+                scheduledTask?.cancel()
+                stopEffect()
             }
+            effects.fastForEach { it.applyEffect(view, easing(elapsed / span)) }
         }
     }
 
@@ -58,7 +58,7 @@ class EasingEffect(
     fun stopEffect() {
         val tuckedParent = view.parent
         val thisEasingEffect = this
-        scheduledTask.cancel()
+        scheduledTask?.cancel()
         tuckedParent?.apply {
             if (hasExtra(EffectComponentKey)) {
                 if (getExtraTyped<EasingEffect>(EffectComponentKey) == thisEasingEffect) {
@@ -88,18 +88,20 @@ fun interface Effect {
         val EffectComponentKey = UUID.randomUUID().toString()
         val EffectedPosY = UUID.randomUUID().toString()
         val EffectedPosX = UUID.randomUUID().toString()
-        fun View.easingEffect(
+        inline fun View.easingEffect(
             timeSpan: TimeSpan,
             easing: Easing = Easing.EASE_OUT,
             effects: Array<Effect>,
-            finishing: View.() -> Unit = {},
+            noinline interval: (TimeSpan) -> TimeSpan = { it },
+            noinline finishing: View.() -> Unit = {},
         ) = EasingEffect(
-                easing = easing,
-                finishing = finishing,
-                timeSpan = timeSpan,
-                effects = effects,
-                view = this
-            ).enableEffect()
+            easing = easing,
+            finishing = finishing,
+            timeSpan = timeSpan,
+            effects = effects,
+            view = this,
+            interval = interval
+        ).enableEffect()
         fun effectPosX(magnanimity: Float, isDown: Boolean = false): Effect {
             var origin: Float? = null
             return Effect { view, value ->

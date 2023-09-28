@@ -39,15 +39,17 @@ data class GhostStick(
     override fun type() = Companion
     companion object : ComponentHooks<GhostStick>() {
         override val onAdded: ComponentHook<GhostStick> = { entity, ghostStick ->
-            screen.timers.timeout(ghostStick.lifeTime) {
-                if (ghostStick.isHitted) return@timeout
+            val stage = ghostStick.stage
+            screen.addTimer(ghostStick.lifeTime, { if (stage.isStickPaused) 0.seconds else it }) {
+                if (ghostStick.isHitted) return@addTimer
                 ghostStick.body.easingEffect(
                     ghostStick.lifeTime/2, Easing.EASE_OUT,
-                    effects = arrayOf(effectAlpha(0.5f, isDown = true))
+                    effects = arrayOf(effectAlpha(0.5f, isDown = true)),
+                    { if (stage.isStickPaused) 0.seconds else it }
                 ) {
                     screen.dispatch(GhostDrawedEvent(ghostStick, isNaturally = true))
                     removeFromParent()
-                    ghostStick.stage.lives.fastIterateRemove { it.body == ghostStick.body }
+                    stage.lives.fastIterateRemove { it.body == ghostStick.body }
                     entity.remove()
                 }
             }
@@ -58,7 +60,7 @@ data class GhostStick(
             angle: Angle,
             lifeTime: TimeSpan,
             nextNote: TimeSpan,
-            startTime: DateTime = DateTime.now()
+            startTime: DateTime = DateTime.now(),
         ): GhostStick {
             val body = stage.ghostContainer.fastRoundRect(
                 corners = RectCorners(1),
@@ -79,7 +81,7 @@ data class GhostStick(
                 angle = angle,
                 lifeTime = lifeTime,
                 nextNote = nextNote,
-                startTime = startTime
+                startTime = startTime,
             )
         }
     }
