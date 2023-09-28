@@ -48,6 +48,20 @@ jobs:
           ./gradlew :server:packageJvmFatJarProguard
           mv server/build/libs/server-all-proguard.jar server/build/libs/server.jar
 
+      - name: Commit files
+        run: |
+          URL=$(git remote get-url origin)
+          cd ./client/build/distributions
+          git init
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -a -m "changes"
+          git branch artifact
+          git switch artifact
+          git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin artifact --force
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
       - name: Build apk
