@@ -8,7 +8,6 @@ import korlibs.time.*
 import metron.*
 import metron.app.*
 import metron.app.components.*
-import metron.app.entities.*
 import util.*
 
 class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
@@ -22,9 +21,8 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
     companion object {
         private val auditTypes = AuditType.values()
         fun Stage.audit(delta: TimeSpan) {
-//            lives.fastForEach { ghost ->
-            val ghost = lives.minByOrNull { it.startTime }?: return
-            val sub = (elapsedSeconds+delta - ghost.nextNote)/bpmToSec
+            lives.sortedBy { it.startTime }.fastForEach { ghost ->
+                val sub = (elapsedSeconds - ghost.nextNote)/bpmToSec+delta
                 run {
                     auditTypes.fastForEach { audit ->
                         if (sub.seconds in audit.range) {
@@ -36,6 +34,7 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
                         }
                     }
                 }
+            }
         }
 
     }
