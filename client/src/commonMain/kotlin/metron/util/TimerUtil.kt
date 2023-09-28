@@ -4,7 +4,7 @@ import korlibs.io.lang.*
 import korlibs.korge.view.*
 import korlibs.time.*
 
-fun View.addTimer(timeSpan: TimeSpan? = null, callback: (TimeSpan) -> Unit) {
+fun View.addTimer(timeSpan: TimeSpan? = null, callback: (TimeSpan) -> Unit): Cancellable {
     var cancellable: Cancellable? = null
     var elapsed = 0.seconds
     cancellable = addUpdater(first = false) {
@@ -15,4 +15,5 @@ fun View.addTimer(timeSpan: TimeSpan? = null, callback: (TimeSpan) -> Unit) {
             callback(it)
         }
     }
+    return cancellable
 }

@@ -26,6 +26,7 @@ fun Stage.enableAutoPlaying() {
     }
     screen.addUpdater {
         body.visible = autoPlaying
+        if (isStopped || isStickPaused) return@addUpdater
         if (!autoPlaying) return@addUpdater
         val d = currentNote + it.seconds - elapsedSeconds.seconds / bpmToSec
         if (d-(currentNote-previousNote) in AuditType.PERF.range) {

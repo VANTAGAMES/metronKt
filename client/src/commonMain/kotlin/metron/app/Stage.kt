@@ -40,6 +40,7 @@ data class Stage(
     var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
     var autoPlaying: Boolean = false
+    var isSettingsMenuOpened: Boolean = false
     val isStickPaused get() = isForcePaused || isPausedByUser
     var isEditingMap = false
     var isStopped = false
@@ -51,7 +52,6 @@ data class Stage(
     var noteIterator = level.map.iterator()
     var previousNote = .0
     var currentNote = initialNote
-
     fun defaultElapsed() =
         - (delay.seconds + max(0.seconds, offsetToSec.seconds))
     private fun getDefaultEasing() =

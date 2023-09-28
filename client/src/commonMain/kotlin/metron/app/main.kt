@@ -32,4 +32,5 @@ suspend fun mainView() = Stage("level1") { stage ->
     enableDeath()
     enableGameFinishing()
     enableAutoPlaying()
+    enableSettingsMenu()
 }

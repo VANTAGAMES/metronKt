@@ -1,6 +1,7 @@
 package metron.app.handlers
 
 import event.*
+import korlibs.io.lang.*
 import korlibs.korge.time.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
@@ -45,11 +46,18 @@ fun Stage.countdown(times: Int = 4, callback: (TimeSpan) -> Unit = {}) {
         isForcePaused = true
         isPausedByUser = false
         isStopped = true
-        screen.addTimer(-defaultElapsed()) {
-            isForcePaused = false
-            isPausedByUser = false
-            isStopped = false
-            callback(it)
+        screen.dummyView().apply {
+            addTimer(-defaultElapsed()) {
+                isForcePaused = false
+                isPausedByUser = false
+                isStopped = false
+                removeFromParent()
+                callback(it)
+            }.also { cancellable ->
+                onEvent(SettingsMenuToggleEvent) {
+                    cancellable.cancel()
+                }
+            }
         }
     } else {
         elapsedSeconds = defaultElapsed()
@@ -60,31 +68,45 @@ fun Stage.countdown(times: Int = 4, callback: (TimeSpan) -> Unit = {}) {
         isForcePaused = false
         isPausedByUser = false
         isStopped = false
-        screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
-            Effect { _, value -> magnanimity = value * targetMagnanimity }
-        )) { magnanimity = targetMagnanimity; removeFromParent() }
+        screen.dummyView().apply {
+            onEvent(SettingsMenuToggleEvent) {
+                removeFromParent()
+                elapsedSeconds = 0.seconds
+                magnanimity = .0
+            }
+            easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
+                Effect { _, value -> magnanimity = value * targetMagnanimity }
+            )) { magnanimity = targetMagnanimity; removeFromParent() }
+        }
     }
     (1..times).forEach { num ->
         val countdownEffectPeriod = (bpmToSec / 3).seconds
-        screen.timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
-            launchNow { hitSound.play() }
-            val isStart = num == times
-            createTitle(if (isStart) "시작!" else " ${times - num} ") {
-                transform { centerXOn(screen) }
-                easingEffect(
-                    countdownEffectPeriod, Easing.EASE_IN_QUAD, arrayOf(
-                        effectAlpha(1f),
-                        effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
-                    )
-                ) {
+        screen.dummyView().apply {
+            timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
+                if (isPausedByUser) return@timeout
+                launchNow { hitSound.play() }
+                val isStart = num == times
+                createTitle(if (isStart) "시작!" else " ${times - num} ", fontSize = 45) {
+                    transform { centerXOn(screen) }
                     easingEffect(
-                        countdownEffectPeriod, Easing.EASE_OUT_QUAD, arrayOf(
-                            effectAlpha(1f, isDown = true),
+                        countdownEffectPeriod, Easing.EASE_IN_QUAD, arrayOf(
+                            effectAlpha(1f),
                             effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
                         )
                     ) {
-                        removeFromParent()
+                        easingEffect(
+                            countdownEffectPeriod, Easing.EASE_OUT_QUAD, arrayOf(
+                                effectAlpha(1f, isDown = true),
+                                effectPosY(100f * countdownEffectPeriod.seconds.toFloat())
+                            )
+                        ) {
+                            removeFromParent()
+                        }
                     }
+                }
+            }.also { closeable ->
+                onEvent(SettingsMenuToggleEvent) {
+                    closeable.close()
                 }
             }
         }

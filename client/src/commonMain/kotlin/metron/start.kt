@@ -12,7 +12,6 @@ import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
-import korlibs.memory.*
 import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
@@ -48,7 +47,7 @@ suspend fun startMain() {
         scaleMode = ScaleMode.NO_SCALE,
         clipBorders = false,
         scaleAnchor = Anchor.TOP_LEFT,
-        backgroundColor = Colors["#353535"]
+        backgroundColor = Colors["333333"]
     ) {
         scene = sceneContainer()
         scene.changeTo({ MainScene() })
@@ -77,7 +76,8 @@ class MainScene : Scene() {
             centerOn(screen)
         }
         loading.alignY(screen, 0.48, true)
-        val curtain = screen.solidRect(screen.size, color = Colors.BLACK).zIndex(1000)
+        solidRect(screen.size, color = Colors["#353535"]).transform { size(screen.size) }.zIndex(-100)
+        val curtain = screen.solidRect(screen.size, color = views.gameWindow.bgcolor).zIndex(1000)
             .transform { size(screen.size) }
         mainView()
         loading.easingEffect(0.2.seconds, Easing.SMOOTH, arrayOf(
