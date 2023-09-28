@@ -85,7 +85,7 @@ data class Stage(
         suspend operator fun invoke(levelName: String, configuration: WorldConfiguration.(Stage) -> Unit): Stage {
             val hitSound = nativeSoundProvider.createNonStreamingSound(
                 resourcesVfs["sounds/hit.wav"].apply { cachedToMemory() }.readAudioData()
-            ).also { it.volume = 0.7 }
+            ).also { it.volume = 0.45 }
             val music = resourcesVfs["$levelName/song.mp3"].apply { cachedToMemory() }.readSound()
             music.apply { play().apply { volume = .0 } }
             hitSound.apply { play().apply { volume = .0 } }

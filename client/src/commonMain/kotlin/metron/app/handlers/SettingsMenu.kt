@@ -33,13 +33,9 @@ fun Stage.enableSettingsMenu() {
             }.centerXOn(panel)
             uiSpacing(Size(width, 200f))
             uiContainer {
-                uiText("입력 오프셋") {
+                uiText("내용이 없습니다") {
                     styles.textSize = 70f
-                    styles.textAlignment = TextAlignment.MIDDLE_LEFT
-                }.centerXOn(panel)
-                uiText("0밀리초") {
-                    styles.textAlignment = TextAlignment.MIDDLE_RIGHT
-                    styles.textSize = 70f
+                    styles.textAlignment = TextAlignment.MIDDLE_CENTER
                 }.centerXOn(panel)
             }
         }
