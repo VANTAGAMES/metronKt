@@ -1,6 +1,6 @@
 name: Release Server
 on:
-    push:
+  push:
       branches: ["main"]
 
   workflow_dispatch:
