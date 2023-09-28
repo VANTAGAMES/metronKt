@@ -75,7 +75,7 @@ jobs:
       - shell: bash
         run: |
           sleep 10
-          curl -d "${{ secrets.ADMIN_KEY }}" -X POST ${{ env.url }}/shutdown
+          curl -d "${{ secrets.ADMIN_KEY }}" -X POST ${{ env.url }}/shutdown | true
   buildExe:
     name: Release .exe
     runs-on: windows-latest
