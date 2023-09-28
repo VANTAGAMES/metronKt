@@ -10,7 +10,7 @@ class PlayerStickSystem(val stage: Stage) : IteratingSystem(
     family { all(PlayerStick) }
 ){
     override fun onTickEntity(entity: Entity) {
-        if (stage.isPaused) return
+        if (stage.isStickPaused) return
         entity[PlayerStick].body.rotation = stage.setTo(deltaTime.seconds)
     }
 }

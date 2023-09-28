@@ -35,9 +35,9 @@ fun Stage.enableDeath() {
             addUpdater {
                 healthBar.view.visible = !isEditingMap
                 if (isEditingMap) return@addUpdater
-                if (isPaused) return@addUpdater
+                if (isStickPaused || isStopped) return@addUpdater
                 if (elapsedSeconds < 0.seconds) return@addUpdater
-                healthBar.modifyHealth(-0.98f)
+//                healthBar.modifyHealth(-0.98f)
             }
             screen.onEvent(GhostDrawedEvent) {
                 if (isEditingMap) return@onEvent

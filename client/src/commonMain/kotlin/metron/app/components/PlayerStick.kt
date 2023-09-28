@@ -100,6 +100,7 @@ class PlayerStick(val stage: Stage) : Component<PlayerStick> {
                     alignY(this@body, 0.42, true)
                 }.apply {
                     addUpdater {
+                        if (playerStick.stage.isPausedByUser) return@addUpdater
                         alignY(this@body, 0.42 - min(0.08, playerStick.stage.magnanimity), true)
                     }
                 }

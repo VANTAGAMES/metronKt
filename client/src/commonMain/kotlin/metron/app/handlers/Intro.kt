@@ -27,32 +27,49 @@ fun Stage.enableIntro(intro: String = "클릭해서 시작하세요") {
     }
     val hitEventNode = screen.dummyView()
     hitEventNode.onEvent(HitEvent) {
-        if (elapsedSeconds != 0.seconds) return@onEvent
+        if (isStopped && elapsedSeconds != 0.seconds) {
+            println("Af")
+            return@onEvent
+        }
+        countdown()
         hitEventNode.removeFromParent()
-        elapsedSeconds = defaultElapsed()
-        isForcePaused = false
-        isStopped = false
-        noteIterator = level.map.iterator()
-        previousNote = .0
-        currentNote = .0
-        screen.dispatch(GameStartEvent())
         title.easingEffect((bpmToSec/3).seconds, Easing.EASE_OUT, arrayOf(
             effectAlpha(1f, isDown = true),
             effectPosY(70f)
         )) { removeFromParent() }
-        countdown()
+    }
+}
+
+fun Stage.countdown(times: Int = 4, callback: (TimeSpan) -> Unit = {}) {
+    if (elapsedSeconds != 0.seconds) {
+        isForcePaused = true
+        isPausedByUser = false
+        isStopped = true
+        screen.addTimer(-defaultElapsed()) {
+            isForcePaused = false
+            isPausedByUser = false
+            isStopped = false
+            callback(it)
+        }
+    } else {
+        elapsedSeconds = defaultElapsed()
+        noteIterator = level.map.iterator()
+        previousNote = .0
+        currentNote = .0
+        screen.dispatch(GameStartEvent())
+        isForcePaused = false
+        isPausedByUser = false
+        isStopped = false
         screen.dummyView().easingEffect((delay/2).seconds, Easing.EASE, arrayOf(
             Effect { _, value -> magnanimity = value * targetMagnanimity }
         )) { magnanimity = targetMagnanimity; removeFromParent() }
     }
-}
-
-fun Stage.countdown(times: Int = 4) {
     (1..times).forEach { num ->
         val countdownEffectPeriod = (bpmToSec / 3).seconds
         screen.timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
             launchNow { hitSound.play() }
-            createTitle(if (num == times) "시작!" else " ${times - num} ") {
+            val isStart = num == times
+            createTitle(if (isStart) "시작!" else " ${times - num} ") {
                 transform { centerXOn(screen) }
                 easingEffect(
                     countdownEffectPeriod, Easing.EASE_IN_QUAD, arrayOf(

@@ -64,7 +64,7 @@ class MainScene : Scene() {
             dispatch(ResizedEvent())
         }
         screen.container {
-            text("${Platform.rawPlatformName}+${Platform.rawOsName}", textSize = 30f) {
+            text(version, textSize = 30f) {
             }.zIndex(100)
             zIndex(100)
         }.transform {

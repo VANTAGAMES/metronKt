@@ -44,7 +44,7 @@ class Audit private constructor() : Component<Audit> {
                 screen.onEvent(UpdateEvent) {
                     elapsed += it.deltaTime
                     zIndex = 2f
-                    if (elapsed >= ghostStick.lifeTime) {
+                    if (elapsed >= ghostStick.lifeTime*stage.bpmToSec) {
                         removeFromParent()
                     }
                 }

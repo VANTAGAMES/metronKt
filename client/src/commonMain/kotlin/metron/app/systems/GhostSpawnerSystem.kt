@@ -7,7 +7,6 @@ import korlibs.time.*
 import metron.*
 import metron.app.*
 import metron.app.components.*
-import metron.app.entities.*
 
 class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
     family {
@@ -15,7 +14,7 @@ class GhostSpawnerSystem(private val stage: Stage) : IteratingSystem(
     },
 ) {
     override fun onTickEntity(entity: Entity): Unit = stage.run {
-        if (isPaused || isStopped) return
+        if (isStickPaused || isStopped) return
         if (!noteIterator.hasNext()) return
         val nextSec = currentNote.seconds * bpmToSec
         val prevSec = previousNote.seconds * bpmToSec

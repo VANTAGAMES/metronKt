@@ -31,4 +31,5 @@ suspend fun mainView() = Stage("level1") { stage ->
     enableSongTitle()
     enableDeath()
     enableGameFinishing()
+    enableAutoPlaying()
 }

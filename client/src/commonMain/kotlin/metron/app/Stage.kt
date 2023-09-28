@@ -39,7 +39,8 @@ data class Stage(
     val ghostContainer = camera.container()
     var isForcePaused: Boolean = true
     var isPausedByUser: Boolean = false
-    val isPaused get() = isForcePaused || isPausedByUser
+    var autoPlaying: Boolean = false
+    val isStickPaused get() = isForcePaused || isPausedByUser
     var isEditingMap = false
     var isStopped = false
     var magnanimity = .0
