@@ -34,8 +34,7 @@ class EasingEffect(
             if (elapsed > span) {
                 scheduledTask?.cancel()
                 stopEffect()
-            }
-            effects.fastForEach { it.applyEffect(view, easing(elapsed / span)) }
+            } else effects.fastForEach { it.applyEffect(view, easing(elapsed / span)) }
         }
     }
 

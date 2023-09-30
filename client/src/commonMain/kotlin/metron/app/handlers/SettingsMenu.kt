@@ -47,11 +47,11 @@ fun Stage.enableSettingsMenu() {
         if (isSettingsMenuOpened) {
             panel.easingEffect(0.628.seconds, Easing.EASE_OUT_BOUNCE, arrayOf(
                 (-panel.width + panel.width - panel.pos.x).run(::effectPosX)
-            ))
+            )) { positionX(0f) }
         } else {
             panel.easingEffect(0.628.seconds, Easing.EASE_OUT_BOUNCE, arrayOf(
                 (panel.width-(panel.pos.x)).run(::effectPosX)
-            ))
+            )) { positionX(width) }
         }
     }
 }
