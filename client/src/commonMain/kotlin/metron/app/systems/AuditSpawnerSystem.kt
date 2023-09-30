@@ -19,10 +19,12 @@ class AuditSpawnerSystem(private val stage: Stage) : IteratingSystem(
         stage.audit(deltaTime.seconds)
     }
     companion object {
+        val defaultOffsetAdder = (0).milliseconds
         private val auditTypes = AuditType.values()
         fun Stage.audit(delta: TimeSpan) {
+            println(defaultOffsetAdder)
             lives.sortedBy { it.startTime }.fastForEach { ghost ->
-                val sub = (elapsedSeconds - ghost.nextNote)/bpmToSec+delta
+                val sub = (elapsedSeconds+defaultOffsetAdder+preferenceOffsetToSec - ghost.nextNote)/bpmToSec+delta
                 run {
                     auditTypes.fastForEach { audit ->
                         if (sub.seconds in audit.range) {

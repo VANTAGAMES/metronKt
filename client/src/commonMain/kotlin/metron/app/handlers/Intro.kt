@@ -26,18 +26,24 @@ fun Stage.enableIntro(intro: String = "클릭해서 시작하세요") {
             )
         )
     }
-    val hitEventNode = screen.dummyView()
-    hitEventNode.onEvent(HitEvent) {
-        if (isStopped && elapsedSeconds != 0.seconds) {
-            println("Af")
-            return@onEvent
-        }
-        countdown()
-        hitEventNode.removeFromParent()
+    fun hideTitle() {
         title.easingEffect((bpmToSec/3).seconds, Easing.EASE_OUT, arrayOf(
             effectAlpha(1f, isDown = true),
             effectPosY(70f)
         )) { removeFromParent() }
+    }
+    val hitEventNode = screen.dummyView()
+    hitEventNode.onEvent(SettingsMenuToggleEvent) {
+        hitEventNode.removeFromParent()
+        hideTitle()
+    }
+    hitEventNode.onEvent(HitEvent) {
+        if (isStopped && elapsedSeconds != 0.seconds) {
+            return@onEvent
+        }
+        countdown()
+        hitEventNode.removeFromParent()
+        hideTitle()
     }
 }
 
@@ -83,7 +89,6 @@ fun Stage.countdown(times: Int = 4, callback: (TimeSpan) -> Unit = {}) {
         val countdownEffectPeriod = (bpmToSec / 3).seconds
         screen.dummyView().apply {
             timeout((num * bpmToSec - initialNote * bpmToSec + max(.0, offsetToSec)).seconds) {
-                if (isPausedByUser) return@timeout
                 launchNow { hitSound.play() }
                 val isStart = num == times
                 createTitle(if (isStart) "시작!" else " ${times - num} ", fontSize = 45) {
@@ -107,6 +112,7 @@ fun Stage.countdown(times: Int = 4, callback: (TimeSpan) -> Unit = {}) {
             }.also { closeable ->
                 onEvent(SettingsMenuToggleEvent) {
                     closeable.close()
+                    removeFromParent()
                 }
             }
         }

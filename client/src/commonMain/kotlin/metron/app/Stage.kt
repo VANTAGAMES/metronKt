@@ -33,6 +33,8 @@ data class Stage(
     val initialNote get() = level.initialNote
     val delay get() = bpmToSec*4.0
     val offset get() = level.offset
+    var preferenceOffset: Int = 0
+    val preferenceOffsetToSec get() = (preferenceOffset.milliseconds.seconds/bpmToSec).seconds
     val offsetToSec get() = offset*bpmToSec
     val easing: Easing = getDefaultEasing()
     var playingMusic: SoundChannel? = null

@@ -26,7 +26,6 @@ fun Stage.enableInput() = screen.apply {
                 screen.dispatch(SettingsMenuToggleEvent())
                 if (elapsedSeconds >= 0.seconds) countdown {
                     if (playingMusic!!.paused) {
-                        println(max(.0, offset * -1).seconds)
                         val timeSpan = elapsedSeconds - max(.0, offset * -1).seconds
                         if (timeSpan < 0.seconds) {
                             timeout(timeSpan) {
