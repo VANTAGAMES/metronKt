@@ -39,7 +39,6 @@ lateinit var font: Font
 lateinit var camera: Camera
 
 suspend fun startMain() {
-    applicationDataVfs["mydat.txt"].writeString("yeey")
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
     resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
@@ -63,6 +62,7 @@ class MainScene : Scene() {
         onStageResized { width, height ->
             screen.size(width, height)
             dispatch(ResizedEvent())
+            println("Resized!")
         }
         screen.container {
             text(version, textSize = 30f) {

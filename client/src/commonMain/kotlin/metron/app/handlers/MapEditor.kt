@@ -3,6 +3,7 @@ package metron.app.handlers
 import event.*
 import korlibs.io.file.std.*
 import korlibs.memory.*
+import korlibs.render.*
 import korlibs.time.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
@@ -31,10 +32,12 @@ suspend fun Stage.enableMapEditor() {
         if (note != .0) map.add(note)
     }
     screen.onEvent(GameEndEvent) {
+        val mapData = Json.encodeToString(level.copy(map = map))
         launchNow {
-            rootLocalVfs["${DateTime.now().format(DateFormat.DEFAULT_FORMAT)}.json"].writeString(
-                Json.encodeToString(level.copy(map = map))
-            )
+            if (Platform.isJs) {
+
+            } else rootLocalVfs["${DateTime.now().format(DateFormat.DEFAULT_FORMAT)}.json"]
+                .writeString(mapData)
         }
     }
 }
