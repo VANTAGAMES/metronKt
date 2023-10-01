@@ -4,6 +4,7 @@ import korlibs.image.color.*
 import korlibs.image.font.*
 import korlibs.image.text.*
 import korlibs.io.file.std.*
+import korlibs.io.net.http.*
 import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.korge.style.*
@@ -38,6 +39,7 @@ lateinit var font: Font
 lateinit var camera: Camera
 
 suspend fun startMain() {
+    applicationDataVfs["mydat.txt"].writeString("yeey")
     font = resourcesVfs["fonts/NanumSquareNeoTTF-dEb.woff"].readWoffFont()
     resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
     Korge(
