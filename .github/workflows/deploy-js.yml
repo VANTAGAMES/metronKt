@@ -38,8 +38,12 @@ jobs:
           setProperty "version" "v0.0.${{github.run_number}}" "gradle.properties"
       - run: git tag ${{github.run_number}}
 
+      - name: Prepare Gradle
+        uses: gradle/gradle-build-action@v2
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
       - name: Build
         run: |
           ./gradlew :client:jsBrowserProductionWebpack
