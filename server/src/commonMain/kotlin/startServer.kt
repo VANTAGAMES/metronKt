@@ -29,7 +29,7 @@ fun server(onAccept: PlayerConnection.() -> Unit) = runBlockingNoJs<Unit> {
         httpHandler { call ->
             if (call.absoluteURI != "/shutdown") return@httpHandler
             if (call.method != Http.Method.POST) return@httpHandler
-            val key = SystemProperties["shutdown.key"]
+            val key = SystemProperties["SHUTDOWN_KEY"]
             if (key == call.readRawBody(12800).decodeToString()) {
                 println("Shutdown the server")
                 close()
