@@ -1,3 +1,7 @@
+[versions]
+serialization = "1.6.0"
+
+
 [plugins]
 korge = { id = "com.soywiz.korge", version = "4.0.7" }
 #korge = { id = "com.soywiz.korge", version = "999.0.0.999" }
@@ -5,3 +9,4 @@ korge = { id = "com.soywiz.korge", version = "4.0.7" }
 
 [libraries]
 kotlinx-uuid = { module = "app.softwork:kotlinx-uuid-core", version = "0.0.21" }
+kotlinx-serialization-protobuf = { module = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf", version.ref = "serialization" }

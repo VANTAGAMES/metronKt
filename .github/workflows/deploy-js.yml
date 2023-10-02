@@ -45,8 +45,8 @@ jobs:
           ./gradlew :client:jsBrowserProductionWebpack
       - name: server.jar
         run: |
-          ./gradlew :server:packageJvmFatJarProguard
-          mv server/build/libs/server-all-proguard.jar server/build/libs/server.jar
+          ./gradlew :server:packageJvmFatJar
+          cp -r server/build/libs/server-all.jar server/build/libs/server.jar
 
       - name: Commit files
         run: |

@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.korge)
 }
 
+version = ""
+
 korge {
     targetJvm()
     targetJs()
@@ -32,7 +34,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                api(libs.kotlinx.uuid)
+                api(libs.kotlinx.uuid)
+                api(project(":shared"))
+                api(libs.kotlinx.serialization.protobuf)
             }
         }
     }

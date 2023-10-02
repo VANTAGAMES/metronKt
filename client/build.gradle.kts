@@ -42,8 +42,9 @@ kotlin {
 //            kotlin.addSrcDir(File(project(":shared").projectDir, "src/commonMain/kotlin"))
             dependencies {
                 api(project(":deps"))
-//                api(libs.kotlinx.uuid)
-//                api(project(":shared"))
+                api(libs.kotlinx.serialization.protobuf)
+                api(libs.kotlinx.uuid)
+                api(project(":shared"))
             }
         }
     }

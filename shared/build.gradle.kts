@@ -38,7 +38,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                api(libs.kotlinx.uuid)
+                api(libs.kotlinx.serialization.protobuf)
+                api(libs.kotlinx.uuid)
             }
         }
     }
