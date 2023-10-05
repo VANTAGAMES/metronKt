@@ -45,9 +45,6 @@ lateinit var font: Font
 lateinit var camera: Camera
 
 suspend fun startMain() {
-    if (!::redirector.isInitialized) redirector = {
-        views().gameWindow.browse(URL(it))
-    }
     Korge(
         windowSize = Size(1280, 720),
 //        title = "",

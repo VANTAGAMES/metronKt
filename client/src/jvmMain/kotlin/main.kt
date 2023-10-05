@@ -1,3 +1,6 @@
+import korlibs.io.net.*
+import korlibs.korge.view.*
+import korlibs.render.*
 import metron.*
 import java.util.*
 
@@ -8,5 +11,6 @@ suspend fun main() {
     }
     currentUrl = clientProps["server"]!!.toString()
     version = clientProps["version"]!!.toString()
+    redirector = { korlibs.korge.view.views().gameWindow.browse(URL(it)) }
     startMain()
 }
