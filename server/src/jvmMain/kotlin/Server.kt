@@ -16,6 +16,7 @@ fun server(onAccept: PlayerConnection.() -> Unit) = runBlockingNoJs<Unit> {
     println("Starting the server...")
     Packet //instantiate packet definitions
     createHttpServer().websocketHandler { socket ->
+        println("[${socket.address.address}]: websocket connected")
         val player = PlayerConnection(socket).apply(onAccept)
         socket.onBinaryMessage { payload ->
             val packet = Packet.deserialize(player.state, payload, Packet.Bound.SERVER)
