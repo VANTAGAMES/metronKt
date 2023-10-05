@@ -56,7 +56,7 @@ jobs:
 
       - name: Commit files
         run: |
-          search_dir=/the/path/to/base/dir
+          search_dir=client/build
           for entry in "$search_dir"/*
           do
           echo "$entry"
