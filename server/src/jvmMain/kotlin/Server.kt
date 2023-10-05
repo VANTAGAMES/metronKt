@@ -13,6 +13,7 @@ class PlayerConnection(
 }
 
 fun server(onAccept: PlayerConnection.() -> Unit) = runBlockingNoJs<Unit> {
+    println("Starting the server...")
     Packet //instantiate packet definitions
     createHttpServer().websocketHandler { socket ->
         val player = PlayerConnection(socket).apply(onAccept)
@@ -28,7 +29,7 @@ fun server(onAccept: PlayerConnection.() -> Unit) = runBlockingNoJs<Unit> {
             }
             call.close()
         }.also {
-            println("starting the server")
+            println("Server Started!")
         }
     }
 }
