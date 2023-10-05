@@ -6,6 +6,7 @@ apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.korge)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 korge {
@@ -13,7 +14,6 @@ korge {
     targetJs()
     targetDesktop()
     //targetDesktopCross()
-    serializationJson()
 }
 
 tasks.create<Delete>("disableKRes") {

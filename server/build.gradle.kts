@@ -5,6 +5,7 @@ apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.korge)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 version = ""
@@ -14,7 +15,6 @@ korge {
     targetJs()
     targetDesktop()
     //targetDesktopCross()
-    serializationJson()
 }
 
 tasks.all {
@@ -32,11 +32,16 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        val jvmMain by getting {
             dependencies {
                 api(libs.kotlinx.uuid)
+                api(libs.kotlinx.uuid.exposed)
+                api(libs.h2database)
                 api(project(":shared"))
                 api(libs.kotlinx.serialization.protobuf)
+                api(libs.exposed.jdbc)
+                api(libs.exposed.core)
+                api(libs.exposed.dao)
             }
         }
     }

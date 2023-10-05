@@ -9,6 +9,7 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.*
 import metron.app.components.*

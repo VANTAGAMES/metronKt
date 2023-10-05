@@ -5,6 +5,7 @@ apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.korge)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 korge {
@@ -27,7 +28,6 @@ korge {
         """<uses-permission android:name="android.permission.INTERNET" />""",
         """<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />"""
     ))
-    serializationJson()
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
