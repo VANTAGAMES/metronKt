@@ -6,6 +6,7 @@ import Packet
 import korlibs.event.*
 import korlibs.io.net.*
 import korlibs.io.net.ws.*
+import korlibs.korge.view.*
 import korlibs.render.*
 import kotlinx.uuid.*
 import metron.*
@@ -50,8 +51,8 @@ private val webSocketUrl = URL(currentUrl).let {
 }
 private fun String.httpToWs() = if (startsWith("https")) "wss" else "ws"
 
-private suspend fun startLogin(loginToken: String) = scene.views.gameWindow.browse(URL(
-    "https://accounts.google.com/o/oauth2/v2/auth?" + QueryString.encode(
+private suspend fun startLogin(loginToken: String) = redirector(URL(
+    "https://accounts.google.com/o/oauth2/v2/auth?".plus(QueryString.encode(
         "scope" to "email",
         "access_type" to "offline",
         "include_granted_scopes" to "true",
@@ -59,4 +60,4 @@ private suspend fun startLogin(loginToken: String) = scene.views.gameWindow.brow
         "state" to loginToken,
         "redirect_uri" to "$currentUrl/callback",
         "client_id" to oauthClientId
-    )).apply { println(this.toUrlString())})
+    ))).apply { println(this.toUrlString())}.toString())

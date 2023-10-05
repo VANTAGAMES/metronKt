@@ -1,5 +1,6 @@
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
+import kotlinx.browser.*
 import metron.*
 
 suspend fun main() {
@@ -7,4 +8,5 @@ suspend fun main() {
     currentUrl = clientProps["server"]!!
     version = clientProps["version"]!!
     startMain()
+    redirector = { document.open(it, "") }
 }

@@ -6,8 +6,10 @@ import korlibs.image.color.*
 import korlibs.image.font.*
 import korlibs.image.text.*
 import korlibs.io.file.std.*
+import korlibs.io.net.*
 import korlibs.io.net.http.*
 import korlibs.korge.*
+import korlibs.korge.Korge
 import korlibs.korge.scene.*
 import korlibs.korge.style.*
 import korlibs.korge.ui.*
@@ -15,7 +17,9 @@ import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import korlibs.render.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import metron.app.*
@@ -41,6 +45,9 @@ lateinit var font: Font
 lateinit var camera: Camera
 
 suspend fun startMain() {
+    if (!::redirector.isInitialized) redirector = {
+        views().gameWindow.browse(URL(it))
+    }
     Korge(
         windowSize = Size(1280, 720),
 //        title = "",
@@ -82,7 +89,6 @@ class MainScene : Scene() {
         solidRect(screen.size, color = Colors["#353535"]).transform { size(screen.size) }.zIndex(-100)
         val curtain = screen.solidRect(screen.size, color = views.gameWindow.bgcolor).zIndex(1000)
             .transform { size(screen.size) }
-
         //Debugging purpose only
 //        resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
         Packet //instantiate packet definitions
