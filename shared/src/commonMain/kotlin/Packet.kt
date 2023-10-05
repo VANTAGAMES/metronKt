@@ -9,16 +9,17 @@ interface Packet {
     val id: Int
     val state: State
     val kType: KType
-    enum class State { HANDSHAKE, LOGIN, PLAY }
+    enum class State { LOGIN, PLAY }
     enum class Bound { CLIENT, SERVER }
     companion object Registry {
         private val clientBound = listOf(
-            PingResponsePacket,
+            PingResponse,
             GameJoinPacket,
+            LoginSuccess,
         ).toPacketMap()
         private val serverBound = listOf(
-            LoginStartPacket,
-            PingRequestPacket,
+            LoginStart,
+            PingRequest,
         ).toPacketMap()
         private fun List<Packet>.toPacketMap() = intMapOf<IntMap<Packet>>().also { map ->
             fastForEach { map.getOrPut(it.state.ordinal) { intMapOf() }[it.id] = it }
@@ -59,5 +60,4 @@ data class PacketImp(
 inline fun <reified T> packet(id: Int, state: Packet.State) =
     PacketImp(id = id, state = state, kType = typeOf<T>())
 inline fun <reified T> Play(id: Int) = packet<T>(id, Packet.State.PLAY)
-inline fun <reified T> Handshake(id: Int) = packet<T>(id, Packet.State.HANDSHAKE)
 inline fun <reified T> Login(id: Int) = packet<T>(id, Packet.State.LOGIN)
