@@ -56,8 +56,13 @@ jobs:
 
       - name: Commit files
         run: |
+          search_dir=/the/path/to/base/dir
+          for entry in "$search_dir"/*
+          do
+          echo "$entry"
+          done
           URL=$(git remote get-url origin)
-          cd client/build/distributions
+          cd ./client/build/distributions
           git init
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
