@@ -82,7 +82,9 @@ class MainScene : Scene() {
         solidRect(screen.size, color = Colors["#353535"]).transform { size(screen.size) }.zIndex(-100)
         val curtain = screen.solidRect(screen.size, color = views.gameWindow.bgcolor).zIndex(1000)
             .transform { size(screen.size) }
-        resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
+
+        //Debugging purpose only
+//        resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
         Packet //instantiate packet definitions
         enableClient().onEvent(LoginSuccess) {
             launchNow {
