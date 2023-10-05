@@ -8,5 +8,5 @@ suspend fun main() {
     currentUrl = clientProps["server"]!!
     version = clientProps["version"]!!
     startMain()
-    redirector = { document.open(it, "") }
+    redirector = { document.open(it, "", "noopener=true") }
 }
