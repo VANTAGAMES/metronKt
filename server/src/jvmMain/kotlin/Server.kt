@@ -21,7 +21,7 @@ fun server(onAccept: PlayerConnection.() -> Unit) = runBlockingNoJs<Unit> {
             val packet = Packet.deserialize(player.state, payload, Packet.Bound.SERVER)
             player.dispatch(packet as BEvent)
         }
-    }.listen(port = 8080, host = "127.0.0.1").apply {
+    }.listen(port = SystemProperties["PORT"]!!.toInt(), host = "127.0.0.1").apply {
         httpHandler { call ->
             when (call.absoluteURI.substringBefore("?")) {
                 "/shutdown" -> call.handleShutdown()
