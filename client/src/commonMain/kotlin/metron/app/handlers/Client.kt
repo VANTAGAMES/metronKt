@@ -45,7 +45,10 @@ suspend fun client(onConnect: suspend PlayerConnection.() -> Unit) =
 
 
 
-private val webSocketUrl = URL(currentUrl).let { "ws://${it.fullUrlWithoutScheme}" }
+private val webSocketUrl = URL(currentUrl).let {
+    "${it.scheme!!.httpToWs()}://${it.fullUrlWithoutScheme}"
+}
+private fun String.httpToWs() = if (startsWith("https")) "wss" else "ws"
 
 private suspend fun startLogin(loginToken: String) = scene.views.gameWindow.browse(URL(
     "https://accounts.google.com/o/oauth2/v2/auth?" + QueryString.encode(
