@@ -30,18 +30,7 @@ fun Route.handleCallback() {
             locale = userprofile.locale
         } }
         player.send(LoginSuccess(user.username, user.id.value))
-        call.respond("""
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="utf-8">
-          <title>이제 이 화면을 닫아도 됩니다</title>
-        </head>
-        <body>
-            <h1>이제 이 화면을 닫아도 됩니다</h1>
-        </body>
-        </html>
-    """.trimIndent())
+        call.respond("<script>close()</script>")
     }
 }
 
