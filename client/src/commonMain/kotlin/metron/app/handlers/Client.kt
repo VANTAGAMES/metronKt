@@ -30,7 +30,7 @@ class PlayerConnection(val socket: WebSocketClient) : BaseEventListener() {
 private fun PlayerConnection.send(packet: Packet) = launchNow { socket.send(packet.serialize()) }
 
 suspend fun client(onConnect: suspend PlayerConnection.() -> Unit) =
-    WebSocketClient(webSocketUrl).let { socket ->
+    WebSocketClient(webSocketUrl.apply(::println)).let { socket ->
         val player = PlayerConnection(socket).apply { onConnect() }
         launchNow {
             socket.onBinaryMessage {

@@ -42,6 +42,16 @@ kotlin {
                 api(libs.exposed.jdbc)
                 api(libs.exposed.core)
                 api(libs.exposed.dao)
+
+
+                api(libs.ktor.server.netty)
+                api(libs.ktor.server.core)
+                api(libs.ktor.server.websockets)
+                api(libs.logback)
+                api(libs.ktor.server.cors)
+                api(libs.ktor.server.auth)
+                api(libs.ktor.server.sessions)
+                api(libs.ktor.server.content.negotation)
             }
         }
     }

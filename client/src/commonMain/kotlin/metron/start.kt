@@ -86,6 +86,8 @@ class MainScene : Scene() {
         //Debugging purpose only
 //        resourcesVfs["level1/level.json"].writeString(Json.encodeToString(Level.default))
         Packet //instantiate packet definitions
+//        currentUrl = "http://metron.kotlingames.shop"
+//        println(currentUrl)
         enableClient().onEvent(LoginSuccess) {
             launchNow {
                 mainView()

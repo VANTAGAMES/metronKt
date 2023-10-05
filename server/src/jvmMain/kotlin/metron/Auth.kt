@@ -1,9 +1,17 @@
+package metron
+
+import LoginSuccess
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import io.ktor.util.*
 import korlibs.datastructure.*
 import korlibs.io.lang.*
 import korlibs.io.net.http.*
 import korlibs.io.serialization.json.*
 import kotlinx.uuid.*
-import model.*
+import metron.model.*
+import oauthClientId
 import org.jetbrains.exposed.sql.transactions.*
 import java.util.concurrent.*
 
@@ -11,17 +19,18 @@ val LoginTokens = ConcurrentHashMap<UUID, PlayerConnection>()
 
 var PlayerConnection.clientUrl by Extra.Property { "undefined" }
 
-suspend fun HttpServer.Request.handleCallback() {
-    val callback = OAuthCallback(getParams.mapValues { it.value[0] })
-    val player = LoginTokens[UUID(callback.state)]!!
-    val userprofile = callback.toUserProfile("${player.clientUrl}/callback")
-    val user = transaction { User.new {
-        email = userprofile.email
-        username = userprofile.name
-        locale = userprofile.locale
-    } }
-    player.send(LoginSuccess(user.username, user.id.value))
-    this.end("""
+fun Route.handleCallback() {
+    get("callback") {
+        val callback = OAuthCallback(call.parameters.toMap().mapValues { it.value[0] })
+        val player = LoginTokens[UUID(callback.state)]!!
+        val userprofile = callback.toUserProfile("${player.clientUrl}/callback")
+        val user = transaction { User.new {
+            email = userprofile.email
+            username = userprofile.name
+            locale = userprofile.locale
+        } }
+        player.send(LoginSuccess(user.username, user.id.value))
+        call.respond("""
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -33,6 +42,7 @@ suspend fun HttpServer.Request.handleCallback() {
         </body>
         </html>
     """.trimIndent())
+    }
 }
 
 class OAuthCallback(map: Map<String, String>) {
@@ -54,7 +64,10 @@ suspend fun OAuthCallback.getAccessToken(callbackUrl: String) = client.request(
     HttpBodyContentFormUrlEncoded(
         "code" to code,
         "client_id" to oauthClientId,
-        "client_secret" to SystemProperties["OAUTH_CLIENT_SECRET"]!!,
+        "client_secret" to run {
+            println(SystemProperties.getAll().map { it.key }.joinToString("\n"))
+            SystemProperties["OAUTH_CLIENT_SECRET"]!!
+        },
         "redirect_uri" to callbackUrl,
         "grant_type" to "authorization_code"
     )
