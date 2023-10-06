@@ -29,7 +29,7 @@ fun main() {
                         User[loginToken].run { LoginSuccess(username, id.value, loginToken) }
                     })
                 } else {
-                    transaction { LoginTokens[loginToken] = this@server }
+                    LoginTokens[loginToken] = this@server
                     send(RedirectRequest())
                 }
             }
