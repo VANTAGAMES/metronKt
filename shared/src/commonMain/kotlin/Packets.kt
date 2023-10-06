@@ -17,7 +17,8 @@ data class LoginStart(
     val version: String,
 //    @Serializable(PacketUUIDSerializer::class)
     val loginToken: UUID,
-    val currentUrl: String
+    val currentUrl: String,
+    val clientWebsite: String
 ) : Event(), TEvent<LoginStart>, Packet by this {
     companion object : EventType<LoginStart>,
         Packet by Login<LoginStart>(generateServerID()), ServerBound

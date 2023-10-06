@@ -12,5 +12,6 @@ suspend fun main() {
         it.substringBefore("=") to it.substringAfter("=")
     }.toMap()["LoginToken"]!! }
     LoginTokenSetter = { document.cookie = "LoginToken=$it" }
+    clientWebsite = { window.location.href }
     startMain()
 }

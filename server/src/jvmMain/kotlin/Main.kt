@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.*
 
 var PlayerConnection.loginToken by Extra.Property { UUID() }
+var PlayerConnection.clientWebsite by Extra.Property { "undefined" }
 
 fun main() {
     connect("app")
@@ -19,6 +20,7 @@ fun main() {
             launchNow { send(PingResponse()) }
         }
         onEvent(LoginStart) {
+            clientWebsite = it.clientWebsite
             clientUrl = it.currentUrl
             loginToken = it.loginToken
             launchNow {

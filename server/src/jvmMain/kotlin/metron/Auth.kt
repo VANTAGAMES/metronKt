@@ -1,6 +1,7 @@
 package metron
 
 import LoginSuccess
+import clientWebsite
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -34,7 +35,7 @@ fun Route.handleCallback() {
             }
         }
         if (player.state == Packet.State.CLOSED)
-            call.respondRedirect("../")
+            call.respondRedirect(player.clientWebsite)
         else {
             player.send(LoginSuccess(user.username, user.id.value, loginToken))
             call.respondText("<script>close()</script>", ContentType.Text.Html)

@@ -8,4 +8,4 @@ lateinit var redirector: Redirector
 var LoginTokenSetter: ((String) -> Unit)? = null
 var LoginTokenGetter: (() -> String)? = null
 
-
+var clientWebsite: (() -> String)? = null

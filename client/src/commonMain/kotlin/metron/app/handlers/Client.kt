@@ -25,7 +25,7 @@ suspend fun enableClient() = client {
         state = Packet.State.PLAY
         LoginTokenSetter?.invoke(it.loginToken.toString())
     }
-    send(LoginStart("", version, loginToken, currentUrl))
+    send(LoginStart("", version, loginToken, currentUrl, clientWebsite?.invoke()?: ""))
 //    if (!Platform.isJs) {
 //        startLogin(loginToken.toString())
 //    }
