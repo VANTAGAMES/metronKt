@@ -9,7 +9,7 @@ interface Packet {
     val id: Int
     val state: State
     val kType: KType
-    enum class State { LOGIN, PLAY }
+    enum class State { LOGIN, PLAY, CLOSED }
     enum class Bound { CLIENT, SERVER }
     companion object Registry {
         private val clientBound = listOf(

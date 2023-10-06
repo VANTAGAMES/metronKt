@@ -1,6 +1,7 @@
 package metron
 
 import LoginSuccess
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -24,13 +25,19 @@ fun Route.handleCallback() {
         val callback = OAuthCallback(call.parameters.toMap().mapValues { it.value[0] })
         val player = LoginTokens[UUID(callback.state)]!!
         val userprofile = callback.toUserProfile("${player.clientUrl}/callback")
-        val user = transaction { User.new {
-            email = userprofile.email
-            username = userprofile.name
-            locale = userprofile.locale
-        } }
-        player.send(LoginSuccess(user.username, user.id.value))
-        call.respond("<script>close()</script>")
+        val user = transaction {
+            User.new {
+                email = userprofile.email
+                username = userprofile.name
+                locale = userprofile.locale
+            }
+        }
+        if (player.state == Packet.State.CLOSED)
+            call.respondRedirect("../")
+        else {
+            player.send(LoginSuccess(user.username, user.id.value))
+            call.respondText("<script>close()</script>", ContentType.Text.Html)
+        }
     }
 }
 

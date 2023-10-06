@@ -1,8 +1,5 @@
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
-import korlibs.io.net.*
-import korlibs.korge.view.*
-import korlibs.render.*
 import kotlinx.browser.*
 import metron.*
 
@@ -11,5 +8,9 @@ suspend fun main() {
     currentUrl = clientProps["server"]!!
     version = clientProps["version"]!!
     redirector = { window.location.replace(it) }
+    LoginTokenGetter = { document.cookie.split(";").map {
+        it.substringBefore("=") to it.substringAfter("=")
+    }.toMap()["LoginToken"]!! }
+    LoginTokenSetter = { document.cookie = "LoginToken=$it" }
     startMain()
 }

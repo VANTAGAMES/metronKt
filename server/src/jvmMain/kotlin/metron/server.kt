@@ -17,20 +17,19 @@ fun server(
     client: suspend PlayerConnection.() -> Unit
 ) = embeddedServer(Netty, port = SystemProperties["PORT"]?.toInt()?: 8080) {
     install(WebSockets)
-    install(ShutDownUrl.ApplicationCallPlugin) {
-        shutDownUrl = "/shutdown"
-        exitCodeSupplier = { 0 }
-    }
     routing {
         webSocket {
             val player = PlayerConnection { send(it) }
             client(player)
-            for (frame in incoming) {
-                frame as? Frame.Binary ?: continue
-                val receivedText = frame.readBytes()
-                val packet = Packet.deserialize(player.state, receivedText, Packet.Bound.SERVER)
-                player.dispatch(packet as BEvent)
+            runCatching {
+                for (frame in incoming) {
+                    frame as? Frame.Binary ?: continue
+                    val receivedText = frame.readBytes()
+                    val packet = Packet.deserialize(player.state, receivedText, Packet.Bound.SERVER)
+                    player.dispatch(packet as BEvent)
+                }
             }
+            player.dispatch(SocketClosedEvent())
         }
         handleCallback()
         post("shutdown") {

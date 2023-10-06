@@ -7,6 +7,7 @@ import korlibs.event.*
 import korlibs.io.net.*
 import korlibs.io.net.ws.*
 import korlibs.korge.view.*
+import korlibs.memory.*
 import korlibs.render.*
 import kotlinx.uuid.*
 import metron.*
@@ -16,7 +17,8 @@ import util.*
 
 suspend fun enableClient() = client {
     val loginToken = UUID.generateUUID()
-    send(LoginStart("Bruce0203", version, loginToken, currentUrl))
+    send(LoginStart("", version, loginToken, currentUrl))
+    if (Platform.isJs) close()
     startLogin(loginToken.toString())
     onEvent(LoginSuccess) {
         println("LoginSuccess")
@@ -26,6 +28,7 @@ suspend fun enableClient() = client {
 
 class PlayerConnection(val socket: WebSocketClient) : BaseEventListener() {
     var state: Packet.State = Packet.State.LOGIN
+    fun close() = socket.close()
 }
 
 private fun PlayerConnection.send(packet: Packet) = launchNow { socket.send(packet.serialize()) }
