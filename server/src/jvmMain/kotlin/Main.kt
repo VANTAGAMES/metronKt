@@ -1,6 +1,7 @@
 import korlibs.datastructure.*
 import kotlinx.uuid.*
 import metron.*
+import metron.model.*
 import metron.util.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.*
@@ -20,7 +21,16 @@ fun main() {
         onEvent(LoginStart) {
             clientUrl = it.currentUrl
             loginToken = it.loginToken
-            transaction { LoginTokens[loginToken] = this@server }
+            launchNow {
+                if (LoginTokens.contains(loginToken)) {
+                    send(transaction {
+                        User[loginToken].run { LoginSuccess(username, id.value, loginToken) }
+                    })
+                } else {
+                    transaction { LoginTokens[loginToken] = this@server }
+                    send(RedirectRequest())
+                }
+            }
         }
         onEvent(LoginStart) {
             println("LoginStart")

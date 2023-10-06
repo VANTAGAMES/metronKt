@@ -25,10 +25,18 @@ data class LoginStart(
 }
 
 @Serializable
+class RedirectRequest : Event(), TEvent<RedirectRequest>, Packet by this {
+    companion object : EventType<RedirectRequest>,
+        Packet by Login<RedirectRequest>(generateClientID()), ClientBound
+    override val type: EventType<RedirectRequest> get() = RedirectRequest
+}
+
+@Serializable
 data class LoginSuccess(
     val username: String,
 //    @Serializable(PacketUUIDSerializer::class)
     val userUuid: UUID,
+    val loginToken: UUID
 ) : Event(), TEvent<LoginSuccess>, Packet by this {
     companion object : EventType<LoginSuccess>,
         Packet by Login<LoginSuccess>(generateClientID()), ClientBound

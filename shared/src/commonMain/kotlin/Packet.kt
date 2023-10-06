@@ -16,6 +16,7 @@ interface Packet {
             PingResponse,
             GameJoinPacket,
             LoginSuccess,
+            RedirectRequest,
         ).toPacketMap()
         private val serverBound = listOf(
             LoginStart,

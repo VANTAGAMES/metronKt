@@ -23,7 +23,8 @@ var PlayerConnection.clientUrl by Extra.Property { "undefined" }
 fun Route.handleCallback() {
     get("callback") {
         val callback = OAuthCallback(call.parameters.toMap().mapValues { it.value[0] })
-        val player = LoginTokens[UUID(callback.state)]!!
+        val loginToken = UUID(callback.state)
+        val player = LoginTokens[loginToken]!!
         val userprofile = callback.toUserProfile("${player.clientUrl}/callback")
         val user = transaction {
             User.new {
@@ -35,7 +36,7 @@ fun Route.handleCallback() {
         if (player.state == Packet.State.CLOSED)
             call.respondRedirect("../")
         else {
-            player.send(LoginSuccess(user.username, user.id.value))
+            player.send(LoginSuccess(user.username, user.id.value, loginToken))
             call.respondText("<script>close()</script>", ContentType.Text.Html)
         }
     }

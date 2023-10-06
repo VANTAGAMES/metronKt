@@ -3,6 +3,7 @@ package metron.app.handlers
 import LoginSuccess
 import LoginStart
 import Packet
+import RedirectRequest
 import korlibs.event.*
 import korlibs.io.net.*
 import korlibs.io.net.ws.*
@@ -16,13 +17,19 @@ import serialize
 import util.*
 
 suspend fun enableClient() = client {
-    val loginToken = UUID.generateUUID()
-    send(LoginStart("", version, loginToken, currentUrl))
-    if (Platform.isJs) close()
-    startLogin(loginToken.toString())
+    val loginToken = runCatching { LoginTokenGetter?.invoke() }
+        .getOrNull()?.toUUIDOrNull()?: UUID.generateUUID()
     onEvent(LoginSuccess) {
         println("LoginSuccess")
         state = Packet.State.PLAY
+        LoginTokenSetter?.invoke(it.loginToken.toString())
+    }
+    send(LoginStart("", version, loginToken, currentUrl))
+//    if (!Platform.isJs) {
+//        startLogin(loginToken.toString())
+//    }
+    onEvent(RedirectRequest) {
+        launchNow { startLogin(loginToken.toString()) }
     }
 }
 

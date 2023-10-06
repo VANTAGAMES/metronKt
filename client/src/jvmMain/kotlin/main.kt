@@ -11,6 +11,6 @@ suspend fun main() {
     }
     currentUrl = clientProps["server"]!!.toString()
     version = clientProps["version"]!!.toString()
-    redirector = { korlibs.korge.view.views().gameWindow.browse(URL(it)) }
+    redirector = { scene.views.gameWindow.browse(URL(it)) }
     startMain()
 }
