@@ -8,9 +8,10 @@ suspend fun main() {
     currentUrl = clientProps["server"]!!
     version = clientProps["version"]!!
     redirector = { window.location.replace(it) }
-    LoginTokenGetter = { document.cookie.apply { println(this) }.split("; ").map {
-        it.substringBefore("=") to it.substringAfter("=")
-    }.toMap()["LoginToken"]!! }
+    LoginTokenGetter = {
+        document.cookie.apply { println(this) }.split("; ").associate {
+            it.substringBefore("=") to it.substringAfter("=")
+        }["LoginToken"]!! }
     LoginTokenSetter = { document.cookie = "LoginToken=$it" }
     clientWebsite = { window.location.href }
     startMain()

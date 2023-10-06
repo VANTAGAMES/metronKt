@@ -91,7 +91,7 @@ class MainScene : Scene() {
         Packet //instantiate packet definitions
 //        currentUrl = "http://metron.kotlingames.shop"
 //        println(currentUrl)
-        enableClient().onEvent(LoginSuccess) {
+//        enableClient().onEvent(LoginSuccess) {
             launchNow {
                 mainView()
                 loading.easingEffect(
@@ -105,6 +105,6 @@ class MainScene : Scene() {
                     )
                 ) { removeFromParent() }
             }
-        }
+//        }
     }
 }
