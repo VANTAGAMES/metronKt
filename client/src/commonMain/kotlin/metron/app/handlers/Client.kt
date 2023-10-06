@@ -19,6 +19,7 @@ import util.*
 suspend fun enableClient() = client {
     val loginToken = runCatching { LoginTokenGetter?.invoke() }
         .getOrNull()?.toUUIDOrNull()?: UUID.generateUUID()
+    LoginTokenSetter?.invoke(loginToken.toString())
     onEvent(LoginSuccess) {
         println("LoginSuccess")
         state = Packet.State.PLAY
