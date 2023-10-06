@@ -10,6 +10,6 @@ suspend fun main() {
     val clientProps = resourcesVfs["client.properties"].readProperties()
     currentUrl = clientProps["server"]!!
     version = clientProps["version"]!!
-    redirector = { document.open(it, "", "noopener=true") }
+    redirector = { window.location.replace(it) }
     startMain()
 }
